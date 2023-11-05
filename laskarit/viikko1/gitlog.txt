@@ -1,0 +1,106 @@
+krivtsov@vdi-cubic-007:~/ot_viikko1/tiedostoja$ git log --stat | cat
+commit 8a9260fdd03ab221f2335732ceb8b7b8c69cc974
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 09:38:59 2023 +0200
+
+    teht 11
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit f47c511c6d856d8b1bf5076f47493ca35a55b31a
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 09:31:38 2023 +0200
+
+    tiedostoja hakemisto
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 2730aa213713cb332013f95ccdde929ad24e6570
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 09:03:36 2023 +0200
+
+    9 -p commit
+
+ eka.txt    | 2 +-
+ kolmas.txt | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+commit 028c838b7eaa19a19a8df74141adbf44ce733b85
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:53:59 2023 +0200
+
+    del ja rename
+
+ tiedosto.txt => eka.txt | 0
+ toinen.txt              | 3 ---
+ 2 files changed, 3 deletions(-)
+
+commit f241c85a951dff76eb5ccf2dc2f4134f5dd279e9
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:50:05 2023 +0200
+
+    poistettu ja lisätty
+
+ tiedosto.txt | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+commit c505ff9422b0f4158d04c6380c1a66572fa35200
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:48:06 2023 +0200
+
+    paljon tekstiä
+
+ tiedosto.txt | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+commit 54222e9cf0442c171871492fa3773d09f1e0ee6f
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:39:56 2023 +0200
+
+    stuff
+
+ stuff/stuff-tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit bb679160b4504ebe170e7c5f774b396b7c55d78a
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:37:01 2023 +0200
+
+    toinen ja kolmas, muutos
+
+ kolmas.txt | 3 +++
+ toinen.txt | 3 +++
+ 2 files changed, 6 insertions(+)
+
+commit 1a099f89ccc5dce86390159eb4b9ceec4e36d293
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:35:38 2023 +0200
+
+    kolmas.txt luotu
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 95312fe21e2786abd0456215078fc82f6c2caebe
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:29:50 2023 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 4 ++++
+ toinen.txt   | 0
+ 2 files changed, 4 insertions(+)
+
+commit 5f8b7bec6fad59849008153ee4ef5a421184ad47
+Author: Aare <aare212@hotmail.com>
+Date:   Sun Nov 5 08:25:28 2023 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
