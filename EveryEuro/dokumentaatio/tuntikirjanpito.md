@@ -11,4 +11,5 @@
 
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
-14.11. |  4h  | Määrittelydokumentti ja tuntikirjanpito luotu. Tkinteriin tutustuminen. Ohjelma avautuu ikkunaan ja siinä on yksinkertaisia tekstikomponentteja. |
+14.11. |  4h  | Määrittelydokumentti ja tuntikirjanpito luotu. Tkinteriin tutustuminen. Ohjelma avautuu ikkunaan ja siinä on yksinkertaisia tekstikomponentteja. Yksi testi kirjoitettu. |
+15.11. |      |  |

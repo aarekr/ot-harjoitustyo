@@ -7,8 +7,8 @@ Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
 * [Ramsey Solutions](https://www.ramseysolutions.com/ramseyplus/everydollar)
 
 ## Dokumentaatio
-* [Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/dokumentaatio/maarittelydokumentti.md)
-* [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/dokumentaatio/tuntikirjanpito.md)
+* [Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
+* [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
 
 ## Laskarit
 * [Laskarilinkki](https://github.com/aarekr/ot-harjoitustyo/tree/main/laskarit)
