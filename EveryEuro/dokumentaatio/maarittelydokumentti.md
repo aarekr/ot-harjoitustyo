@@ -19,3 +19,7 @@
 * Dokumentaation kieli: suomi
 * Koodin kieli: englanti
 * Sovelluksen kieli: englanti
+
+## Lähteet
+* TkInter ja graafisen käyttöliittymän toteutus. https://github.com/aarekr/ot-harjoitustyo/blob/main/laskarit/viikko3/monopoli.md
+* 

@@ -23,3 +23,7 @@ Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
 ## Viikko 2
 * [Tehtävät](https://github.com/aarekr/ot-harjoitustyo/tree/main/laskarit/viikko2)
 * [Unicafen testikattavuus](https://github.com/aarekr/ot-harjoitustyo/blob/main/laskarit/viikko2/Testikattavuus%202023-11-13.png)
+
+## Viikko 3
+* [Tehtävät](https://github.com/aarekr/ot-harjoitustyo/tree/main/laskarit/viikko3)
+* [Monopoli](https://github.com/aarekr/ot-harjoitustyo/blob/main/laskarit/viikko3/monopoli.md)
