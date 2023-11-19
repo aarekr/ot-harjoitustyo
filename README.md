@@ -1,4 +1,4 @@
-# ot-harjoitustyo
+# ot-harjoitustyö
 Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
 
 ## EveryEuro Budget
@@ -27,3 +27,4 @@ Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
 ## Viikko 3
 * [Tehtävät](https://github.com/aarekr/ot-harjoitustyo/tree/main/laskarit/viikko3)
 * [Monopoli](https://github.com/aarekr/ot-harjoitustyo/blob/main/laskarit/viikko3/monopoli.md)
+* [HSL](https://github.com/aarekr/ot-harjoitustyo/blob/main/laskarit/viikko3/sekvenssikaavio.md)

@@ -18,4 +18,4 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 18.11. |  2h  | ui.py -moduulin importtausongelma ratkaistu. Numeroiden syöttökentät ja left to budget luotu. |
-19.11. |      | to do: testit numerokentille |
+19.11. |  1h  | Testit numerokentille ja left_to_budget -komponenteille. |
