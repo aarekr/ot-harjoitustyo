@@ -21,5 +21,5 @@
 * Sovelluksen kieli: englanti
 
 ## Lähteet
-* TkInter ja graafisen käyttöliittymän toteutus. https://github.com/aarekr/ot-harjoitustyo/blob/main/laskarit/viikko3/monopoli.md
+* TkInter ja graafisen käyttöliittymän toteutus. https://ohjelmistotekniikka-hy.github.io/python/tkinter
 * 

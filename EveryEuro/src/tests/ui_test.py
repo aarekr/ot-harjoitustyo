@@ -1,13 +1,6 @@
-# import os
-# ui_path = os.path.dirname(os.path.realpath(__file__))
-
-# NB! refactor path handling so that __init__.py can be created
-
 import unittest
 from tkinter import Tk, ttk, StringVar
-import sys
-sys.path.append('./src/ui')
-from ui import UI
+from ui.ui import UI
 
 # run the tests with command: pytest src
 

@@ -19,3 +19,5 @@
 -------|------|--------------|
 18.11. |  2h  | ui.py -moduulin importtausongelma ratkaistu. Numeroiden syöttökentät ja left to budget luotu. |
 19.11. |  1h  | Testit numerokentille ja left_to_budget -komponenteille. |
+20.11. |  2h  | Testikattavuusraportti ja Changelog. tests-hakemistossa nyt __init__.py. Sarakkeet 'Type' ja 'Planned' nimetty. 'Spent' -sarake hahmoteltu. |
+21.11. |      | to do: Spent -sarake |
