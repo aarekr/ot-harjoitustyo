@@ -12,6 +12,8 @@
 ## Käyttöliittymä
 * Sovellus aukeaa käyttöhetken kuukauden näkymään. Käyttäjä voi siirtyä kuukausissa eteen- ja taaksepäin.
 * Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä.
+* Käyttäjä voi syöttää arvioidut tulot ja menot kuukauden alussa
+* Käyttäjä voi syöttää toteutuneet tulot ja menot kuukauden aikana ja lopussa
 
 ## Yleistä
 * Ohjelmointikieli: Python

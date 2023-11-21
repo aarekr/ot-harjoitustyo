@@ -23,16 +23,16 @@ class TestUI(unittest.TestCase):
         self.assertNotEqual(self.UI._left_to_budget, None)
 
     def test_income_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._income_entry, None)
+        self.assertNotEqual(self.UI._income_planned, None)
 
     def test_bills_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._bills_entry, None)
+        self.assertNotEqual(self.UI._bills_planned, None)
 
     def test_spending_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._spending_entry, None)
+        self.assertNotEqual(self.UI._spending_planned, None)
 
     def test_debt_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._debt_entry, None)
+        self.assertNotEqual(self.UI._debt_planned, None)
 
     # testing that number fields have correct values
     def test_left_to_budget_has_correct_value(self):
@@ -40,20 +40,20 @@ class TestUI(unittest.TestCase):
         self.assertEqual(self.UI._left_to_budget.get(), str(600))
 
     def test_income_entry_has_correct_value(self):
-        self.UI._income_entry = 2000
-        self.assertEqual(self.UI._income_entry, 2000)
+        self.UI._income_planned = 2000
+        self.assertEqual(self.UI._income_planned, 2000)
 
     def test_bills_entry_has_correct_value(self):
-        self.UI._bills_entry = 700
-        self.assertEqual(self.UI._bills_entry, 700)
+        self.UI._bills_planned = 700
+        self.assertEqual(self.UI._bills_planned, 700)
 
     def test_spending_entry_has_correct_value(self):
-        self.UI._spending_entry = 500
-        self.assertEqual(self.UI._spending_entry, 500)
+        self.UI._spending_planned = 500
+        self.assertEqual(self.UI._spending_planned, 500)
 
     def test_debt_entry_has_correct_value(self):
-        self.UI._debt_entry = 300
-        self.assertEqual(self.UI._debt_entry, 300)
+        self.UI._debt_planned = 300
+        self.assertEqual(self.UI._debt_planned, 300)
 
     # testing left_to_budget items
     def test_left_to_budget_type(self):
