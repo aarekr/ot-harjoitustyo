@@ -16,3 +16,6 @@
 * Käyttäjä voi syöttää toteutuneet tulot ja kolmen menoerää
 * Käyttäjä voi painaa nappia, joka ilmoittaa paljon vielä budjetoitavissa
 * Teksti- ja numerokentille luotu testit
+
+## Viikko 4
+* 

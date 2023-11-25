@@ -20,4 +20,11 @@
 18.11. |  2h  | ui.py -moduulin importtausongelma ratkaistu. Numeroiden syöttökentät ja left to budget luotu. |
 19.11. |  1h  | Testit numerokentille ja left_to_budget -komponenteille. |
 20.11. |  2h  | Testikattavuusraportti ja Changelog. tests-hakemistossa nyt __init__.py. Sarakkeet 'Type' ja 'Planned' nimetty. 'Actual' -sarake hahmoteltu. |
-21.11. |      | Actual -sarake ja numerokentät |
+21.11. |  2h  | Actual -sarake ja numerokentät. Planned -muuttujien uudelleennimeäminen ja testien päivitys. Invokeen tutustuminen. |
+
+## Viikko 4
+
+ Pvm   | Aika | Aktiviteetti |
+-------|------|--------------|
+25.11. |  2h  | Hakemisto entities ja luokka Month. Logiikkaa erotettu käyttöliittymästä. Pylint otettu käyttöön. |
+26.11. |      |  |

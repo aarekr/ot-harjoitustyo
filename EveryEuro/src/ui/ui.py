@@ -1,4 +1,5 @@
 from tkinter import Tk, ttk, constants, StringVar
+import entities.month
 
 class UI:
     """ Application User Interface """
@@ -51,7 +52,7 @@ class UI:
         balance_button = ttk.Button(
             master=self._root,
             text="Calculate balance",
-            command=self.calculate_budget_balance
+            command=self.update_view
         )
 
         # 'Actual' entry fields
@@ -87,13 +88,13 @@ class UI:
         self._spending_actual.grid(row=6, column=3)
         self._debt_actual.grid(row=7, column=3)
 
-    def calculate_budget_balance(self):
-        budget_balance = (int(self._income_planned.get())
-                        - int(self._bills_planned.get())
-                        - int(self._spending_planned.get())
-                        - int(self._debt_planned.get()))
-        print(f"budget_balance is: {budget_balance}")
-        self.update_left_to_budget(budget_balance)
+    def update_view(self):
+        self.update_left_to_budget(entities.month.calculate_budget_balance(
+            self._income_planned.get(),
+            self._bills_planned.get(),
+            self._spending_planned.get(),
+            self._debt_planned.get()
+        ))
 
     def update_left_to_budget(self, budget_balance):
         self._left_to_budget.set(str(budget_balance))
