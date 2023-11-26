@@ -27,4 +27,4 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 25.11. |  2h  | Hakemisto entities ja luokka Month. Logiikkaa erotettu käyttöliittymästä. Pylint otettu käyttöön. |
-26.11. |      |  |
+26.11. |  2h  | Tkinterin widgettien opettelua. Testi toiminnolle calculate balance. Welcome View:n kehittämistä. Kuukausi-ikkunan sisältö jaettu neljään frameen. |

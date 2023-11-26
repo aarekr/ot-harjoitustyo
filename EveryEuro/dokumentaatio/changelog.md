@@ -18,4 +18,10 @@
 * Teksti- ja numerokentille luotu testit
 
 ## Viikko 4
+* Pylint otettu käyttöön
+* Invoke toimii ohjelman aloituksessa, testeissä ja pylint -tarkistuksessa
+* Luokka Month ja hakemisto entitites luotu. Osa ui.py:n toiminnoista siirretty month.py -tiedostoon.
+* Kuukausi-ikkunan sisältö jaettu neljään päällekkäin olevaan kehykseen (frame)
+* Ikkunan yläreunassa palkki, jossa jokaiselle kuukaudelle oma nappi (toistaiseksi vain Jan, Feb ja Mar)
+* to do: Welcome View
 * 

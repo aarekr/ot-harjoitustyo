@@ -1,8 +1,9 @@
 import unittest
 from tkinter import Tk, ttk, StringVar
 from ui.ui import UI
+import entities.month
 
-# run the tests with command: pytest src
+# run the tests with command: poetry run invoke test
 
 class TestUI(unittest.TestCase):
     def setUp(self):
@@ -63,14 +64,12 @@ class TestUI(unittest.TestCase):
         self.assertEqual(type(self.UI._left_to_budget_text), StringVar)
 
     # testing functions
-    """def test_calculate_budget_balance(self):
-        self.UI._income_entry = 2500
-        self.UI._bills_entry = 800
-        self.UI._spending_entry = 600
-        self.UI._debt_entry = 100
-        self.assertEqual(self.UI.calculate_budget_balance(), 500)"""
-
+    def test_calculate_budget_balance(self):
+        self.assertEqual(entities.month.calculate_budget_balance(2500, 800, 600, 100), 1000)
+        self.assertEqual(entities.month.calculate_budget_balance(2200, 700, 500, 200), 800)
 
     def test_update_left_to_budget(self):
         self.UI.update_left_to_budget(500)
         self.assertEqual(self.UI._left_to_budget.get(), str(500))
+        self.UI.update_left_to_budget(900)
+        self.assertEqual(self.UI._left_to_budget.get(), str(900))
