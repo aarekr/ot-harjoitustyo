@@ -10,14 +10,15 @@
 * Sovelluksessa ei ole pääkäyttäjää
 
 ## Käyttöliittymä
-* Sovellus aukeaa käyttöhetken kuukauden näkymään.
-* Käyttäjä voi siirtyä kuukausissa eteen- ja taaksepäin.
+* Sovellus aukeaa käyttöhetken kuukauden näkymään
+* Käyttäjä voi siirtyä navigointipalkista haluamansa kuukauden kohdalle (napit olemassa, toiminnot puuttuvat)
+* Käyttäjä voi syöttää arvioidut (planned) tulot ja menot kuukauden alussa (tehty)
+* Käyttäjä voi syöttää toteutuneet (actual) tulot ja menot kuukauden aikana ja lopussa (tehty)
+* Syötetyt tulot ja menot tallennetaan .csv -tiedostoon
 * Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä.
-* Käyttäjä voi syöttää arvioidut tulot ja menot kuukauden alussa
-* Käyttäjä voi syöttää toteutuneet tulot ja menot kuukauden aikana ja lopussa
 
 ## Yleistä
-* Ohjelmointikieli: Python
+* Ohjelmointikieli ja versio: Python 3.8
 * Käyttöliittymän toteutus: Tkinter
 * Dokumentaation kieli: suomi
 * Koodin kieli: englanti
@@ -25,4 +26,4 @@
 
 ## Lähteet
 * TkInter ja graafisen käyttöliittymän toteutus. https://ohjelmistotekniikka-hy.github.io/python/tkinter
-* 
+* Python GUI Programming With Tkinter. David Amos. https://realpython.com/python-gui-tkinter

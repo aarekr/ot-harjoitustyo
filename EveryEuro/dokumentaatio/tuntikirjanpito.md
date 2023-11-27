@@ -28,3 +28,4 @@
 -------|------|--------------|
 25.11. |  2h  | Hakemisto entities ja luokka Month. Logiikkaa erotettu käyttöliittymästä. Pylint otettu käyttöön. |
 26.11. |  2h  | Tkinterin widgettien opettelua. Testi toiminnolle calculate balance. Welcome View:n kehittämistä. Kuukausi-ikkunan sisältö jaettu neljään frameen. |
+27.11. |  3h  | Budjetointi-ikkunan yläreunassa on kuukausille navigointinapit. Vaihto marraskuusta tammikuuhun on kovakoodattuna. Calculate balance -toiminto hajosi. Helmikuu-olion luonti kovakoodattuna. |

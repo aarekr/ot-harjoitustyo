@@ -22,6 +22,7 @@
 * Invoke toimii ohjelman aloituksessa, testeissä ja pylint -tarkistuksessa
 * Luokka Month ja hakemisto entitites luotu. Osa ui.py:n toiminnoista siirretty month.py -tiedostoon.
 * Kuukausi-ikkunan sisältö jaettu neljään päällekkäin olevaan kehykseen (frame)
-* Ikkunan yläreunassa palkki, jossa jokaiselle kuukaudelle oma nappi (toistaiseksi vain Jan, Feb ja Mar)
+* Ikkunan yläreunassa navigointipalkki, jossa jokaiselle kuukaudelle oma nappi. Kuukauden vaihto marraskuusta tammikuuhun on kovakoodattuna ja kuukauden vaihto näkyy budjetointi-ikkunassa.
+* Helmikuusta voi muodostaa olion.
 * to do: Welcome View
 * 
