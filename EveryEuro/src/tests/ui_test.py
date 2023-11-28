@@ -4,6 +4,7 @@ from ui.ui import UI
 import entities.month
 
 # run the tests with command: poetry run invoke test
+# generate test report html : poetry run invoke coverage-report
 
 class TestUI(unittest.TestCase):
     def setUp(self):
@@ -22,18 +23,6 @@ class TestUI(unittest.TestCase):
     # testing that number fields are created
     def test_left_to_budget_field_created_at_start(self):
         self.assertNotEqual(self.UI._left_to_budget, None)
-
-    """def test_income_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._income_planned, None)
-
-    def test_bills_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._bills_planned, None)
-
-    def test_spending_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._spending_planned, None)
-
-    def test_debt_entry_field_created_at_start(self):
-        self.assertNotEqual(self.UI._debt_planned, None)"""
 
     # testing that number fields have correct values
     """def test_left_to_budget_has_correct_value(self):

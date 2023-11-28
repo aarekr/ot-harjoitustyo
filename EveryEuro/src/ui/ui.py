@@ -106,9 +106,7 @@ class UI:
 
         # PLANNED column entry fields
         width_entry_field = 17
-        entry_default_value = StringVar()
-        entry_default_value.set("0")
-        entry_planned_income = ttk.Entry(master=frame_main, width=width_entry_field, textvariable=entry_default_value)
+        entry_planned_income = ttk.Entry(master=frame_main, width=width_entry_field)
         entry_planned_bills = ttk.Entry(master=frame_main, width=width_entry_field)
         entry_planned_spending = ttk.Entry(master=frame_main, width=width_entry_field)
         entry_planned_debt = ttk.Entry(master=frame_main, width=width_entry_field)
