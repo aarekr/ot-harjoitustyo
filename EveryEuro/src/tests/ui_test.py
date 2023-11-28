@@ -63,6 +63,12 @@ class TestUI(unittest.TestCase):
     def test_left_to_budget_text_type(self):
         self.assertEqual(type(self.UI._left_to_budget_text), StringVar)"""
 
+    def test_current_month_has_correct_value(self):
+        self.assertEqual(self.UI.get_current_month(0), "")
+        self.assertEqual(self.UI.get_current_month(1), "JANUARY")
+        self.assertEqual(self.UI.get_current_month(2), "FEBRUARY")
+        self.assertEqual(self.UI.get_current_month(11), "NOVEMBER")
+
     # testing functions
     def test_calculate_budget_balance(self):
         self.assertEqual(entities.month.calculate_budget_balance(2500, 800, 600, 100), 1000)
@@ -73,3 +79,19 @@ class TestUI(unittest.TestCase):
         self.assertEqual(self.UI._left_to_budget.get(), str(500))
         self.UI.update_left_to_budget(900)
         self.assertEqual(self.UI._left_to_budget.get(), str(900))"""
+
+    def test_get_month_income(self):
+        mar = entities.month.Month("MARCH", 3003, 1000, 800, 400)
+        self.assertEqual(mar.get_income(), 3003)
+
+    def test_get_month_bills(self):
+        mar = entities.month.Month("MARCH", 3000, 1008, 700, 300)
+        self.assertEqual(mar.get_bills(), 1008)
+
+    def test_get_month_spending(self):
+        mar = entities.month.Month("MARCH", 3000, 1000, 803, 250)
+        self.assertEqual(mar.get_spending(), 803)
+
+    def test_get_month_debt(self):
+        mar = entities.month.Month("MARCH", 3000, 1000, 600, 350)
+        self.assertEqual(mar.get_debt(), 350)

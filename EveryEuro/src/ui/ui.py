@@ -1,6 +1,7 @@
 from tkinter import Tk, ttk, constants, StringVar
 import entities.month
 import tkinter as tk
+from datetime import datetime
 
 class UI:
     """ Application User Interface """
@@ -8,8 +9,9 @@ class UI:
     def __init__(self, root):
         self._root = root
         #self._current_view = None  # Welcome View addition
-        self._left_to_budget = None
         self._chosen_month = None
+        self._left_to_budget = None
+        self._current_month_income = None
 
     def start(self):
         #self._show_welcome_view()  # Welcome View
@@ -22,7 +24,7 @@ class UI:
         frame_months_row = tk.Frame(master=self._root, relief=tk.RAISED, borderwidth=1)
         button_jan = tk.Button(master=frame_months_row, text="JAN", command=self.change_chosen_month)
         button_feb = tk.Button(master=frame_months_row, text="FEB")
-        button_mar = tk.Button(master=frame_months_row, text="MAR")
+        button_mar = tk.Button(master=frame_months_row, text="MAR", command=self.create_month_march)
         button_apr = tk.Button(master=frame_months_row, text="APR")
         button_may = tk.Button(master=frame_months_row, text="MAY")
         button_jun = tk.Button(master=frame_months_row, text="JUN")
@@ -49,7 +51,7 @@ class UI:
         # frame displaying chosen month
         frame_chosen_month = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         self._chosen_month = StringVar()
-        self._chosen_month.set("NOVEMBER")
+        self._chosen_month.set(self.get_current_month(datetime.now().month))  # e.g. 11 = November
         label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=self._chosen_month)
         label_chosen_month.grid(row=1, column=0)
         frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
@@ -104,7 +106,9 @@ class UI:
 
         # PLANNED column entry fields
         width_entry_field = 17
-        entry_planned_income = ttk.Entry(master=frame_main, width=width_entry_field)
+        entry_default_value = StringVar()
+        entry_default_value.set("0")
+        entry_planned_income = ttk.Entry(master=frame_main, width=width_entry_field, textvariable=entry_default_value)
         entry_planned_bills = ttk.Entry(master=frame_main, width=width_entry_field)
         entry_planned_spending = ttk.Entry(master=frame_main, width=width_entry_field)
         entry_planned_debt = ttk.Entry(master=frame_main, width=width_entry_field)
@@ -115,7 +119,6 @@ class UI:
         button_calculate_balance = ttk.Button(
             master=frame_main,
             text="Calculate balance",
-            #command=self.calculate_budget_balance(2000, 800, 500, 300)
             command=self.update_left_to_budget
         )
         button_calculate_balance.grid(row=8, column=1)
@@ -138,13 +141,27 @@ class UI:
         self._left_to_budget.set(str(123))
 
     def change_chosen_month(self):
-        print("changing month to JAN:", self._chosen_month.get())
+        print("changing month to JAN from:", self._chosen_month.get())
         self._chosen_month.set("JANUARY")
         print("self._chosen_month is now:", self._chosen_month.get())
         print("february:")
 
     def create_month_february(self, month_name, income, bills, spending, debt):
         feb = entities.month.Month(month_name, income, bills, spending, debt)
+
+    def get_current_month(self, current_month):
+        all_months = ["", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
+                        "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]
+        return all_months[current_month]
+
+    def create_month_march(self, income=3003, bills=1003, spending=600, debt=300):
+        mar = entities.month.Month("MARCH", income, bills, spending, debt)
+        budget_balance = mar.income - mar.bills - mar.spending - mar.debt  # handle via a function
+        self._chosen_month.set("MARCH")
+        self._left_to_budget.set(str(budget_balance))
+        print("mar.income:", mar.income)
+        print("mar.bills :", mar.bills)
+        print("get_income:", mar.get_income())
 
     """def _show_welcome_view(self):  # Welcome View
         self._current_view = WelcomeView(self._root)

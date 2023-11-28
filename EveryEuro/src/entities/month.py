@@ -10,11 +10,20 @@ class Month:
         self.bills = bills
         self.spending = spending
         self.debt = debt
-    
-    def print_month_info(self):
-        print(self.month, self.income, self.bills, self.spending, self.debt)
 
-    def __str__(self):
+    def get_income(self):
+        return self.income
+    
+    def get_bills(self):
+        return self.bills
+    
+    def get_spending(self):
+        return self.spending
+    
+    def get_debt(self):  # debt service amount (not total debt)
+        return self.debt
+
+    def print_month_info(self):
         print(self.month, self.income, self.bills, self.spending, self.debt)
 
 def calculate_budget_balance(income, bills, spending, debt):

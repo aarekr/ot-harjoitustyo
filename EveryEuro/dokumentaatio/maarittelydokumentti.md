@@ -10,10 +10,10 @@
 * Sovelluksessa ei ole pääkäyttäjää
 
 ## Käyttöliittymä
-* Sovellus aukeaa käyttöhetken kuukauden näkymään
+* Sovellus aukeaa käyttöhetken kuukauden näkymään (tehty)
 * Käyttäjä voi siirtyä navigointipalkista haluamansa kuukauden kohdalle (napit olemassa, toiminnot puuttuvat)
 * Käyttäjä voi syöttää arvioidut (planned) tulot ja menot kuukauden alussa (tehty)
-* Käyttäjä voi syöttää toteutuneet (actual) tulot ja menot kuukauden aikana ja lopussa (tehty)
+* Käyttäjä voi syöttää toteutuneet (received / spent) tulot ja menot kuukauden aikana ja lopussa (tehty)
 * Syötetyt tulot ja menot tallennetaan .csv -tiedostoon
 * Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä.
 

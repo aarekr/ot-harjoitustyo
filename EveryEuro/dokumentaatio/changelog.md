@@ -24,5 +24,5 @@
 * Kuukausi-ikkunan sisältö jaettu neljään päällekkäin olevaan kehykseen (frame)
 * Ikkunan yläreunassa navigointipalkki, jossa jokaiselle kuukaudelle oma nappi. Kuukauden vaihto marraskuusta tammikuuhun on kovakoodattuna ja kuukauden vaihto näkyy budjetointi-ikkunassa.
 * Helmikuusta voi muodostaa olion.
-* to do: Welcome View
+* Menossa oleva kuukausi haetaan kalenterista (datetime).
 * 
