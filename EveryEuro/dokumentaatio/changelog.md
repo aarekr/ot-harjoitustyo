@@ -25,4 +25,7 @@
 * Ikkunan yläreunassa navigointipalkki, jossa jokaiselle kuukaudelle oma nappi. Kuukauden vaihto marraskuusta tammikuuhun on kovakoodattuna ja kuukauden vaihto näkyy budjetointi-ikkunassa.
 * Helmikuusta voi muodostaa olion.
 * Menossa oleva kuukausi haetaan kalenterista (datetime).
+
+## Viikko 5
+* Ikkunassa on Quit -nappi, jota painamalla voi sulkea ohjelman
 * 

@@ -21,13 +21,21 @@ class TestUI(unittest.TestCase):
     #    self.assertEqual(self.UI.geometry, "200*200")
 
     # testing that number fields are created
-    def test_left_to_budget_field_created_at_start(self):
-        self.assertNotEqual(self.UI._left_to_budget, None)
+    def test_current_month_left_to_budget_field_created_at_start(self):
+        self.assertNotEqual(self.UI._current_month_left_to_budget, None)
+
+    #def test_current_month_planned_income_field_created_at_start(self):
+    #    self.assertNotEqual(self.UI._current_month_income, None)
+        #self._current_month_income
+        #self._current_month_bills
+        #self._current_month_spending
+        #self._current_month_debt
 
     # testing that number fields have correct values
     """def test_left_to_budget_has_correct_value(self):
-        self.UI._left_to_budget.set(600)
-        self.assertEqual(self.UI._left_to_budget.get(), str(600))"""
+        self._current_month_left_to_budget
+        self.UI._current_month_left_to_budget.set(600)
+        self.assertEqual(self.UI._current_month_left_to_budget.get(), str(600))"""
 
     def test_income_entry_has_correct_value(self):
         self.UI._income_planned = 2000

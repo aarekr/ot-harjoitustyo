@@ -9,13 +9,33 @@ class UI:
     def __init__(self, root):
         self._root = root
         #self._current_view = None  # Welcome View addition
+
+        # these values are retrieved and shown in the window when month buttons are clicked
         self._chosen_month = None
-        self._left_to_budget = None
-        self._current_month_income = None
+        self._chosen_month_left_to_budget = None
+        self._chosen_month_planned_income = None
+        self._chosen_month_planned_bills = None
+        self._chosen_month_planned_spending = None
+        self._chosen_month_planned_debt = None
+
+        # creating months march and april
+        self.march = self.create_month_march("MARCH", 3003, 1003, 303, 333)
+        self.april = self.create_month_april("APRIL", 4004, 1004, 404, 444)
+        # testing: creating all months together
+        """table_all_months = []
+        income = 2000
+        bills = 800
+        spending = 500
+        debt = 600
+        for i in range(1, 13):
+            if i == 3 or i == 4:
+                continue
+            month_name = self.get_current_month(i)
+            created_month = entities.month.Month(month_name, income+i, bills+i, spending+i, debt+i)
+            table_all_months.append(created_month)"""
 
     def start(self):
         #self._show_welcome_view()  # Welcome View
-        self.feb_mo = self.create_month_february("feb", 2456, 811, 567, 325)
 
         self._root.rowconfigure(4, weight=1)  # minsize=600
         self._root.columnconfigure(2, weight=1)
@@ -24,8 +44,8 @@ class UI:
         frame_months_row = tk.Frame(master=self._root, relief=tk.RAISED, borderwidth=1)
         button_jan = tk.Button(master=frame_months_row, text="JAN", command=self.change_chosen_month)
         button_feb = tk.Button(master=frame_months_row, text="FEB")
-        button_mar = tk.Button(master=frame_months_row, text="MAR", command=self.create_month_march)
-        button_apr = tk.Button(master=frame_months_row, text="APR")
+        button_mar = tk.Button(master=frame_months_row, text="MAR", command=self.get_march_data)
+        button_apr = tk.Button(master=frame_months_row, text="APR", command=self.get_april_data)
         button_may = tk.Button(master=frame_months_row, text="MAY")
         button_jun = tk.Button(master=frame_months_row, text="JUN")
         button_jul = tk.Button(master=frame_months_row, text="JUL")
@@ -48,25 +68,25 @@ class UI:
         button_dec.grid(row=0, column=11)
         frame_months_row.grid(row=0, column=0, columnspan=4, pady=10)
 
-        # frame displaying chosen month
+        # frame (top left) displaying chosen month
         frame_chosen_month = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         self._chosen_month = StringVar()
-        self._chosen_month.set(self.get_current_month(datetime.now().month))  # e.g. 11 = November
+        self._chosen_month.set(self.get_current_month(datetime.now().month))  # e.g. 12 = December
         label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=self._chosen_month)
         label_chosen_month.grid(row=1, column=0)
         frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
 
-        # frame displaying left to budget
+        # frame (top left) displaying 'left to budget'
         frame_left_to_budget = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         frame_left_to_budget.grid(row=2, column=0)
-        self._left_to_budget = StringVar()
+        self._chosen_month_left_to_budget = StringVar()
         text_left_to_budget = StringVar()
-        self._left_to_budget.set("0")
+        self._chosen_month_left_to_budget.set("0")
         text_left_to_budget.set("Left to budget:")
         label_text_left_to_budget = tk.Label(master=frame_left_to_budget,
                                         textvariable=text_left_to_budget)
         label_number_left_to_budget = tk.Label(master=frame_left_to_budget,
-                                        textvariable=self._left_to_budget)
+                                        textvariable=self._chosen_month_left_to_budget)
         label_text_left_to_budget.grid(row=2, column=0, sticky='w', columnspan=1, padx=10)
         label_number_left_to_budget.grid(row=2, column=1, sticky='e')
 
@@ -106,20 +126,27 @@ class UI:
 
         # PLANNED column entry fields
         width_entry_field = 17
-        entry_planned_income = ttk.Entry(master=frame_main, width=width_entry_field)
-        entry_planned_bills = ttk.Entry(master=frame_main, width=width_entry_field)
-        entry_planned_spending = ttk.Entry(master=frame_main, width=width_entry_field)
-        entry_planned_debt = ttk.Entry(master=frame_main, width=width_entry_field)
-        entry_planned_income.grid(row=4, column=1, sticky="e")
-        entry_planned_bills.grid(row=5, column=1, sticky="e")
-        entry_planned_spending.grid(row=6, column=1, sticky="e")
-        entry_planned_debt.grid(row=7, column=1, sticky="e")
+        self._chosen_month_planned_income = ttk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_bills = ttk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_spending = ttk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_debt = ttk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_income.grid(row=4, column=1, sticky="e")
+        self._chosen_month_planned_bills.grid(row=5, column=1, sticky="e")
+        self._chosen_month_planned_spending.grid(row=6, column=1, sticky="e")
+        self._chosen_month_planned_debt.grid(row=7, column=1, sticky="e")
+        # this button is needed when entering numbers for a new month
         button_calculate_balance = ttk.Button(
             master=frame_main,
             text="Calculate balance",
             command=self.update_left_to_budget
         )
         button_calculate_balance.grid(row=8, column=1)
+        button_quit = ttk.Button(
+            master=frame_main,
+            text="Quit",
+            command=self._root.quit
+        )
+        button_quit.grid(row=9, column=2)
 
         # RECEIVED / SPENT column entry fields
         entry_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
@@ -131,60 +158,63 @@ class UI:
         entry_receivedspent_spending.grid(row=6, column=2, sticky="e")
         entry_receivedspent_debt.grid(row=7, column=2, sticky="e")
 
-    def calculate_budget_balance(self, income):
-        print("budget balance, income:", income)
-    
     def update_left_to_budget(self):
-        print("updating left_to_balance")
-        self._left_to_budget.set(str(123))
+        print("updating _chosen_month_left_to_budget")
+        # fix this so that it calculates correct left_to_budget
+        self._chosen_month_left_to_budget.set(str(123))
+
+    def get_chosen_month(self):
+        return self._chosen_month
 
     def change_chosen_month(self):
         print("changing month to JAN from:", self._chosen_month.get())
         self._chosen_month.set("JANUARY")
         print("self._chosen_month is now:", self._chosen_month.get())
-        print("february:")
-
-    def create_month_february(self, month_name, income, bills, spending, debt):
-        feb = entities.month.Month(month_name, income, bills, spending, debt)
 
     def get_current_month(self, current_month):
         all_months = ["", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                         "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]
         return all_months[current_month]
 
-    def create_month_march(self, income=3003, bills=1003, spending=600, debt=300):
-        mar = entities.month.Month("MARCH", income, bills, spending, debt)
-        budget_balance = mar.income - mar.bills - mar.spending - mar.debt  # handle via a function
+    # March and April below are hard coded but should be handled in the same functions
+    def create_month_march(self, month_name, income, bills, spending, debt):
+        march = entities.month.Month(month_name, income, bills, spending, debt)
+        return march
+
+    def create_month_april(self, month_name, income, bills, spending, debt):
+        april = entities.month.Month(month_name, income, bills, spending, debt)
+        return april
+
+    def get_march_data(self):
         self._chosen_month.set("MARCH")
-        self._left_to_budget.set(str(budget_balance))
-        print("mar.income:", mar.income)
-        print("mar.bills :", mar.bills)
-        print("get_income:", mar.get_income())
+        income = self.march.get_income()
+        bills = self.march.get_bills()
+        spending = self.march.get_spending()
+        debt = self.march.get_debt()
+        budget_balance = entities.month.calculate_budget_balance(income, bills, spending, debt)
+        self._chosen_month_left_to_budget.set(budget_balance)
+        self._chosen_month_planned_income.delete(0, tk.END)
+        self._chosen_month_planned_income.insert(0, income)
+        self._chosen_month_planned_bills.delete(0, tk.END)
+        self._chosen_month_planned_bills.insert(0, bills)
+        self._chosen_month_planned_spending.delete(0, tk.END)
+        self._chosen_month_planned_spending.insert(0, spending)
+        self._chosen_month_planned_debt.delete(0, tk.END)
+        self._chosen_month_planned_debt.insert(0, debt)
 
-    """def _show_welcome_view(self):  # Welcome View
-        self._current_view = WelcomeView(self._root)
-        self._current_view.pack()"""
-
-
-"""class WelcomeView:
-    def __init__(self, root):
-        self._root = root
-        self._frame = None
-        self._initialize()
-    
-    def pack(self):
-        self._frame.pack(fill=constants.Y)
-    
-    def destroy(self):
-        self._frame.destroy()
-    
-    def _initialize(self):
-        self._frame = ttk.Frame(master=self._root)
-        label = ttk.Label(master=self._frame, text="Welcome to EveryEuro budgeting!")
-        button = ttk.Button(
-            master=self._frame,
-            text="Let's start",
-            command=self.destroy
-        )
-        label.grid(row=0, column=0)
-        button.grid(row=1, column=0)"""
+    def get_april_data(self):
+        self._chosen_month.set("APRIL")
+        income = self.april.get_income()
+        bills = self.april.get_bills()
+        spending = self.april.get_spending()
+        debt = self.april.get_debt()
+        budget_balance = entities.month.calculate_budget_balance(income, bills, spending, debt)
+        self._chosen_month_left_to_budget.set(budget_balance)
+        self._chosen_month_planned_income.delete(0, tk.END)
+        self._chosen_month_planned_income.insert(0, income)
+        self._chosen_month_planned_bills.delete(0, tk.END)
+        self._chosen_month_planned_bills.insert(0, bills)
+        self._chosen_month_planned_spending.delete(0, tk.END)
+        self._chosen_month_planned_spending.insert(0, spending)
+        self._chosen_month_planned_debt.delete(0, tk.END)
+        self._chosen_month_planned_debt.insert(0, debt)
