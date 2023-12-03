@@ -17,6 +17,9 @@ class Month:
     def get_income(self):
         return self.income
 
+    def set_income(self, new_income):
+        self.income = new_income
+
     def get_bills(self):
         return self.bills
 
@@ -28,9 +31,3 @@ class Month:
 
     def print_month_info(self):
         print(self.month_name, self.income, self.bills, self.spending, self.debt)
-
-# this should be in services folder?
-def calculate_budget_balance(income, bills, spending, debt):
-    budget_balance = income - bills - spending - debt
-    print(f"budget_balance is: {budget_balance}")
-    return budget_balance

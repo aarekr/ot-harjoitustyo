@@ -28,4 +28,6 @@
 
 ## Viikko 5
 * Ikkunassa on Quit -nappi, jota painamalla voi sulkea ohjelman
+* Service -moduuli luotu ja toimintoja siirretty sen vastuulle
+* Kaikki kuukausinapit toimivat ja hakevat halutun kuukauden tiedot
 * 
