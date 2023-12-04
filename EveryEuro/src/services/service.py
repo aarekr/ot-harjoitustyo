@@ -1,5 +1,7 @@
 """ Services module """
 
+from tkinter.messagebox import *
+
 ALL_MONTHS = ["", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                 "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]
 
@@ -12,3 +14,6 @@ def get_month_name(month_number):
     all_months = ["", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
                     "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]
     return all_months[month_number]
+
+def menu_bar_item_notdone():
+    showerror('Not implemented', 'Functionality not yet available, but coming soon')

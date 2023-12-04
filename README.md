@@ -9,5 +9,6 @@ Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
 
 ## Dokumentaatio
 * [Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
+* [Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
 * [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
 * [Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)

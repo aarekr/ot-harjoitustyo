@@ -40,6 +40,7 @@
 -------|------|--------------|
 02.12. | 5,5h | Quit -nappi sulkee ikkunan. Planned entry -kenttien ja kuukausien vaihdon parissa työskentely. Maaliskuun ja huhtikuun tiedot ilmestyvät entry -kenttiin kun näitä kuukausinappeja painetaan (kovakoodattu ja toistoa). |
 03.12. | 3,5h | Service -moduuli luotu. Kuukausinapit toimivat ja hakevat halutun kuukauden tiedot ikkunaan. |
+04.12. |  3h  | Menu Bar lisätty. Quit lopettaa ohjelman ja Help ohjeistaa ohjelman käytössä. Open on kesken. |
 
 
 ## Yhteensä

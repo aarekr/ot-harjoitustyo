@@ -25,5 +25,6 @@
 * Sovelluksen kieli: englanti
 
 ## Lähteet
-* TkInter ja graafisen käyttöliittymän toteutus. https://ohjelmistotekniikka-hy.github.io/python/tkinter
+* TkInter ja graafisen käyttöliittymän toteutus. Helsingin yliopisto. https://ohjelmistotekniikka-hy.github.io/python/tkinter
 * Python GUI Programming With Tkinter. David Amos. https://realpython.com/python-gui-tkinter
+* Programming Python. Mark Lutz. O'Reilly Media. (2011)

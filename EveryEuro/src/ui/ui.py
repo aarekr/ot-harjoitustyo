@@ -1,4 +1,5 @@
-from tkinter import Tk, ttk, constants, StringVar
+from tkinter import Tk, ttk, constants, StringVar, Menu, Label
+from tkinter.messagebox import *
 import entities.month as em
 import services.service as service
 import tkinter as tk
@@ -9,7 +10,6 @@ class UI:
 
     def __init__(self, root):
         self._root = root
-        #self._current_view = None  # Welcome View addition
 
         # these values are retrieved and shown in the window when month buttons are clicked
         self._chosen_month = None
@@ -32,7 +32,7 @@ class UI:
             self.table_all_months.append(created_month)
 
     def start(self):
-        #self._show_welcome_view()  # Welcome View
+        self.create_menu_bar()
 
         self._root.rowconfigure(4, weight=1)  # minsize=600
         self._root.columnconfigure(2, weight=1)
@@ -213,3 +213,28 @@ class UI:
         self._chosen_month_planned_spending.insert(0, spending)
         self._chosen_month_planned_debt.delete(0, tk.END)
         self._chosen_month_planned_debt.insert(0, debt)
+
+    def create_menu_bar(self):
+        top = Menu(self._root)
+        self._root.config(menu=top)
+        file = Menu(top, tearoff=False)
+        file.add_command(label='Open...', command=service.menu_bar_item_notdone, underline=0)
+        file.add_separator()
+        file.add_command(label='Quit', command=self._root.quit, underline=0)
+        top.add_cascade(label='File', menu=file, underline=0)
+
+        help_menu = Menu(top, tearoff=False)
+        help_menu.add_command(label='Help', command=self.open_help_window, underline=0)
+        top.add_cascade(label='Help', menu=help_menu, underline=0)
+
+    def open_help_window(self):
+        print("opening help window")
+        help_window_text_field = tk.Text(master=self._root, width=75, height=10)
+        help_window_text_field.insert("1.0", "HELP - how to use the program")
+        help_window_text_field.insert("2.0", "\nEnter your income and expenses in respective fields.")
+        help_window_text_field.insert("3.0", "\nClick 'Save figures' to save figures.")
+        nav_text = "\nNavigate between months by clicking the month buttons on top of the window."
+        help_window_text_field.insert("4.0", nav_text)
+        help_window_text_field.insert("5.0", "Left to budget shows how much you have left to allocate.")
+        help_window_text_field.place(x=30, y=300)
+        # add button for text_field closing
