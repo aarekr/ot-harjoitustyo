@@ -36,6 +36,3 @@ class Month:
 
     def get_saving(self):
         return self.saving
-
-    def print_month_info(self):
-        print(self.month_name, self.income, self.rent, self.bills, self.spending, self.debt_service, self.saving)

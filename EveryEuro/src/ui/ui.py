@@ -1,8 +1,7 @@
 from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
-from tkinter.messagebox import *
 import entities.month as em
 import services.service as service
-import tkinter as tk  # change this to 'from tkinter import *' and delete first row?
+import tkinter as tk
 from datetime import datetime
 
 class UI:
@@ -21,9 +20,7 @@ class UI:
         self._chosen_month_planned_debt_service = None  # debt interest and repaiment
         self._chosen_month_planned_saving = None        # saving => this should change left_to_balance to 0
 
-        # testing: creating all months together
-        self.table_all_months = ["empty cell"]  # empty cell in index 0
-        self.create_all_months_table()
+        self.table_all_months = service.create_all_months_table()
 
     def start(self):
         self.create_menu_bar()
@@ -179,21 +176,6 @@ class UI:
         print("ok_to_quit:", ok_to_quit)
         if ok_to_quit:
             self._root.quit"""
-
-    def create_all_months_table(self):
-        # move this to service.py
-        # in the final version all 6 values below should be 0, current values while developing
-        income = 2000
-        rent = 800
-        bills = 100
-        spending = 500
-        debt_service = 200
-        saving = 0
-        for i in range(1, 13):
-            month_name = service.get_month_name(i)
-            print("for loop i & month_name:", i, month_name)
-            created_month = em.Month(month_name, income+i, rent+i, bills+i, spending+i, debt_service+i, saving)
-            self.table_all_months.append(created_month)
 
     def save_month_figures(self):
         print("saving this month's figures")

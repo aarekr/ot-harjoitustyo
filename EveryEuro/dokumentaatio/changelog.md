@@ -33,4 +33,3 @@
 * Menu Bar lisätty: Quit ja Help toimivat
 * Työkalupalkki sivun alareunassa
 * Rent / mortgage ja Saving -erät
-* 

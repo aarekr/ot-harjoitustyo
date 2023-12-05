@@ -11,11 +11,13 @@
 
 ## Käyttöliittymä
 * Sovellus aukeaa käyttöhetken kuukauden näkymään (tehty)
-* Käyttäjä voi siirtyä navigointipalkista haluamansa kuukauden kohdalle (napit olemassa, toiminnot puuttuvat)
+* Käyttäjä voi siirtyä navigointipalkista haluamansa kuukauden kohdalle (tehty)
 * Käyttäjä voi syöttää arvioidut (planned) tulot ja menot kuukauden alussa (tehty)
 * Käyttäjä voi syöttää toteutuneet (received / spent) tulot ja menot kuukauden aikana ja lopussa (tehty)
+* Käyttäjä voi sulkea ohjelman ikkunassa olevasta Quit -napista tai valikosta (tehty)
+* Käyttäjä voi painaa Help -nappia tai valitsemalla valikosta ja hänelle näytetään ohje miten ohjelmaa käytetään (tehty)
 * Syötetyt tulot ja menot tallennetaan .csv -tiedostoon
-* Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä.
+* Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä (nappi olemassa, toiminto puuttuu)
 
 ## Yleistä
 * Ohjelmointikieli ja versio: Python 3.8
