@@ -12,3 +12,39 @@ Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
 * [Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
 * [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
 * [Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)
+
+* [Release](https://github.com/aarekr/ot-harjoitustyo/releases/tag/viikko5)
+
+## Asennus ja käynnistäminen
+1. Asenna riippuvuudet:
+```bash
+poetry install
+```
+Näytöllä saattaa näkyä virheilmoitus README.md -tiedoston puuttumisesta mutta sen voi ohittaa.
+
+2. Käynnistä ohjelma:
+```bash
+poetry run invoke start
+```
+
+## Testit
+1. Testit voi suorittaa komennolla:
+```bash
+poetry run invoke test
+```
+
+2. Testikattavuusraportin voi generoida:
+```bash
+poetry run invoke coverage-report
+```
+ja tämän jälkeen
+```bash
+poetry run invoke coverage-report
+```
+Raportti (index.html) löytyy _htmlcov_-hakemistosta.
+
+## Pylint
+Komento:
+```bash
+poetry run invoke lint
+```
