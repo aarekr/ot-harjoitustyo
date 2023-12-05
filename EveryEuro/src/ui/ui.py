@@ -2,7 +2,7 @@ from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
 from tkinter.messagebox import *
 import entities.month as em
 import services.service as service
-import tkinter as tk
+import tkinter as tk  # change this to 'from tkinter import *' and delete first row?
 from datetime import datetime
 
 class UI:
@@ -14,10 +14,12 @@ class UI:
         # these values are retrieved and shown in the window when month buttons are clicked
         self._chosen_month = None
         self._chosen_month_left_to_budget = None
-        self._chosen_month_planned_income = None
-        self._chosen_month_planned_bills = None
-        self._chosen_month_planned_spending = None
-        self._chosen_month_planned_debt = None
+        self._chosen_month_planned_income = None        # salary, dividends, sale of assets etc.
+        self._chosen_month_planned_rent = None          # rent or mortgage
+        self._chosen_month_planned_bills = None         # electricty, phone, internet etc.
+        self._chosen_month_planned_spending = None      # food, hobbies etc.
+        self._chosen_month_planned_debt_service = None  # debt interest and repaiment
+        self._chosen_month_planned_saving = None        # saving => this should change left_to_balance to 0
 
         # testing: creating all months together
         self.table_all_months = ["empty cell"]  # empty cell in index 0
@@ -111,55 +113,66 @@ class UI:
 
         # CATEGORY column texts
         text_income = StringVar()
+        text_rent = StringVar()
         text_bills = StringVar()
         text_spending = StringVar()
-        text_debt = StringVar()
+        text_debt_service = StringVar()
+        text_saving = StringVar()
         text_income.set("Income")
+        text_rent.set("Rent / mortgage")
         text_bills.set("Bills")
         text_spending.set("Spending  ")
-        text_debt.set("Debt")
+        text_debt_service.set("Debt service")
+        text_saving.set("Saving")
         label_income = tk.Label(master=frame_main, textvariable=text_income)
+        label_rent = tk.Label(master=frame_main, textvariable=text_rent)
         label_bills = tk.Label(master=frame_main, textvariable=text_bills)
         label_spending = tk.Label(master=frame_main, textvariable=text_spending)
-        label_debt = tk.Label(master=frame_main, textvariable=text_debt)
+        label_debt_service = tk.Label(master=frame_main, textvariable=text_debt_service)
+        label_saving = tk.Label(master=frame_main, textvariable=text_saving)
         label_income.grid(row=4, column=0, sticky="w")
-        label_bills.grid(row=5, column=0, sticky="w")
-        label_spending.grid(row=6, column=0, sticky="w")
-        label_debt.grid(row=7, column=0, sticky="w")
+        label_rent.grid(row=5, column=0, sticky="w")
+        label_bills.grid(row=6, column=0, sticky="w")
+        label_spending.grid(row=7, column=0, sticky="w")
+        label_debt_service.grid(row=8, column=0, sticky="w")
+        label_saving.grid(row=9, column=0, sticky="w")
 
         # PLANNED column entry fields
         width_entry_field = 17
-        self._chosen_month_planned_income = ttk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_bills = ttk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_spending = ttk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_debt = ttk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_spending = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_debt_service = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_planned_saving = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_planned_income.grid(row=4, column=1, sticky="e")
-        self._chosen_month_planned_bills.grid(row=5, column=1, sticky="e")
-        self._chosen_month_planned_spending.grid(row=6, column=1, sticky="e")
-        self._chosen_month_planned_debt.grid(row=7, column=1, sticky="e")
+        self._chosen_month_planned_rent.grid(row=5, column=1, sticky="e")
+        self._chosen_month_planned_bills.grid(row=6, column=1, sticky="e")
+        self._chosen_month_planned_spending.grid(row=7, column=1, sticky="e")
+        self._chosen_month_planned_debt_service.grid(row=8, column=1, sticky="e")
+        self._chosen_month_planned_saving.grid(row=9, column=1, sticky="e")
         # button for entering and saving numbers for a new month
-        button_save_figures = ttk.Button(
+        button_save_figures = tk.Button(
             master=frame_main,
             text="Save figures",
-            command=self.set_month_figures
+            command=self.save_month_figures
         )
-        button_save_figures.grid(row=8, column=1)
-        """button_quit = ttk.Button(  # button de-activated
-            master=frame_main,
-            text="Quit",
-            command=self._root.quit  # self.quit_program
-        )
-        button_quit.grid(row=9, column=2)"""
+        button_save_figures.grid(row=10, column=1)
 
         # RECEIVED / SPENT column entry fields
+        # under construction
         entry_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
+        entry_receivedspent_rent = tk.Entry(master=frame_main, width=width_entry_field)
         entry_receivedspent_bills = tk.Entry(master=frame_main, width=width_entry_field)
         entry_receivedspent_spending = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_debt = tk.Entry(master=frame_main, width=width_entry_field)
+        entry_receivedspent_debt_service = tk.Entry(master=frame_main, width=width_entry_field)
+        entry_receivedspent_saving = tk.Entry(master=frame_main, width=width_entry_field)
         entry_receivedspent_income.grid(row=4, column=2, sticky="e")
-        entry_receivedspent_bills.grid(row=5, column=2, sticky="e")
-        entry_receivedspent_spending.grid(row=6, column=2, sticky="e")
-        entry_receivedspent_debt.grid(row=7, column=2, sticky="e")
+        entry_receivedspent_rent.grid(row=5, column=2, sticky="e")
+        entry_receivedspent_bills.grid(row=6, column=2, sticky="e")
+        entry_receivedspent_spending.grid(row=7, column=2, sticky="e")
+        entry_receivedspent_debt_service.grid(row=8, column=2, sticky="e")
+        entry_receivedspent_saving.grid(row=9, column=2, sticky="e")
 
     """def quit_program(self):  # this doesn't close the program for some reason
         ok_to_quit = askokcancel('Verify quit', 'Are you sure you want to quit?')
@@ -169,18 +182,20 @@ class UI:
 
     def create_all_months_table(self):
         # move this to service.py
-        # in the final version all 4 values below should be 0, current values while developing
+        # in the final version all 6 values below should be 0, current values while developing
         income = 2000
-        bills = 800
+        rent = 800
+        bills = 100
         spending = 500
-        debt = 600
+        debt_service = 200
+        saving = 0
         for i in range(1, 13):
             month_name = service.get_month_name(i)
             print("for loop i & month_name:", i, month_name)
-            created_month = em.Month(month_name, income+i, bills+i, spending+i, debt+i)
+            created_month = em.Month(month_name, income+i, rent+i, bills+i, spending+i, debt_service+i, saving)
             self.table_all_months.append(created_month)
 
-    def set_month_figures(self):
+    def save_month_figures(self):
         print("saving this month's figures")
         # under construction
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
@@ -193,22 +208,28 @@ class UI:
         print("get_chosen_month_data, month_number:", month_number)
         month_name = self.table_all_months[month_number].get_month_name()
         income = self.table_all_months[month_number].get_income()
+        rent = self.table_all_months[month_number].get_rent()
         bills = self.table_all_months[month_number].get_bills()
         spending = self.table_all_months[month_number].get_spending()
-        debt = self.table_all_months[month_number].get_debt()
-        left_to_budget = service.calculate_left_to_budget(income, bills, spending, debt)
+        debt_service = self.table_all_months[month_number].get_debt_service()
+        saving = self.table_all_months[month_number].get_saving()
+        left_to_budget = service.calculate_left_to_budget(income, rent, bills, spending, debt_service, saving)
         print("table_all_months name  :", month_name)
         print("table_all_months income:", income)
         self._chosen_month.set(month_name)
         self._chosen_month_left_to_budget.set(left_to_budget)
         self._chosen_month_planned_income.delete(0, tk.END)
         self._chosen_month_planned_income.insert(0, income)
+        self._chosen_month_planned_rent.delete(0, tk.END)
+        self._chosen_month_planned_rent.insert(0, rent)
         self._chosen_month_planned_bills.delete(0, tk.END)
         self._chosen_month_planned_bills.insert(0, bills)
         self._chosen_month_planned_spending.delete(0, tk.END)
         self._chosen_month_planned_spending.insert(0, spending)
-        self._chosen_month_planned_debt.delete(0, tk.END)
-        self._chosen_month_planned_debt.insert(0, debt)
+        self._chosen_month_planned_debt_service.delete(0, tk.END)
+        self._chosen_month_planned_debt_service.insert(0, debt_service)
+        self._chosen_month_planned_saving.delete(0, tk.END)
+        self._chosen_month_planned_saving.insert(0, saving)
 
     def create_menu_bar(self):
         top = Menu(self._root)
@@ -239,10 +260,10 @@ class UI:
         print("opening help window")
         help_window_text_field = tk.Text(master=self._root, width=75, height=7)
         help_window_text_field.insert("1.0", "HELP - how to use the program")
-        help_window_text_field.insert("2.0", "\nEnter your income and expenses in respective fields.")
+        help_window_text_field.insert("2.0", "\nEnter your monthly income and expenses in respective fields.")
         help_window_text_field.insert("3.0", "\nClick 'Save figures' to save figures.")
         nav_text = "\nNavigate between months by clicking the month buttons on top of the window."
         help_window_text_field.insert("4.0", nav_text)
         help_window_text_field.insert("5.0", "Left to budget shows how much you have left to allocate.")
-        help_window_text_field.place(x=30, y=300)
-        # add button for help_window closing
+        help_window_text_field.place(x=30, y=320)
+        # add button for help_window closing or change text_field to window

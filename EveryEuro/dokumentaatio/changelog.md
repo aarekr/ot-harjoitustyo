@@ -31,4 +31,6 @@
 * Service -moduuli luotu ja toimintoja siirretty sen vastuulle
 * Kaikki kuukausinapit toimivat ja hakevat halutun kuukauden tiedot
 * Menu Bar lisätty: Quit ja Help toimivat
+* Työkalupalkki sivun alareunassa
+* Rent / mortgage ja Saving -erät
 * 
