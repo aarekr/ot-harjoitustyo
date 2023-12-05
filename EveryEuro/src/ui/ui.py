@@ -1,4 +1,4 @@
-from tkinter import Tk, ttk, constants, StringVar, Menu, Label
+from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
 from tkinter.messagebox import *
 import entities.month as em
 import services.service as service
@@ -21,23 +21,17 @@ class UI:
 
         # testing: creating all months together
         self.table_all_months = ["empty cell"]  # empty cell in index 0
-        income = 2000
-        bills = 800
-        spending = 500
-        debt = 600
-        for i in range(1, 13):
-            month_name = service.get_month_name(i)
-            print("for loop i & month_name:", i, month_name)
-            created_month = em.Month(month_name, income+i, bills+i, spending+i, debt+i)
-            self.table_all_months.append(created_month)
+        self.create_all_months_table()
 
     def start(self):
         self.create_menu_bar()
+        self.create_tool_bar()
 
         self._root.rowconfigure(4, weight=1)  # minsize=600
         self._root.columnconfigure(2, weight=1)
 
         # top row that shows button links for all months (navigation bar)
+        # refactor this part so that it is shorter
         frame_months_row = tk.Frame(master=self._root, relief=tk.RAISED, borderwidth=1)
         button_jan = tk.Button(master=frame_months_row, text="JAN",
                                 command=(lambda: self.get_chosen_month_data(1)))
@@ -150,12 +144,12 @@ class UI:
             command=self.set_month_figures
         )
         button_save_figures.grid(row=8, column=1)
-        button_quit = ttk.Button(
+        """button_quit = ttk.Button(  # button de-activated
             master=frame_main,
             text="Quit",
-            command=self._root.quit
+            command=self._root.quit  # self.quit_program
         )
-        button_quit.grid(row=9, column=2)
+        button_quit.grid(row=9, column=2)"""
 
         # RECEIVED / SPENT column entry fields
         entry_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
@@ -167,31 +161,33 @@ class UI:
         entry_receivedspent_spending.grid(row=6, column=2, sticky="e")
         entry_receivedspent_debt.grid(row=7, column=2, sticky="e")
 
+    """def quit_program(self):  # this doesn't close the program for some reason
+        ok_to_quit = askokcancel('Verify quit', 'Are you sure you want to quit?')
+        print("ok_to_quit:", ok_to_quit)
+        if ok_to_quit:
+            self._root.quit"""
+
+    def create_all_months_table(self):
+        # move this to service.py
+        # in the final version all 4 values below should be 0, current values while developing
+        income = 2000
+        bills = 800
+        spending = 500
+        debt = 600
+        for i in range(1, 13):
+            month_name = service.get_month_name(i)
+            print("for loop i & month_name:", i, month_name)
+            created_month = em.Month(month_name, income+i, bills+i, spending+i, debt+i)
+            self.table_all_months.append(created_month)
+
     def set_month_figures(self):
         print("saving this month's figures")
-        print("get_month_number_and_name():", self.get_month_number_and_name())
-        month_number = self.get_month_number_and_name()[0]
+        # under construction
+        month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         self.table_all_months[month_number].set_income(self._chosen_month_planned_income)
-
-    def update_left_to_budget(self):
-        print("updating _chosen_month_left_to_budget")
-        # fix this so that it calculates correct left_to_budget
-        self._chosen_month_left_to_budget.set(str(123))
-
-    def get_month_number_and_name(self):
-        month_name = self._chosen_month.get()
-        dict = {"JANUARY": 1, "FEBRUARY": 2, "MARCH": 3, "APRIL": 4,
-                "MAY": 5,"JUNE": 6, "JULY": 7, "AUGUST": 8,
-                "SEPTEMBER": 9, "OCTOBER": 10, "NOVEMBER": 11, "DECEMBER": 12}
-        return (dict[month_name], month_name)
 
     def get_chosen_month(self):
         return self._chosen_month
-
-    def change_chosen_month(self):
-        print("changing month to JAN from:", self._chosen_month.get())
-        self._chosen_month.set("JANUARY")
-        print("self._chosen_month is now:", self._chosen_month.get())
 
     def get_chosen_month_data(self, month_number):
         print("get_chosen_month_data, month_number:", month_number)
@@ -218,7 +214,7 @@ class UI:
         top = Menu(self._root)
         self._root.config(menu=top)
         file = Menu(top, tearoff=False)
-        file.add_command(label='Open...', command=service.menu_bar_item_notdone, underline=0)
+        file.add_command(label='Open...', command=service.bar_item_notdone, underline=0)
         file.add_separator()
         file.add_command(label='Quit', command=self._root.quit, underline=0)
         top.add_cascade(label='File', menu=file, underline=0)
@@ -227,9 +223,21 @@ class UI:
         help_menu.add_command(label='Help', command=self.open_help_window, underline=0)
         top.add_cascade(label='Help', menu=help_menu, underline=0)
 
+    def create_tool_bar(self):
+        toolbar_left_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+        toolbar_center = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+        toolbar_right_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+        toolbar_left_side.grid(row=25, column=0)
+        toolbar_center.grid(row=25, column=1)
+        toolbar_right_side.grid(row=25, column=2, sticky='e')
+        tk.Button(toolbar_left_side, text='Year overview', command=service.bar_item_notdone).pack(side=tk.LEFT)
+        tk.Button(toolbar_center, text='Open', command=service.bar_item_notdone).pack(side=tk.LEFT)
+        tk.Button(toolbar_center, text='Help', command=self.open_help_window).pack(side=tk.LEFT)
+        tk.Button(toolbar_right_side, text='Quit', command=self._root.quit).pack(side=tk.RIGHT)
+
     def open_help_window(self):
         print("opening help window")
-        help_window_text_field = tk.Text(master=self._root, width=75, height=10)
+        help_window_text_field = tk.Text(master=self._root, width=75, height=7)
         help_window_text_field.insert("1.0", "HELP - how to use the program")
         help_window_text_field.insert("2.0", "\nEnter your income and expenses in respective fields.")
         help_window_text_field.insert("3.0", "\nClick 'Save figures' to save figures.")
@@ -237,4 +245,4 @@ class UI:
         help_window_text_field.insert("4.0", nav_text)
         help_window_text_field.insert("5.0", "Left to budget shows how much you have left to allocate.")
         help_window_text_field.place(x=30, y=300)
-        # add button for text_field closing
+        # add button for help_window closing
