@@ -35,7 +35,7 @@ poetry run invoke test
 
 2. Testikattavuusraportin voi generoida:
 ```bash
-poetry run invoke coverage-report
+poetry run invoke coverage
 ```
 ja tämän jälkeen
 ```bash

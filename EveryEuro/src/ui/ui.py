@@ -1,7 +1,8 @@
 from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
+import tkinter as tk
 import entities.month as em
 import services.service as service
-import tkinter as tk
+import services.help_window as hp
 from datetime import datetime
 
 class UI:
@@ -23,11 +24,11 @@ class UI:
         self.table_all_months = service.create_all_months_table()
 
     def start(self):
-        self.create_menu_bar()
-        self.create_tool_bar()
-
-        self._root.rowconfigure(4, weight=1)  # minsize=600
+        self._root.rowconfigure(4, weight=1)
         self._root.columnconfigure(2, weight=1)
+
+        service.create_menu_bar(self._root)
+        service.create_tool_bar(self._root)
 
         # top row that shows button links for all months (navigation bar)
         # refactor this part so that it is shorter
@@ -95,47 +96,13 @@ class UI:
         # main window frame displaying budgeting items
         frame_main = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         frame_main.grid(row=3, column=1, padx=10, pady=10)
-        text_item_category = StringVar()
-        text_item_category.set("CATEGORY")
-        label_item_category = tk.Label(master=frame_main, textvariable=text_item_category)
-        label_item_category.grid(row=3, column=0, sticky="w")
-        text_planned_column = StringVar()
-        text_planned_column.set("PLANNED")
-        label_planned_column = tk.Label(master=frame_main, textvariable=text_planned_column)
-        label_planned_column.grid(row=3, column=1)
-        text_receivedspent_column = StringVar()
-        text_receivedspent_column.set("RECEIVED / SPENT")
-        label_receivedspent_column = tk.Label(master=frame_main, textvariable=text_receivedspent_column)
-        label_receivedspent_column.grid(row=3, column=2)
+        service.create_column_titles(frame_main)
 
         # CATEGORY column texts
-        text_income = StringVar()
-        text_rent = StringVar()
-        text_bills = StringVar()
-        text_spending = StringVar()
-        text_debt_service = StringVar()
-        text_saving = StringVar()
-        text_income.set("Income")
-        text_rent.set("Rent / mortgage")
-        text_bills.set("Bills")
-        text_spending.set("Spending  ")
-        text_debt_service.set("Debt service")
-        text_saving.set("Saving")
-        label_income = tk.Label(master=frame_main, textvariable=text_income)
-        label_rent = tk.Label(master=frame_main, textvariable=text_rent)
-        label_bills = tk.Label(master=frame_main, textvariable=text_bills)
-        label_spending = tk.Label(master=frame_main, textvariable=text_spending)
-        label_debt_service = tk.Label(master=frame_main, textvariable=text_debt_service)
-        label_saving = tk.Label(master=frame_main, textvariable=text_saving)
-        label_income.grid(row=4, column=0, sticky="w")
-        label_rent.grid(row=5, column=0, sticky="w")
-        label_bills.grid(row=6, column=0, sticky="w")
-        label_spending.grid(row=7, column=0, sticky="w")
-        label_debt_service.grid(row=8, column=0, sticky="w")
-        label_saving.grid(row=9, column=0, sticky="w")
+        service.create_category_column_texts(frame_main)
 
         # PLANNED column entry fields
-        width_entry_field = 17
+        width_entry_field = 15
         self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width_entry_field)
@@ -178,13 +145,27 @@ class UI:
             self._root.quit"""
 
     def save_month_figures(self):
-        print("saving this month's figures")
-        # under construction
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
-        self.table_all_months[month_number].set_income(self._chosen_month_planned_income)
-
-    def get_chosen_month(self):
-        return self._chosen_month
+        income = str(0) if self._chosen_month_planned_income.get() == '' \
+            else self._chosen_month_planned_income.get()
+        rent = str(0) if self._chosen_month_planned_rent.get() == '' \
+            else self._chosen_month_planned_rent.get()
+        bills = str(0) if self._chosen_month_planned_bills.get() == '' \
+            else self._chosen_month_planned_bills.get()
+        spending = str(0) if self._chosen_month_planned_spending.get() == '' \
+            else self._chosen_month_planned_spending.get()
+        debt_service = str(0) if self._chosen_month_planned_debt_service.get() == '' \
+            else self._chosen_month_planned_debt_service.get()
+        saving = str(0) if self._chosen_month_planned_saving.get() == '' \
+            else self._chosen_month_planned_saving.get()
+        self.table_all_months[month_number].set_income(int(income))
+        self.table_all_months[month_number].set_rent(int(rent))
+        self.table_all_months[month_number].set_bills(int(bills))
+        self.table_all_months[month_number].set_spending(int(spending))
+        self.table_all_months[month_number].set_debt_service(int(debt_service))
+        self.table_all_months[month_number].set_saving(int(saving))
+        self._chosen_month_left_to_budget.set(service.calculate_left_to_budget(
+            int(income), int(rent), int(bills), int(spending), int(debt_service), int(saving)))
 
     def get_chosen_month_data(self, month_number):
         print("get_chosen_month_data, month_number:", month_number)
@@ -196,8 +177,6 @@ class UI:
         debt_service = self.table_all_months[month_number].get_debt_service()
         saving = self.table_all_months[month_number].get_saving()
         left_to_budget = service.calculate_left_to_budget(income, rent, bills, spending, debt_service, saving)
-        print("table_all_months name  :", month_name)
-        print("table_all_months income:", income)
         self._chosen_month.set(month_name)
         self._chosen_month_left_to_budget.set(left_to_budget)
         self._chosen_month_planned_income.delete(0, tk.END)
@@ -212,40 +191,3 @@ class UI:
         self._chosen_month_planned_debt_service.insert(0, debt_service)
         self._chosen_month_planned_saving.delete(0, tk.END)
         self._chosen_month_planned_saving.insert(0, saving)
-
-    def create_menu_bar(self):
-        top = Menu(self._root)
-        self._root.config(menu=top)
-        file = Menu(top, tearoff=False)
-        file.add_command(label='Open...', command=service.bar_item_notdone, underline=0)
-        file.add_separator()
-        file.add_command(label='Quit', command=self._root.quit, underline=0)
-        top.add_cascade(label='File', menu=file, underline=0)
-
-        help_menu = Menu(top, tearoff=False)
-        help_menu.add_command(label='Help', command=self.open_help_window, underline=0)
-        top.add_cascade(label='Help', menu=help_menu, underline=0)
-
-    def create_tool_bar(self):
-        toolbar_left_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
-        toolbar_center = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
-        toolbar_right_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
-        toolbar_left_side.grid(row=25, column=0)
-        toolbar_center.grid(row=25, column=1)
-        toolbar_right_side.grid(row=25, column=2, sticky='e')
-        tk.Button(toolbar_left_side, text='Year overview', command=service.bar_item_notdone).pack(side=tk.LEFT)
-        tk.Button(toolbar_center, text='Open', command=service.bar_item_notdone).pack(side=tk.LEFT)
-        tk.Button(toolbar_center, text='Help', command=self.open_help_window).pack(side=tk.LEFT)
-        tk.Button(toolbar_right_side, text='Quit', command=self._root.quit).pack(side=tk.RIGHT)
-
-    def open_help_window(self):
-        print("opening help window")
-        help_window_text_field = tk.Text(master=self._root, width=75, height=7)
-        help_window_text_field.insert("1.0", "HELP - how to use the program")
-        help_window_text_field.insert("2.0", "\nEnter your monthly income and expenses in respective fields.")
-        help_window_text_field.insert("3.0", "\nClick 'Save figures' to save figures.")
-        nav_text = "\nNavigate between months by clicking the month buttons on top of the window."
-        help_window_text_field.insert("4.0", nav_text)
-        help_window_text_field.insert("5.0", "Left to budget shows how much you have left to allocate.")
-        help_window_text_field.place(x=30, y=320)
-        # add button for help_window closing or change text_field to window

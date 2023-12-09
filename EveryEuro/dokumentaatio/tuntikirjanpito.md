@@ -44,6 +44,13 @@
 05.12. |  6h  | Työkalupalkki sivun alareunassa. Rent/mortgage ja Saving -erät lisätty. Toimintoja siirretty käyttöliittymästä service -moduuliin. Lisää testejä. |
 
 
+## Viikko 5
+
+ Pvm   | Aika | Aktiviteetti |
+-------|------|--------------|
+09.12. |  3h  | Menu Bar, Toolbar, Help -ikkuna sekä sarake- ja riviotsikoiden luonti siirretty käyttöliittymästä service:n vastuulle. Käyttäjä voi nyt muuttaa 'planned' -lukuja. |
+
+
 ## Yhteensä
  Vko  | Aika(h) |
 ------|---------|
@@ -52,3 +59,4 @@
 |  3  |     7   |
 |  4  |    10   |
 |  5  |    18   |
+|  6  |         |

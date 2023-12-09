@@ -25,14 +25,29 @@ class Month:
     def get_rent(self):
         return self.rent
 
+    def set_rent(self, new_rent):
+        self.rent = new_rent
+
     def get_bills(self):
         return self.bills
+
+    def set_bills(self, new_bills):
+        self.bills = new_bills
 
     def get_spending(self):
         return self.spending
 
+    def set_spending(self, new_spending):
+        self.spending = new_spending
+
     def get_debt_service(self):
         return self.debt_service
 
+    def set_debt_service(self, new_debt_service):
+        self.debt_service = new_debt_service
+
     def get_saving(self):
         return self.saving
+
+    def set_saving(self, new_saving):
+        self.saving = new_saving
