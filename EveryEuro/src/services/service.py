@@ -1,6 +1,7 @@
 """ Services module """
 
-from tkinter import Frame, Menu, Label, Text, Button, SUNKEN, RIGHT, LEFT, StringVar
+import sys
+from tkinter import Frame, Menu, Label, Text, Button, SUNKEN, RIGHT, LEFT, StringVar, Toplevel
 from tkinter.messagebox import showerror
 import entities.month as em
 
@@ -28,25 +29,19 @@ def get_month_number_and_name(chosen_month):
             "SEPTEMBER": 9, "OCTOBER": 10, "NOVEMBER": 11, "DECEMBER": 12}
     return (dict_months[month_name], month_name)
 
-def get_chosen_month(self):  # not necessary?
-    return self._chosen_month
+#def get_chosen_month(self):  # not necessary?
+#    return self._chosen_month
 
 def create_all_months_table():
-    table_all_months = ["empty cell"]
-    income = 0
-    rent = 0
-    bills = 0
-    spending = 0
-    debt_service = 0
-    saving = 0
+    """ Creating month data with default values 0 for all entry fields """
+    table_all_months = ["empty cell"]  # leaving index 0 empty
     for i in range(1, 13):
-        month_name = get_month_name(i)
-        created_month = em.Month(month_name, income, rent, bills, spending,
-                                    debt_service, saving)
+        created_month = em.Month(get_month_name(i), 0, 0, 0, 0, 0, 0)
         table_all_months.append(created_month)
     return table_all_months
 
 def create_menu_bar(root):
+    """ Creating menu bar """
     top = Menu(root)
     root.config(menu=top)
     file = Menu(top, tearoff=False)
@@ -56,35 +51,48 @@ def create_menu_bar(root):
     top.add_cascade(label='File', menu=file, underline=0)
 
     help_menu = Menu(top, tearoff=False)
-    #help_menu.add_command(label='Help', command=open_help_window(root), underline=0)
+    help_menu.add_command(label='Help', command=open_help_window, underline=0)
     top.add_cascade(label='Help', menu=help_menu, underline=0)
 
 def create_tool_bar(root):
+    """ Creating tool bar, placed on bottom of the screen """
     toolbar_left_side = Frame(master=root, cursor='hand2', relief=SUNKEN, borderwidth=1)
     toolbar_center = Frame(master=root, cursor='hand2', relief=SUNKEN, borderwidth=1)
     toolbar_right_side = Frame(master=root, cursor='hand2', relief=SUNKEN, borderwidth=1)
     toolbar_left_side.grid(row=25, column=0)
     toolbar_center.grid(row=25, column=1)
     toolbar_right_side.grid(row=25, column=2, sticky='e')
-    Button(toolbar_left_side, text='Year overview', command=bar_item_notdone).pack(side=LEFT)
+    Button(toolbar_left_side, text='Year overview', command=open_year_overview_window).pack(side=LEFT)
     Button(toolbar_center, text='Open', command=bar_item_notdone).pack(side=LEFT)
-    #tk.Button(toolbar_center, text='Help', command=self.open_help_window).pack(side=tk.LEFT)
-    Button(toolbar_center, text='Help', command=open_help_window(root)).pack(side=LEFT)
+    Button(toolbar_center, text='Help', command=open_help_window).pack(side=LEFT)
     Button(toolbar_right_side, text='Quit', command=root.quit).pack(side=RIGHT)
 
-def open_help_window(root):
-    print("opening help window")
-    """help_window_text_field = Text(master=root, width=75, height=7)
-    help_window_text_field.insert("1.0", "HELP - how to use the program")
-    help_window_text_field.insert("2.0", "\nEnter your monthly income and expenses in respective fields.")
-    help_window_text_field.insert("3.0", "\nClick 'Save figures' to save figures.")
+def open_help_window():
+    """ Opens help window that explains how to use the program """
+    help_window = Toplevel()
+    help_window.title("Help")
+    help_window.geometry("670x200")
+    help_window_text_field = Text(master=help_window, width=80, height=6)
+    help_window_text_field.insert("1.0", "How to use the program:")
+    help_window_text_field.insert("2.0", "\nEnter your monthly planned income and expenses in respective fields.")
+    help_window_text_field.insert("3.0", "\nClick 'Save planned' to save figures.")
+    actual_text = "\nDuring the month, enter actual income and expenses, and click 'Save rec./spent'."
+    help_window_text_field.insert("4.0", actual_text)
     nav_text = "\nNavigate between months by clicking the month buttons on top of the window."
-    help_window_text_field.insert("4.0", nav_text)
-    help_window_text_field.insert("5.0", "Left to budget shows how much you have left to allocate.")
-    help_window_text_field.place(x=30, y=320)"""
-    # add button for help_window closing or change text_field to window
+    help_window_text_field.insert("5.0", nav_text)
+    help_window_text_field.insert("6.0", "\nLeft to budget shows how much you have left to allocate.")
+    help_window_text_field.place(x=10, y=10)
+    Button(help_window, text='Got it! Close Help', command=help_window.destroy).place(x=260, y=140)
+
+def open_year_overview_window():
+    year_overview_window = Toplevel()
+    year_overview_window.title("Year overview")
+    year_overview_window.geometry("670x500")
+    # data comes here
+    Button(year_overview_window, text='Close overview', command=year_overview_window.destroy).place(x=260, y=400)
 
 def create_column_titles(frame_main):
+    """ Creating column title that are on first row of each column """
     text_item_category = StringVar()
     text_item_category.set("CATEGORY")
     label_item_category = Label(master=frame_main, textvariable=text_item_category)
@@ -99,6 +107,7 @@ def create_column_titles(frame_main):
     label_receivedspent_column.grid(row=3, column=2)
 
 def create_category_column_texts(frame_main):
+    """ Creating text that are in the CATEGORY column """
     text_income = StringVar()
     text_rent = StringVar()
     text_bills = StringVar()
@@ -108,7 +117,7 @@ def create_category_column_texts(frame_main):
     text_income.set("Income")
     text_rent.set("Rent / mortgage")
     text_bills.set("Bills")
-    text_spending.set("Spending  ")
+    text_spending.set("Spending")
     text_debt_service.set("Debt service")
     text_saving.set("Saving")
     label_income = Label(master=frame_main, textvariable=text_income)

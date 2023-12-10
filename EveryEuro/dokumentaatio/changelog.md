@@ -35,6 +35,9 @@
 * Rent / mortgage ja Saving -erät
 
 ## Viikko 6
-* Käyttäjä voi nyt muuttaa 'planned' -lukuja ja ne ovat tallennettuina niin kauan kuin ohjelma on käynnissä
 * Menu Bar, Toolbar, Help -ikkuna, sarake- ja riviotsikoiden luonti siirretty käyttöliittymästä service:n vastuulle.
+* Käyttäjä voi nyt muuttaa 'planned' -lukuja ja ne ovat tallennettuina niin kauan kuin ohjelma on käynnissä
+* Käyttäjä voi nyt muuttaa 'received/spent' -lukuja ja ne ovat tallennettuina niin kauan kuin ohjelma on käynnissä
+* Help Window muutettu tekstikentästä ikkunaksi ja sen voi sulkea
+* Year overview -nappi toimii ja avaa ikkunan. Dataa ei ikkunassa vielä ole.
 * 

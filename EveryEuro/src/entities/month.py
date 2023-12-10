@@ -4,7 +4,6 @@ class Month:
     """ Every month is an object """
 
     def __init__(self, month_name, income=0, rent=0, bills=0, spending=0, debt_service=0, saving=0):
-        print("creating new month:", month_name)
         self.month_name = month_name
         self.income = income
         self.rent = rent

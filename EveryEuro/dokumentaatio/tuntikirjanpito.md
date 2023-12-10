@@ -49,7 +49,7 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 09.12. |  3h  | Menu Bar, Toolbar, Help -ikkuna sekä sarake- ja riviotsikoiden luonti siirretty käyttöliittymästä service:n vastuulle. Käyttäjä voi nyt muuttaa 'planned' -lukuja. |
-10.12. |      | Käyttäjä voi syöttää, muuttaa ja tallentaa 'received/spent' -lukuja. |
+10.12. |      | Käyttäjä voi syöttää, muuttaa ja tallentaa 'received/spent' -lukuja. Help Window muutettu tekstikentästä ikkunaksi. |
 
 
 ## Yhteensä

@@ -83,6 +83,7 @@ class UI:
         frame_chosen_month = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         self._chosen_month = StringVar()
         self._chosen_month.set(service.get_month_name(datetime.now().month))  # e.g. 12 = December
+        # add get_chosen_month_data here so that chosen month figures are displayed at start
         label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=self._chosen_month)
         label_chosen_month.grid(row=1, column=0)
         frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
@@ -132,7 +133,6 @@ class UI:
         button_save_planned_figures.grid(row=10, column=1)
 
         # RECEIVED / SPENT column entry fields
-        # under construction
         self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width_entry_field)
@@ -204,7 +204,6 @@ class UI:
         self.table_all_months_receivedspent[month_number].set_saving(int(saving))
 
     def get_chosen_month_data(self, month_number):
-        print("get_chosen_month_data, month_number:", month_number)
         month_name = self.table_all_months_planned[month_number].get_month_name()
         income_planned = self.table_all_months_planned[month_number].get_income()
         rent_planned = self.table_all_months_planned[month_number].get_rent()
