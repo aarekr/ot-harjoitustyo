@@ -21,7 +21,15 @@ class UI:
         self._chosen_month_planned_debt_service = None  # debt interest and repaiment
         self._chosen_month_planned_saving = None        # saving => this should change left_to_balance to 0
 
-        self.table_all_months = service.create_all_months_table()
+        self._chosen_month_receivedspent_income = None
+        self._chosen_month_receivedspent_rent = None
+        self._chosen_month_receivedspent_bills = None
+        self._chosen_month_receivedspent_spending = None
+        self._chosen_month_receivedspent_debt_service = None
+        self._chosen_month_receivedspent_saving = None
+
+        self.table_all_months_planned = service.create_all_months_table()
+        self.table_all_months_receivedspent = service.create_all_months_table()
 
     def start(self):
         self._root.rowconfigure(4, weight=1)
@@ -102,7 +110,7 @@ class UI:
         service.create_category_column_texts(frame_main)
 
         # PLANNED column entry fields
-        width_entry_field = 15
+        width_entry_field = 16
         self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width_entry_field)
         self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width_entry_field)
@@ -115,28 +123,34 @@ class UI:
         self._chosen_month_planned_spending.grid(row=7, column=1, sticky="e")
         self._chosen_month_planned_debt_service.grid(row=8, column=1, sticky="e")
         self._chosen_month_planned_saving.grid(row=9, column=1, sticky="e")
-        # button for entering and saving numbers for a new month
-        button_save_figures = tk.Button(
+        # button for entering, changing and saving numbers for chosen month
+        button_save_planned_figures = tk.Button(
             master=frame_main,
-            text="Save figures",
-            command=self.save_month_figures
+            text="Save planned",
+            command=self.save_month_planned_figures
         )
-        button_save_figures.grid(row=10, column=1)
+        button_save_planned_figures.grid(row=10, column=1)
 
         # RECEIVED / SPENT column entry fields
         # under construction
-        entry_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_rent = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_bills = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_spending = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_debt_service = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_saving = tk.Entry(master=frame_main, width=width_entry_field)
-        entry_receivedspent_income.grid(row=4, column=2, sticky="e")
-        entry_receivedspent_rent.grid(row=5, column=2, sticky="e")
-        entry_receivedspent_bills.grid(row=6, column=2, sticky="e")
-        entry_receivedspent_spending.grid(row=7, column=2, sticky="e")
-        entry_receivedspent_debt_service.grid(row=8, column=2, sticky="e")
-        entry_receivedspent_saving.grid(row=9, column=2, sticky="e")
+        self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_receivedspent_spending = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_receivedspent_debt_service = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_receivedspent_saving = tk.Entry(master=frame_main, width=width_entry_field)
+        self._chosen_month_receivedspent_income.grid(row=4, column=2, sticky="e")
+        self._chosen_month_receivedspent_rent.grid(row=5, column=2, sticky="e")
+        self._chosen_month_receivedspent_bills.grid(row=6, column=2, sticky="e")
+        self._chosen_month_receivedspent_spending.grid(row=7, column=2, sticky="e")
+        self._chosen_month_receivedspent_debt_service.grid(row=8, column=2, sticky="e")
+        self._chosen_month_receivedspent_saving.grid(row=9, column=2, sticky="e")
+        button_save_receivedspent_figures = tk.Button(
+            master=frame_main,
+            text="Save rec./spent",
+            command=self.save_month_receivedspent_figures
+        )
+        button_save_receivedspent_figures.grid(row=10, column=2)
 
     """def quit_program(self):  # this doesn't close the program for some reason
         ok_to_quit = askokcancel('Verify quit', 'Are you sure you want to quit?')
@@ -144,7 +158,7 @@ class UI:
         if ok_to_quit:
             self._root.quit"""
 
-    def save_month_figures(self):
+    def save_month_planned_figures(self):
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         income = str(0) if self._chosen_month_planned_income.get() == '' \
             else self._chosen_month_planned_income.get()
@@ -158,36 +172,78 @@ class UI:
             else self._chosen_month_planned_debt_service.get()
         saving = str(0) if self._chosen_month_planned_saving.get() == '' \
             else self._chosen_month_planned_saving.get()
-        self.table_all_months[month_number].set_income(int(income))
-        self.table_all_months[month_number].set_rent(int(rent))
-        self.table_all_months[month_number].set_bills(int(bills))
-        self.table_all_months[month_number].set_spending(int(spending))
-        self.table_all_months[month_number].set_debt_service(int(debt_service))
-        self.table_all_months[month_number].set_saving(int(saving))
+        self.table_all_months_planned[month_number].set_income(int(income))
+        self.table_all_months_planned[month_number].set_rent(int(rent))
+        self.table_all_months_planned[month_number].set_bills(int(bills))
+        self.table_all_months_planned[month_number].set_spending(int(spending))
+        self.table_all_months_planned[month_number].set_debt_service(int(debt_service))
+        self.table_all_months_planned[month_number].set_saving(int(saving))
         self._chosen_month_left_to_budget.set(service.calculate_left_to_budget(
             int(income), int(rent), int(bills), int(spending), int(debt_service), int(saving)))
 
+    def save_month_receivedspent_figures(self):
+        print("saving receivedspent figures")
+        month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
+        income = str(0) if self._chosen_month_receivedspent_income.get() == '' \
+            else self._chosen_month_receivedspent_income.get()
+        rent = str(0) if self._chosen_month_receivedspent_rent.get() == '' \
+            else self._chosen_month_receivedspent_rent.get()
+        bills = str(0) if self._chosen_month_receivedspent_bills.get() == '' \
+            else self._chosen_month_receivedspent_bills.get()
+        spending = str(0) if self._chosen_month_receivedspent_spending.get() == '' \
+            else self._chosen_month_receivedspent_spending.get()
+        debt_service = str(0) if self._chosen_month_receivedspent_debt_service.get() == '' \
+            else self._chosen_month_receivedspent_debt_service.get()
+        saving = str(0) if self._chosen_month_receivedspent_saving.get() == '' \
+            else self._chosen_month_receivedspent_saving.get()
+        self.table_all_months_receivedspent[month_number].set_income(int(income))
+        self.table_all_months_receivedspent[month_number].set_rent(int(rent))
+        self.table_all_months_receivedspent[month_number].set_bills(int(bills))
+        self.table_all_months_receivedspent[month_number].set_spending(int(spending))
+        self.table_all_months_receivedspent[month_number].set_debt_service(int(debt_service))
+        self.table_all_months_receivedspent[month_number].set_saving(int(saving))
+
     def get_chosen_month_data(self, month_number):
         print("get_chosen_month_data, month_number:", month_number)
-        month_name = self.table_all_months[month_number].get_month_name()
-        income = self.table_all_months[month_number].get_income()
-        rent = self.table_all_months[month_number].get_rent()
-        bills = self.table_all_months[month_number].get_bills()
-        spending = self.table_all_months[month_number].get_spending()
-        debt_service = self.table_all_months[month_number].get_debt_service()
-        saving = self.table_all_months[month_number].get_saving()
-        left_to_budget = service.calculate_left_to_budget(income, rent, bills, spending, debt_service, saving)
+        month_name = self.table_all_months_planned[month_number].get_month_name()
+        income_planned = self.table_all_months_planned[month_number].get_income()
+        rent_planned = self.table_all_months_planned[month_number].get_rent()
+        bills_planned = self.table_all_months_planned[month_number].get_bills()
+        spending_planned = self.table_all_months_planned[month_number].get_spending()
+        debt_service_planned = self.table_all_months_planned[month_number].get_debt_service()
+        saving_planned = self.table_all_months_planned[month_number].get_saving()
+        left_to_budget = service.calculate_left_to_budget(income_planned, rent_planned,
+            bills_planned, spending_planned, debt_service_planned, saving_planned)
         self._chosen_month.set(month_name)
         self._chosen_month_left_to_budget.set(left_to_budget)
         self._chosen_month_planned_income.delete(0, tk.END)
-        self._chosen_month_planned_income.insert(0, income)
+        self._chosen_month_planned_income.insert(0, income_planned)
         self._chosen_month_planned_rent.delete(0, tk.END)
-        self._chosen_month_planned_rent.insert(0, rent)
+        self._chosen_month_planned_rent.insert(0, rent_planned)
         self._chosen_month_planned_bills.delete(0, tk.END)
-        self._chosen_month_planned_bills.insert(0, bills)
+        self._chosen_month_planned_bills.insert(0, bills_planned)
         self._chosen_month_planned_spending.delete(0, tk.END)
-        self._chosen_month_planned_spending.insert(0, spending)
+        self._chosen_month_planned_spending.insert(0, spending_planned)
         self._chosen_month_planned_debt_service.delete(0, tk.END)
-        self._chosen_month_planned_debt_service.insert(0, debt_service)
+        self._chosen_month_planned_debt_service.insert(0, debt_service_planned)
         self._chosen_month_planned_saving.delete(0, tk.END)
-        self._chosen_month_planned_saving.insert(0, saving)
+        self._chosen_month_planned_saving.insert(0, saving_planned)
+
+        self._chosen_month_receivedspent_income.delete(0, tk.END)
+        self._chosen_month_receivedspent_income.insert(0,
+            self.table_all_months_receivedspent[month_number].get_income())
+        self._chosen_month_receivedspent_rent.delete(0, tk.END)
+        self._chosen_month_receivedspent_rent.insert(0,
+            self.table_all_months_receivedspent[month_number].get_rent())
+        self._chosen_month_receivedspent_bills.delete(0, tk.END)
+        self._chosen_month_receivedspent_bills.insert(0,
+            self.table_all_months_receivedspent[month_number].get_bills())
+        self._chosen_month_receivedspent_spending.delete(0, tk.END)
+        self._chosen_month_receivedspent_spending.insert(0,
+            self.table_all_months_receivedspent[month_number].get_spending())
+        self._chosen_month_receivedspent_debt_service.delete(0, tk.END)
+        self._chosen_month_receivedspent_debt_service.insert(0,
+            self.table_all_months_receivedspent[month_number].get_debt_service())
+        self._chosen_month_receivedspent_saving.delete(0, tk.END)
+        self._chosen_month_receivedspent_saving.insert(0,
+            self.table_all_months_receivedspent[month_number].get_saving())

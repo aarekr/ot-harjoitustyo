@@ -1,5 +1,5 @@
-# ot-harjoitustyö
-Ohjelmistotekniikka, harjoitustyö (periodi 2) 2023
+# Ohjelmistotekniikka, harjoitustyö
+Ohjelmistotekniikka (periodi 2) 2023
 
 ## EveryEuro Budget
 * Harjoitustyön aihe: EveryEuro -budjetointisovellus
