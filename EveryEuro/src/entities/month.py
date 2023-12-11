@@ -1,7 +1,16 @@
 """ Month objects """
 
 class Month:
-    """ Every month is an object """
+    """Class, handling months as objects.
+    Attributes:
+        month_name: month as a string
+        income: planned/expected income for current month
+        rent: planned rent/mortgage for current month
+        bills: planned bills for current month
+        spending: planned spending for current month
+        debt_service: planned debt servicing for current month
+        saving: planned saving for current month
+    """
 
     def __init__(self, month_name, income=0, rent=0, bills=0, spending=0, debt_service=0, saving=0):
         self.month_name = month_name

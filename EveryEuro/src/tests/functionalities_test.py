@@ -57,6 +57,32 @@ class TestFunctionalities(unittest.TestCase):
         nov.set_income(2989)
         self.assertEqual(nov.get_income(), 2989)
 
+    def test_set_rent(self):
+        octo = em.Month("OCTOBER", 2900, 700, 180, 495, 230)
+        octo.set_rent(777)
+        self.assertEqual(octo.get_rent(), 777)
+
+    def test_set_bills(self):
+        sep = em.Month("SEPTEMBER", 2850, 888, 200, 500, 220)
+        sep.set_bills(222)
+        self.assertEqual(sep.get_bills(), 222)
+        self.assertNotEqual(sep.get_bills(), 200)
+
+    def test_set_spending(self):
+        aug = em.Month("AUGUST", 2800, 808, 288, 555, 245)
+        aug.set_spending(600)
+        self.assertEqual(aug.get_spending(), 600)
+
+    def test_set_debt_service(self):
+        july = em.Month("JULY", 2750, 780, 300, 500, 220)
+        july.set_debt_service(1000)
+        self.assertEqual(july.get_debt_service(), 1000)
+
+    def test_set_saving(self):
+        june = em.Month("JUNE", 2700, 750, 333, 543, 234, 123)
+        june.set_saving(800)
+        self.assertEqual(june.get_saving(), 800)
+
     # testing month name and number values
     def test_get_month_name_has_correct_name_corresponding_to_number(self):
         self.assertEqual(service.get_month_name(3), "MARCH")

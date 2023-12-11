@@ -2,7 +2,6 @@ from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
 import tkinter as tk
 import entities.month as em
 import services.service as service
-import services.help_window as hp
 from datetime import datetime
 
 class UI:

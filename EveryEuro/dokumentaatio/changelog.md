@@ -40,4 +40,4 @@
 * Käyttäjä voi nyt muuttaa 'received/spent' -lukuja ja ne ovat tallennettuina niin kauan kuin ohjelma on käynnissä
 * Help Window muutettu tekstikentästä ikkunaksi ja sen voi sulkea
 * Year overview -nappi toimii ja avaa ikkunan. Dataa ei ikkunassa vielä ole.
-* 
+* Docstring -dokumentointi

@@ -30,3 +30,4 @@
 * TkInter ja graafisen käyttöliittymän toteutus. Helsingin yliopisto. https://ohjelmistotekniikka-hy.github.io/python/tkinter
 * Python GUI Programming With Tkinter. David Amos. https://realpython.com/python-gui-tkinter
 * Programming Python. Mark Lutz. O'Reilly Media. (2011)
+* Time delay Tkinter. Stackoverflow.com, https://stackoverflow.com/questions/19887729/time-delay-tkinter

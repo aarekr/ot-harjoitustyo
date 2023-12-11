@@ -1,5 +1,5 @@
-# Ohjelmistotekniikka, harjoitustyö
-Ohjelmistotekniikka (periodi 2) 2023
+# EveryEuro
+Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
 
 ## EveryEuro Budget
 * Harjoitustyön aihe: EveryEuro -budjetointisovellus
