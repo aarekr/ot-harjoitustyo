@@ -17,7 +17,7 @@
 * Käyttäjä voi sulkea ohjelman ikkunassa olevasta Quit -napista tai valikosta (tehty)
 * Käyttäjä voi painaa Help -nappia tai valitsemalla valikosta ja hänelle näytetään ohje miten ohjelmaa käytetään (tehty)
 * Syötetyt tulot ja menot tallennetaan .csv -tiedostoon
-* Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä (nappi olemassa, toiminto puuttuu)
+* Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä (nappi avaa ikkunan, tiedot puuttuvat)
 
 ## Yleistä
 * Ohjelmointikieli ja versio: Python 3.8
@@ -27,7 +27,7 @@
 * Sovelluksen kieli: englanti
 
 ## Lähteet
-* TkInter ja graafisen käyttöliittymän toteutus. Helsingin yliopisto. https://ohjelmistotekniikka-hy.github.io/python/tkinter
+* Tkinter ja graafisen käyttöliittymän toteutus. Helsingin yliopisto. https://ohjelmistotekniikka-hy.github.io/python/tkinter
 * Python GUI Programming With Tkinter. David Amos. https://realpython.com/python-gui-tkinter
 * Programming Python. Mark Lutz. O'Reilly Media. (2011)
-* Time delay Tkinter. Stackoverflow.com, https://stackoverflow.com/questions/19887729/time-delay-tkinter
+* Time delay Tkinter. Stackoverflow.com. https://stackoverflow.com/questions/19887729/time-delay-tkinter

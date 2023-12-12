@@ -1,13 +1,17 @@
+""" User Interface """
+
 from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
 import tkinter as tk
-import entities.month as em
 import services.service as service
 from datetime import datetime
 
 class UI:
-    """ Application User Interface """
+    """Class that handles application user interface
+    """
 
     def __init__(self, root):
+        """Class constructor that creates the user interface
+        """
         self._root = root
 
         # these values are retrieved and shown in the window when month buttons are clicked
@@ -31,6 +35,9 @@ class UI:
         self.table_all_months_receivedspent = service.create_all_months_table()
 
     def start(self):
+        """Starts the user interface by creating the layout, menu bar, toolbar, buttons, texts, and
+           entry fields for numbers.
+        """
         self._root.rowconfigure(4, weight=1)
         self._root.columnconfigure(2, weight=1)
 
@@ -41,29 +48,29 @@ class UI:
         # refactor this part so that it is shorter
         frame_months_row = tk.Frame(master=self._root, relief=tk.RAISED, borderwidth=1)
         button_jan = tk.Button(master=frame_months_row, text="JAN",
-                                command=(lambda: self.get_chosen_month_data(1)))
+                                command=(lambda: self.get_and_display_chosen_month_data(1)))
         button_feb = tk.Button(master=frame_months_row, text="FEB",
-                                command=(lambda: self.get_chosen_month_data(2)))
+                                command=(lambda: self.get_and_display_chosen_month_data(2)))
         button_mar = tk.Button(master=frame_months_row, text="MAR",
-                                command=(lambda: self.get_chosen_month_data(3)))
+                                command=(lambda: self.get_and_display_chosen_month_data(3)))
         button_apr = tk.Button(master=frame_months_row, text="APR",
-                                command=(lambda: self.get_chosen_month_data(4)))
+                                command=(lambda: self.get_and_display_chosen_month_data(4)))
         button_may = tk.Button(master=frame_months_row, text="MAY",
-                                command=(lambda: self.get_chosen_month_data(5)))
+                                command=(lambda: self.get_and_display_chosen_month_data(5)))
         button_jun = tk.Button(master=frame_months_row, text="JUN",
-                                command=(lambda: self.get_chosen_month_data(6)))
+                                command=(lambda: self.get_and_display_chosen_month_data(6)))
         button_jul = tk.Button(master=frame_months_row, text="JUL",
-                                command=(lambda: self.get_chosen_month_data(7)))
+                                command=(lambda: self.get_and_display_chosen_month_data(7)))
         button_aug = tk.Button(master=frame_months_row, text="AUG",
-                                command=(lambda: self.get_chosen_month_data(8)))
+                                command=(lambda: self.get_and_display_chosen_month_data(8)))
         button_sep = tk.Button(master=frame_months_row, text="SEP",
-                                command=(lambda: self.get_chosen_month_data(9)))
+                                command=(lambda: self.get_and_display_chosen_month_data(9)))
         button_oct = tk.Button(master=frame_months_row, text="OCT",
-                                command=(lambda: self.get_chosen_month_data(10)))
+                                command=(lambda: self.get_and_display_chosen_month_data(10)))
         button_nov = tk.Button(master=frame_months_row, text="NOV",
-                                command=(lambda: self.get_chosen_month_data(11)))
+                                command=(lambda: self.get_and_display_chosen_month_data(11)))
         button_dec = tk.Button(master=frame_months_row, text="DEC",
-                                command=(lambda: self.get_chosen_month_data(12)))
+                                command=(lambda: self.get_and_display_chosen_month_data(12)))
         button_jan.grid(row=0, column=0)
         button_feb.grid(row=0, column=1)
         button_mar.grid(row=0, column=2)
@@ -82,7 +89,7 @@ class UI:
         frame_chosen_month = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         self._chosen_month = StringVar()
         self._chosen_month.set(service.get_month_name(datetime.now().month))  # e.g. 12 = December
-        # add get_chosen_month_data here so that chosen month figures are displayed at start
+        # add get_and_display_chosen_month_data here so that chosen month figures are displayed at start
         label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=self._chosen_month)
         label_chosen_month.grid(row=1, column=0)
         frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
@@ -158,6 +165,8 @@ class UI:
             self._root.quit"""
 
     def save_month_planned_figures(self):
+        """Saving month's planned column figures in the month object (not file)
+        """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         income = str(0) if self._chosen_month_planned_income.get() == '' \
             else self._chosen_month_planned_income.get()
@@ -181,7 +190,8 @@ class UI:
             int(income), int(rent), int(bills), int(spending), int(debt_service), int(saving)))
 
     def save_month_receivedspent_figures(self):
-        print("saving receivedspent figures")
+        """Saving month's received/spent figures in the month object (not file)
+        """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         income = str(0) if self._chosen_month_receivedspent_income.get() == '' \
             else self._chosen_month_receivedspent_income.get()
@@ -202,7 +212,9 @@ class UI:
         self.table_all_months_receivedspent[month_number].set_debt_service(int(debt_service))
         self.table_all_months_receivedspent[month_number].set_saving(int(saving))
 
-    def get_chosen_month_data(self, month_number):
+    def get_and_display_chosen_month_data(self, month_number):
+        """Getting the chosen month data and displaying figures in the window.
+        """
         month_name = self.table_all_months_planned[month_number].get_month_name()
         income_planned = self.table_all_months_planned[month_number].get_income()
         rent_planned = self.table_all_months_planned[month_number].get_rent()

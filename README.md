@@ -8,6 +8,7 @@ Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
 * Sovellus luotu Python 3.8 -versiolla
 
 ## Dokumentaatio
+* [Käyttöohje](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/kayttoohje.md)
 * [Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
 * [Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
 * [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)

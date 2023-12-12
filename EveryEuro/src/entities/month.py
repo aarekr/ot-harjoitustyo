@@ -1,4 +1,4 @@
-""" Month objects """
+""" Month object """
 
 class Month:
     """Class, handling months as objects.
@@ -13,6 +13,15 @@ class Month:
     """
 
     def __init__(self, month_name, income=0, rent=0, bills=0, spending=0, debt_service=0, saving=0):
+        """Class constructor that creates a month.
+        Args:
+            income: planned/received income for current month
+            rent: planned/spent rent/mortgage for current month
+            bills: planned/spent bills for current month
+            spending: planned/spent spending for current month
+            debt_service: planned/spent debt servicing for current month
+            saving: planned/spent saving for current month
+        """
         self.month_name = month_name
         self.income = income
         self.rent = rent

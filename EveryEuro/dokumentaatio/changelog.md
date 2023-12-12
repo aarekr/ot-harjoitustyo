@@ -41,3 +41,5 @@
 * Help Window muutettu tekstikentästä ikkunaksi ja sen voi sulkea
 * Year overview -nappi toimii ja avaa ikkunan. Dataa ei ikkunassa vielä ole.
 * Docstring -dokumentointi
+* Käyttöohjeen alustava versio
+* Muuttujien nimiin ja funktioihin selvennyksiä ja parannettu luettavuutta

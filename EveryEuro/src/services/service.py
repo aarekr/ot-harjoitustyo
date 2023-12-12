@@ -1,9 +1,8 @@
 """ Services module """
 
-import sys
-from tkinter import ttk, Frame, Menu, Label, Text, Button, SUNKEN, RIGHT, LEFT, HORIZONTAL, StringVar, Toplevel
+from tkinter import ttk, Frame, Menu, Label, Text, Button, SUNKEN, RIGHT, LEFT, HORIZONTAL, Toplevel
 from tkinter.messagebox import showerror
-import entities.month as em
+import entities.month
 
 def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving):
     """Calculating left to budget item shown in the top left part of the program window.
@@ -58,7 +57,7 @@ def create_all_months_table():
     """
     table_all_months = ["empty cell"]  # leaving index 0 empty
     for i in range(1, 13):
-        created_month = em.Month(get_month_name(i), 0, 0, 0, 0, 0, 0)
+        created_month = entities.month.Month(get_month_name(i), 0, 0, 0, 0, 0, 0)
         table_all_months.append(created_month)
     return table_all_months
 
@@ -69,6 +68,7 @@ def create_menu_bar(root):
     root.config(menu=top)
     file = Menu(top, tearoff=False)
     file.add_command(label='Open...', command=bar_item_notdone, underline=0)
+    file.add_command(label='Save to file', command=bar_item_notdone, underline=0)
     file.add_separator()
     file.add_command(label='Quit', command=root.quit, underline=0)
     top.add_cascade(label='File', menu=file, underline=0)
@@ -86,7 +86,8 @@ def create_tool_bar(root):
     toolbar_left_side.grid(row=25, column=0)
     toolbar_center.grid(row=25, column=1)
     toolbar_right_side.grid(row=25, column=2, sticky='e')
-    Button(toolbar_left_side, text='Year overview', command=open_year_overview_window).pack(side=LEFT)
+    Button(toolbar_left_side, text='Year overview',
+        command=open_year_overview_window).pack(side=LEFT)
     Button(toolbar_center, text='Open', command=bar_item_notdone).pack(side=LEFT)
     Button(toolbar_center, text='Help', command=open_help_window).pack(side=LEFT)
     Button(toolbar_right_side, text='Quit', command=root.quit).pack(side=RIGHT)
@@ -97,17 +98,18 @@ def open_help_window():
     help_window = Toplevel()
     help_window.title("Help")
     help_window.geometry("670x200")
-    help_window_text_field = Text(master=help_window, width=80, height=6)
-    help_window_text_field.insert("1.0", "How to use the program:")
-    help_window_text_field.insert("2.0", "\nEnter your monthly planned income and expenses in respective fields.")
-    help_window_text_field.insert("3.0", "\nClick 'Save planned' to save figures.")
-    actual_text = "\nDuring the month, enter actual income and expenses, and click 'Save rec./spent'."
-    help_window_text_field.insert("4.0", actual_text)
-    nav_text = "\nNavigate between months by clicking the month buttons on top of the window."
-    help_window_text_field.insert("5.0", nav_text)
-    help_window_text_field.insert("6.0", "\nLeft to budget shows how much you have left to allocate.")
+    help_window_text_field = Text(master=help_window, width=80, height=7)
+    table_row_texts = ["", "How to use the program:",
+        "\nEnter your monthly planned income and expenses in respective fields.",
+        "\nClick 'Save planned' to save the figures.",
+        "\nDuring the month, enter actual income and expenses.",
+        "\nClick 'Save rec./spent' to save the figures.",
+        "\nNavigate between months by clicking the month buttons on top of the window.",
+        "\nLeft to budget shows how much you have left to allocate this month."]
+    for row in range(1, 8):
+        help_window_text_field.insert(str(float(row)), table_row_texts[row])
     help_window_text_field.place(x=10, y=10)
-    Button(help_window, text='Got it! Close Help', command=help_window.destroy).place(x=260, y=140)
+    Button(help_window, text='Got it! Close Help', command=help_window.destroy).place(x=260, y=150)
 
 def open_year_overview_window():
     """Opens year overview window that summarizes this year's data.
@@ -118,10 +120,9 @@ def open_year_overview_window():
     year_overview_window.geometry("670x500")
     progress_bar = ttk.Progressbar(year_overview_window, orient=HORIZONTAL, length=200,
             value=0, mode='determinate')
-    text_ai_analyzes_year = StringVar()
-    text_ai_analyzes_year.set("Please wait while Artificial Intelligence analyzes your figures")
-    label_ai_analyzes = Label(master=year_overview_window, textvariable=text_ai_analyzes_year)
-    label_ai_analyzes.place(x=120, y=150)
+    label_ai_analyzes_year = Label(master=year_overview_window,
+        text='Please wait while Artificial Intelligence analyzes your budget')
+    label_ai_analyzes_year.place(x=120, y=150)
     progress_bar.place(x=220, y=200)
     progress_bar.after(1000, lambda: progress_bar.config(value=20))
     progress_bar.after(2000, lambda: progress_bar.config(value=40))
@@ -129,48 +130,31 @@ def open_year_overview_window():
     progress_bar.after(4000, lambda: progress_bar.config(value=80))
     progress_bar.after(5000, lambda: progress_bar.config(value=100))
     progress_bar.after(7000, lambda: progress_bar.destroy())
-    label_ai_analyzes.after(7000, lambda: label_ai_analyzes.destroy())
+    label_ai_analyzes_year.after(7000, lambda: label_ai_analyzes_year.destroy())
 
     # data comes here
-    Button(year_overview_window, text='Close overview', command=year_overview_window.destroy).place(x=260, y=400)
+    Button(year_overview_window, text='Close overview',
+        command=year_overview_window.destroy).place(x=260, y=400)
 
 def create_column_titles(frame_main):
     """Creating column title that are on first row of each column.
     """
-    text_item_category = StringVar()
-    text_item_category.set("CATEGORY")
-    label_item_category = Label(master=frame_main, textvariable=text_item_category)
+    label_item_category = Label(master=frame_main, text='CATEGORY')
     label_item_category.grid(row=3, column=0, sticky="w")
-    text_planned_column = StringVar()
-    text_planned_column.set("PLANNED")
-    label_planned_column = Label(master=frame_main, textvariable=text_planned_column)
+    label_planned_column = Label(master=frame_main, text='PLANNED')
     label_planned_column.grid(row=3, column=1)
-    text_receivedspent_column = StringVar()
-    text_receivedspent_column.set("RECEIVED / SPENT")
-    label_receivedspent_column = Label(master=frame_main, textvariable=text_receivedspent_column)
+    label_receivedspent_column = Label(master=frame_main, text='RECEIVED / SPENT')
     label_receivedspent_column.grid(row=3, column=2)
 
 def create_category_column_texts(frame_main):
     """Creating texts that are in the CATEGORY column.
     """
-    text_income = StringVar()
-    text_rent = StringVar()
-    text_bills = StringVar()
-    text_spending = StringVar()
-    text_debt_service = StringVar()
-    text_saving = StringVar()
-    text_income.set("Income")
-    text_rent.set("Rent / mortgage")
-    text_bills.set("Bills")
-    text_spending.set("Spending")
-    text_debt_service.set("Debt service")
-    text_saving.set("Saving")
-    label_income = Label(master=frame_main, textvariable=text_income)
-    label_rent = Label(master=frame_main, textvariable=text_rent)
-    label_bills = Label(master=frame_main, textvariable=text_bills)
-    label_spending = Label(master=frame_main, textvariable=text_spending)
-    label_debt_service = Label(master=frame_main, textvariable=text_debt_service)
-    label_saving = Label(master=frame_main, textvariable=text_saving)
+    label_income = Label(master=frame_main, text='Income')
+    label_rent = Label(master=frame_main, text='Rent / mortgage')
+    label_bills = Label(master=frame_main, text='Bills')
+    label_spending = Label(master=frame_main, text='Spending')
+    label_debt_service = Label(master=frame_main, text='Debt service')
+    label_saving = Label(master=frame_main, text='Saving')
     label_income.grid(row=4, column=0, sticky="w")
     label_rent.grid(row=5, column=0, sticky="w")
     label_bills.grid(row=6, column=0, sticky="w")
