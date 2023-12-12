@@ -14,7 +14,7 @@ Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
 * [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
 * [Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)
 
-* [Release](https://github.com/aarekr/ot-harjoitustyo/releases/tag/viikko5)
+* [Release 2](https://github.com/aarekr/ot-harjoitustyo/releases/tag/viikko6)
 
 ## Asennus ja käynnistäminen
 1. Asenna riippuvuudet:

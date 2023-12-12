@@ -51,7 +51,7 @@
 09.12. |  3h  | Menu Bar, Toolbar, Help -ikkuna sekä sarake- ja riviotsikoiden luonti siirretty käyttöliittymästä service:n vastuulle. Käyttäjä voi nyt muuttaa 'planned' -lukuja. |
 10.12. | 2,5h | Käyttäjä voi syöttää, muuttaa ja tallentaa 'received/spent' -lukuja. Help Window muutettu tekstikentästä ikkunaksi. Year overview -nappi avaa ikkunan. |
 11.12. | 2,5h | Lisää testejä. Docstring -dokumentointi. Progressbar Year overview -ikkunassa. |
-12.12. |      | Muuttujien ja funktioiden nimien selvennyksiä. Puuttuneet Docstringit lisätty. Help Window -tekstit taulukossa ja ne käydään läpi for -silmukalla. Käyttöohjeen alustava versio. |
+12.12. |  3h  | Muuttujien ja funktioiden nimien selvennyksiä. Puuttuneet Docstringit lisätty. Help Window -tekstit taulukossa ja ne käydään läpi for -silmukalla. Käyttöohjeen alustava versio. |
 
 
 ## Yhteensä
@@ -62,4 +62,4 @@
 |  3  |     7   |
 |  4  |    10   |
 |  5  |    18   |
-|  6  |         |
+|  6  |    11   |
