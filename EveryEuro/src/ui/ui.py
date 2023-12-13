@@ -1,18 +1,19 @@
 """ User Interface """
 
-from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame
+from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame, Button, LEFT, RIGHT, SUNKEN
 import tkinter as tk
+import ui.ui_helper as ui_helper
 import services.service as service
 from datetime import datetime
 
 class UI:
-    """Class that handles application user interface
-    """
+    """ Class that handles application user interface. """
 
     def __init__(self, root):
-        """Class constructor that creates the user interface
-        """
+        """ Class constructor that creates the user interface. """
         self._root = root
+        self._root.rowconfigure(4, weight=1)
+        self._root.columnconfigure(2, weight=1)
 
         # these values are retrieved and shown in the window when month buttons are clicked
         self._chosen_month = None
@@ -31,22 +32,27 @@ class UI:
         self._chosen_month_receivedspent_debt_service = None
         self._chosen_month_receivedspent_saving = None
 
+    def start(self):
+        """Starts the user interface.
+           Creates layout, menu bar, toolbar, buttons, texts, entry fields for numbers.
+           Creates two tables for keeping planned and received/spent figures with default values 0.
+        """
+        ui_helper.create_menu_bar(self._root)
+        #ui_helper.create_tool_bar(self._root)
+        self.create_tool_bar()
+
+        self.create_frame_month_button_row(self._root)
+        self.create_frame_chosen_month(self._root)
+        self.create_frame_left_to_budget(self._root)
+        self.create_frame_main(self._root)
+
         self.table_all_months_planned = service.create_all_months_table()
         self.table_all_months_receivedspent = service.create_all_months_table()
 
-    def start(self):
-        """Starts the user interface by creating the layout, menu bar, toolbar, buttons, texts, and
-           entry fields for numbers.
-        """
-        self._root.rowconfigure(4, weight=1)
-        self._root.columnconfigure(2, weight=1)
-
-        service.create_menu_bar(self._root)
-        service.create_tool_bar(self._root)
-
-        # top row that shows button links for all months (navigation bar)
-        # refactor this part so that it is shorter
-        frame_months_row = tk.Frame(master=self._root, relief=tk.RAISED, borderwidth=1)
+    def create_frame_month_button_row(self, root):
+        """ Creating frame and month buttons on top row of the window. """
+        # refactor this part so that it is shorter?
+        frame_months_row = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
         button_jan = tk.Button(master=frame_months_row, text="JAN",
                                 command=(lambda: self.get_and_display_chosen_month_data(1)))
         button_feb = tk.Button(master=frame_months_row, text="FEB",
@@ -85,8 +91,9 @@ class UI:
         button_dec.grid(row=0, column=11)
         frame_months_row.grid(row=0, column=0, columnspan=4, pady=10)
 
-        # frame (top left) displaying chosen month
-        frame_chosen_month = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
+    def create_frame_chosen_month(self, root):
+        """ Creating frame (top left) that displays the chosen month name. """
+        frame_chosen_month = tk.Frame(master=root, relief=tk.FLAT, borderwidth=1)
         self._chosen_month = StringVar()
         self._chosen_month.set(service.get_month_name(datetime.now().month))  # e.g. 12 = December
         # add get_and_display_chosen_month_data here so that chosen month figures are displayed at start
@@ -94,7 +101,8 @@ class UI:
         label_chosen_month.grid(row=1, column=0)
         frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
 
-        # frame (top left) displaying 'left to budget'
+    def create_frame_left_to_budget(self, root):
+        """ Creating frame (top left) that displays the left to budget figure. """
         frame_left_to_budget = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         frame_left_to_budget.grid(row=2, column=0)
         self._chosen_month_left_to_budget = StringVar()
@@ -108,29 +116,31 @@ class UI:
         label_text_left_to_budget.grid(row=2, column=0, sticky='w', columnspan=1, padx=10)
         label_number_left_to_budget.grid(row=2, column=1, sticky='e')
 
+    def create_frame_main(self, root):
+        """ Creating main window frame that holds row and column texts, and entry fields. """
         # main window frame displaying budgeting items
         frame_main = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         frame_main.grid(row=3, column=1, padx=10, pady=10)
-        service.create_column_titles(frame_main)
+        ui_helper.create_column_titles(frame_main)
+        ui_helper.create_category_column_texts(frame_main)
+        entry_field_width = 16
+        self.create_planned_entry_fields(frame_main, entry_field_width)
+        self.create_receivedspent_entry_fields(frame_main, entry_field_width)
 
-        # CATEGORY column texts
-        service.create_category_column_texts(frame_main)
-
-        # PLANNED column entry fields
-        width_entry_field = 16
-        self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_spending = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_debt_service = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_planned_saving = tk.Entry(master=frame_main, width=width_entry_field)
+    def create_planned_entry_fields(self, frame_main, width):
+        """ Creating 'PLANNED' column entry fields and 'Save planned' button. """
+        self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_planned_spending = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_planned_debt_service = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_planned_saving = tk.Entry(master=frame_main, width=width)
         self._chosen_month_planned_income.grid(row=4, column=1, sticky="e")
         self._chosen_month_planned_rent.grid(row=5, column=1, sticky="e")
         self._chosen_month_planned_bills.grid(row=6, column=1, sticky="e")
         self._chosen_month_planned_spending.grid(row=7, column=1, sticky="e")
         self._chosen_month_planned_debt_service.grid(row=8, column=1, sticky="e")
         self._chosen_month_planned_saving.grid(row=9, column=1, sticky="e")
-        # button for entering, changing and saving numbers for chosen month
         button_save_planned_figures = tk.Button(
             master=frame_main,
             text="Save planned",
@@ -138,13 +148,14 @@ class UI:
         )
         button_save_planned_figures.grid(row=10, column=1)
 
-        # RECEIVED / SPENT column entry fields
-        self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_receivedspent_spending = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_receivedspent_debt_service = tk.Entry(master=frame_main, width=width_entry_field)
-        self._chosen_month_receivedspent_saving = tk.Entry(master=frame_main, width=width_entry_field)
+    def create_receivedspent_entry_fields(self, frame_main, width):
+        """ Creating 'RECEIVED / SPENT' column entry fields and 'Save planned' button. """
+        self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_receivedspent_spending = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_receivedspent_debt_service = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_receivedspent_saving = tk.Entry(master=frame_main, width=width)
         self._chosen_month_receivedspent_income.grid(row=4, column=2, sticky="e")
         self._chosen_month_receivedspent_rent.grid(row=5, column=2, sticky="e")
         self._chosen_month_receivedspent_bills.grid(row=6, column=2, sticky="e")
@@ -165,8 +176,7 @@ class UI:
             self._root.quit"""
 
     def save_month_planned_figures(self):
-        """Saving month's planned column figures in the month object (not file)
-        """
+        """ Saving month's planned column figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         income = str(0) if self._chosen_month_planned_income.get() == '' \
             else self._chosen_month_planned_income.get()
@@ -190,8 +200,7 @@ class UI:
             int(income), int(rent), int(bills), int(spending), int(debt_service), int(saving)))
 
     def save_month_receivedspent_figures(self):
-        """Saving month's received/spent figures in the month object (not file)
-        """
+        """ Saving month's received/spent figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         income = str(0) if self._chosen_month_receivedspent_income.get() == '' \
             else self._chosen_month_receivedspent_income.get()
@@ -213,8 +222,7 @@ class UI:
         self.table_all_months_receivedspent[month_number].set_saving(int(saving))
 
     def get_and_display_chosen_month_data(self, month_number):
-        """Getting the chosen month data and displaying figures in the window.
-        """
+        """ Getting the chosen month data and displaying figures in the window. """
         month_name = self.table_all_months_planned[month_number].get_month_name()
         income_planned = self.table_all_months_planned[month_number].get_income()
         rent_planned = self.table_all_months_planned[month_number].get_rent()
@@ -257,3 +265,17 @@ class UI:
         self._chosen_month_receivedspent_saving.delete(0, tk.END)
         self._chosen_month_receivedspent_saving.insert(0,
             self.table_all_months_receivedspent[month_number].get_saving())
+
+    def create_tool_bar(self):
+        """ Creating toolbar, placed on bottom of the program window. """
+        toolbar_left_side = Frame(master=self._root, cursor='hand2', relief=SUNKEN, borderwidth=1)
+        toolbar_center = Frame(master=self._root, cursor='hand2', relief=SUNKEN, borderwidth=1)
+        toolbar_right_side = Frame(master=self._root, cursor='hand2', relief=SUNKEN, borderwidth=1)
+        toolbar_left_side.grid(row=25, column=0)
+        toolbar_center.grid(row=25, column=1)
+        toolbar_right_side.grid(row=25, column=2, sticky='e')
+        Button(toolbar_left_side, text='Year overview',
+            command=(lambda: ui_helper.open_year_overview_window(self.table_all_months_planned))).pack(side=LEFT)
+        Button(toolbar_center, text='Open', command=ui_helper.bar_item_notdone).pack(side=LEFT)
+        Button(toolbar_center, text='Help', command=ui_helper.open_help_window).pack(side=LEFT)
+        Button(toolbar_right_side, text='Quit', command=self._root.quit).pack(side=RIGHT)

@@ -43,3 +43,6 @@
 * Docstring -dokumentointi
 * Käyttöohjeen alustava versio
 * Muuttujien nimiin ja funktioihin selvennyksiä ja parannettu luettavuutta
+
+## Viikko 7
+* 

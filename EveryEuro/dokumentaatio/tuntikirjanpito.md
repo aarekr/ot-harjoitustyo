@@ -54,6 +54,13 @@
 12.12. |  3h  | Muuttujien ja funktioiden nimien selvennyksiä. Puuttuneet Docstringit lisätty. Help Window -tekstit taulukossa ja ne käydään läpi for -silmukalla. Käyttöohjeen alustava versio. |
 
 
+## Viikko 7
+
+ Pvm   | Aika | Aktiviteetti |
+-------|------|--------------|
+13.12. |  3h  | Käyttöliittymän start -metodista siirretty toimintoja ulos. ui_helper -moduulin vastuulle siirretty osa toiminnoista. Year overview:n kehittämistä. |
+
+
 ## Yhteensä
  Vko  | Aika(h) |
 ------|---------|
@@ -63,3 +70,4 @@
 |  4  |    10   |
 |  5  |    18   |
 |  6  |    11   |
+|  7  |         |
