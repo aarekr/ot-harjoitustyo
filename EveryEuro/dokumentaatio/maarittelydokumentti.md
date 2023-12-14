@@ -17,7 +17,7 @@
 * Käyttäjä voi sulkea ohjelman ikkunassa olevasta Quit -napista tai valikosta (tehty)
 * Käyttäjä voi painaa Help -nappia tai valitsemalla valikosta ja hänelle näytetään ohje miten ohjelmaa käytetään (tehty)
 * Syötetyt tulot ja menot tallennetaan .csv -tiedostoon
-* Käyttäjä voi avata vuosinäkymän ts. kaikki kalenterivuoden kuukaudet näkyvät tiivistettynä (nappi avaa ikkunan, tiedot puuttuvat)
+* Käyttäjä voi avata vuosinäkymän joka sisältää analyysin eristä (tehty)
 
 ## Yleistä
 * Ohjelmointikieli ja versio: Python 3.8

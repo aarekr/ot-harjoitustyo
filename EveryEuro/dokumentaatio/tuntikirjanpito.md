@@ -59,6 +59,7 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 13.12. |  3h  | Käyttöliittymän start -metodista siirretty toimintoja ulos. ui_helper -moduulin vastuulle siirretty osa toiminnoista. Year overview:n kehittämistä. |
+14.12. |      | Year overview ikkuna ja analyysit tehty. |
 
 
 ## Yhteensä

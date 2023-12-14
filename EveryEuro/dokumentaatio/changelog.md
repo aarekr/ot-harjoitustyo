@@ -45,4 +45,5 @@
 * Muuttujien nimiin ja funktioihin selvennyksiä ja parannettu luettavuutta
 
 ## Viikko 7
+* Year overview -ikkuna ja analyysit valmiina
 * 

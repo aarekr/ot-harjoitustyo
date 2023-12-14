@@ -275,7 +275,8 @@ class UI:
         toolbar_center.grid(row=25, column=1)
         toolbar_right_side.grid(row=25, column=2, sticky='e')
         Button(toolbar_left_side, text='Year overview',
-            command=(lambda: ui_helper.open_year_overview_window(self.table_all_months_planned))).pack(side=LEFT)
+            command=(lambda: ui_helper.open_year_overview_window(
+                self.table_all_months_receivedspent))).pack(side=LEFT)
         Button(toolbar_center, text='Open', command=ui_helper.bar_item_notdone).pack(side=LEFT)
         Button(toolbar_center, text='Help', command=ui_helper.open_help_window).pack(side=LEFT)
         Button(toolbar_right_side, text='Quit', command=self._root.quit).pack(side=RIGHT)
