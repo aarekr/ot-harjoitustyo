@@ -9,7 +9,7 @@ def create_menu_bar(root):
     top = Menu(root)
     root.config(menu=top)
     file = Menu(top, tearoff=False)
-    file.add_command(label='Open...', command=bar_item_notdone, underline=0)
+    file.add_command(label='Open file', command=bar_item_notdone, underline=0)
     file.add_command(label='Save to file', command=bar_item_notdone, underline=0)
     file.add_separator()
     file.add_command(label='Quit', command=root.quit, underline=0)

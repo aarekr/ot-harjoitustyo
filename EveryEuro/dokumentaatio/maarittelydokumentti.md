@@ -16,7 +16,7 @@
 * Käyttäjä voi syöttää toteutuneet (received / spent) tulot ja menot kuukauden aikana ja lopussa (tehty)
 * Käyttäjä voi sulkea ohjelman ikkunassa olevasta Quit -napista tai valikosta (tehty)
 * Käyttäjä voi painaa Help -nappia tai valitsemalla valikosta ja hänelle näytetään ohje miten ohjelmaa käytetään (tehty)
-* Syötetyt tulot ja menot tallennetaan .csv -tiedostoon
+* Syötetyt tulot ja menot tallennetaan .csv -tiedostoon (tehty)
 * Käyttäjä voi avata vuosinäkymän joka sisältää analyysin eristä (tehty)
 
 ## Yleistä
@@ -25,6 +25,9 @@
 * Dokumentaation kieli: suomi
 * Koodin kieli: englanti
 * Sovelluksen kieli: englanti
+
+## Laajat kielimallit
+* Työssä ei ole käytetty laajoja kielimalleja.
 
 ## Lähteet
 * Tkinter ja graafisen käyttöliittymän toteutus. Helsingin yliopisto. https://ohjelmistotekniikka-hy.github.io/python/tkinter

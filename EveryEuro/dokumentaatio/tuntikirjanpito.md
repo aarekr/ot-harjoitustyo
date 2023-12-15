@@ -59,7 +59,8 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 13.12. |  3h  | Käyttöliittymän start -metodista siirretty toimintoja ulos. ui_helper -moduulin vastuulle siirretty osa toiminnoista. Year overview:n kehittämistä. |
-14.12. |      | Year overview ikkuna ja analyysit tehty. |
+14.12. |  3h  | Year overview ikkuna ja analyysit tehty. Tutkittu Dash ja Matplotlib -kirjastojen käyttömahdollisuutta työssä. |
+15.12. |  2h  | Käyttäjä voi tallentaa budjettinsa .csv -tiedostoon ja avata sen (toolbarin napit). |
 
 
 ## Yhteensä

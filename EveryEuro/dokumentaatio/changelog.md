@@ -46,4 +46,4 @@
 
 ## Viikko 7
 * Year overview -ikkuna ja analyysit valmiina
-* 
+* Käyttäjä voi tallentaa budjettinsa .csv -tiedostoon ja avata sen

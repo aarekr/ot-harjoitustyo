@@ -3,3 +3,5 @@ __pycache__
 htmlcov
 /htmlcov/
 .coverage
+my_budget.csv
+toka.csv

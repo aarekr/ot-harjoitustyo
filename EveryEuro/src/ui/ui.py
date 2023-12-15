@@ -2,8 +2,10 @@
 
 from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame, Button, LEFT, RIGHT, SUNKEN
 import tkinter as tk
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 import ui.ui_helper as ui_helper
 import services.service as service
+import entities.month
 from datetime import datetime
 
 class UI:
@@ -277,6 +279,62 @@ class UI:
         Button(toolbar_left_side, text='Year overview',
             command=(lambda: ui_helper.open_year_overview_window(
                 self.table_all_months_receivedspent))).pack(side=LEFT)
-        Button(toolbar_center, text='Open', command=ui_helper.bar_item_notdone).pack(side=LEFT)
+        Button(toolbar_center, text='Open', command=self.open_data_from_file).pack(side=LEFT)
+        Button(toolbar_center, text='Save', command=self.save_data_to_file).pack(side=LEFT)
         Button(toolbar_center, text='Help', command=ui_helper.open_help_window).pack(side=LEFT)
         Button(toolbar_right_side, text='Quit', command=self._root.quit).pack(side=RIGHT)
+
+    def open_data_from_file(self):
+        """ Opening file and importing previously saved data. """
+        print("opening data from a file")
+        path = askopenfilename(filetypes=[("CSV Files", "*.csv")])
+        if not path:
+            return
+        with open(path) as f:
+            lines = f.readlines()
+        index = 1
+        table_all_months_planned = ["empty cell"]  # leaving index 0 empty
+        table_all_months_receivedspent = ["empty cell"]  # leaving index 0 empty
+        for line in lines:
+            line_stripped = line.strip()
+            parts = line_stripped.split(",")
+            if index <= 12:
+                created_month = entities.month.Month(service.get_month_name(index), int(parts[0]),
+                    int(parts[1]), int(parts[2]), int(parts[3]), int(parts[4]), int(parts[5]))
+                table_all_months_planned.append(created_month)
+            elif index >= 13:
+                created_month = entities.month.Month(service.get_month_name(index-12), int(parts[0]),
+                    int(parts[1]), int(parts[2]), int(parts[3]), int(parts[4]), int(parts[5]))
+                table_all_months_receivedspent.append(created_month)
+            index += 1
+        self.table_all_months_planned = table_all_months_planned
+        self.table_all_months_receivedspent = table_all_months_receivedspent
+
+    def save_data_to_file(self):
+        """ Saving budget figures to a .csv file. """
+        print("saving data to a file")
+        path = asksaveasfilename(filetypes=[("CSV Files", "*.csv")])
+        if not path:
+            return
+        month_data_to_be_saved = ["empty cell"]
+        for i in range(1, 13):
+            parts = [str(self.table_all_months_planned[i].get_income()),
+                str(self.table_all_months_planned[i].get_rent()),
+                str(self.table_all_months_planned[i].get_bills()),
+                str(self.table_all_months_planned[i].get_spending()),
+                str(self.table_all_months_planned[i].get_debt_service()),
+                str(self.table_all_months_planned[i].get_saving())]
+            row = ",".join(parts)
+            month_data_to_be_saved.append(row)
+        for i in range(13, 25):
+            parts = [str(self.table_all_months_receivedspent[i-12].get_income()),
+                str(self.table_all_months_receivedspent[i-12].get_rent()),
+                str(self.table_all_months_receivedspent[i-12].get_bills()),
+                str(self.table_all_months_receivedspent[i-12].get_spending()),
+                str(self.table_all_months_receivedspent[i-12].get_debt_service()),
+                str(self.table_all_months_receivedspent[i-12].get_saving())]
+            row = ",".join(parts)
+            month_data_to_be_saved.append(row)
+        with open(path, mode="w") as f:
+            for i in range(1, 25):
+                f.write(month_data_to_be_saved[i] + "\n")
