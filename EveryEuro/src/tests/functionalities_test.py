@@ -5,7 +5,7 @@ import ui.ui_helper as ui_helper
 import entities.month as month
 import services.service as service
 
-class TestFunctionalities(unittest.TestCase):
+class TestMonth(unittest.TestCase):
     def setUp(self):
         window = Tk()
         window.geometry("680x500")
@@ -53,6 +53,7 @@ class TestFunctionalities(unittest.TestCase):
         october = month.Month("OCTOBER", 3010, 800, 110, 310, 110)  # leaving saving empty
         self.assertEqual(october.get_saving(), 0)
 
+    # testing setting values
     def test_set_income(self):
         november = month.Month("NOVEMBER", 3000, 600, 160, 565, 260)
         november.set_income(2989)
@@ -84,6 +85,7 @@ class TestFunctionalities(unittest.TestCase):
         june.set_saving(800)
         self.assertEqual(june.get_saving(), 800)
 
+class TestService(unittest.TestCase):
     # testing month name and number values
     def test_get_month_name_has_correct_name_corresponding_to_number(self):
         self.assertEqual(service.get_month_name(3), "MARCH")
@@ -99,8 +101,34 @@ class TestFunctionalities(unittest.TestCase):
         self.assertEqual(service.calculate_left_to_budget(2500, 800, 100, 600, 150, 100), 750)
         self.assertEqual(service.calculate_left_to_budget(2200, 700, 150, 500, 200, 130), 520)
 
-    def test_open_help_window_function_exists(self):
-        self.assertEqual(ui_helper.open_help_window(), None)
+    # testing opening data from file
+    def test_open_data_from_file(self):
+        table_all_months_planned, table_all_months_receivedspent = service.open_data_from_file("yes")
+        self.assertEqual(len(table_all_months_planned), 13)
+        self.assertEqual(len(table_all_months_receivedspent), 13)
+        self.assertEqual(table_all_months_planned[1].get_month_name(), "JANUARY")
+        self.assertEqual(table_all_months_planned[4].get_month_name(), "APRIL")
+        # add more tests here
 
-    def test_open_year_overview_window_function_exists(self):
-        self.assertEqual(ui_helper.open_year_overview_window(), None)
+    # testing saving data to file
+    def test_save_data_to_file(self):
+        # opening my_budget.csv
+        table_all_months_planned, table_all_months_receivedspent = service.open_data_from_file("yes")
+        # saving my_budget.csv contents to backup_budget.csv
+        service.save_data_to_file(table_all_months_planned, table_all_months_receivedspent, "yes")
+        # opening the saved data from backup_budget.csv
+        table_planned_saved, table_receivedspent_saved = service.open_data_from_file("yes", "backup_budget.csv")
+        self.assertEqual(len(table_planned_saved), 13)
+        self.assertEqual(len(table_receivedspent_saved), 13)
+        # comparing the original data and saved data, in planned testing all values
+        for i in range(1, 13):
+            self.assertEqual(table_all_months_planned[i].get_month_name(), table_planned_saved[i].get_month_name())
+            self.assertEqual(table_all_months_planned[i].get_income(), table_planned_saved[i].get_income())
+            self.assertEqual(table_all_months_planned[i].get_rent(), table_planned_saved[i].get_rent())
+            self.assertEqual(table_all_months_planned[i].get_bills(), table_planned_saved[i].get_bills())
+            self.assertEqual(table_all_months_planned[i].get_spending(), table_planned_saved[i].get_spending())
+            self.assertEqual(table_all_months_planned[i].get_debt_service(), table_planned_saved[i].get_debt_service())
+            self.assertEqual(table_all_months_planned[i].get_saving(), table_planned_saved[i].get_saving())
+        # in receivedspent testing only some values
+        #self.assertEqual(table_all_months_receivedspent[2].get_income(), table_receivedspent_saved[3].get_income())
+        # add more tests here

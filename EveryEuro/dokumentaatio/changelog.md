@@ -48,4 +48,6 @@
 * Year overview -ikkuna ja analyysit valmiina
 * Käyttäjä voi tallentaa budjettinsa .csv -tiedostoon ja avata sen
 * Syötekentille on lisätty validoinnit ja ne hyväksyvät vain kokonaisluvut
+* Käyttäjältä varmistetaan, että haluaa sulkea ohjelman.
+* Kuukauden avaaminen näyttää heti valitun kuukauden tiedot.
 * 

@@ -1,8 +1,8 @@
 """ User Interface """
 
-from tkinter import Tk, ttk, constants, StringVar, Menu, Label, Frame, Button, LEFT, RIGHT, SUNKEN
 import tkinter as tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
+from tkinter.messagebox import askyesno
 import ui.ui_helper as ui_helper
 import services.service as service
 import entities.month
@@ -51,12 +51,15 @@ class UI:
         self.table_all_months_planned = service.create_all_months_table()
         self.table_all_months_receivedspent = service.create_all_months_table()
 
+        self.get_and_display_chosen_month_data(
+            service.get_month_number_and_name(self._chosen_month.get())[0]
+        )
+
     def create_frame_month_button_row(self, root):
         """ Creating frame and month buttons on top row of the window. """
-        # refactor this part so that it is shorter?
         frame_months_row = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
         button_jan = tk.Button(master=frame_months_row, text="JAN",
-                                command=(lambda: self.get_and_display_chosen_month_data(1)))
+            command=(lambda: self.get_and_display_chosen_month_data(1)))
         button_feb = tk.Button(master=frame_months_row, text="FEB",
                                 command=(lambda: self.get_and_display_chosen_month_data(2)))
         button_mar = tk.Button(master=frame_months_row, text="MAR",
@@ -96,7 +99,7 @@ class UI:
     def create_frame_chosen_month(self, root):
         """ Creating frame (top left) that displays the chosen month name. """
         frame_chosen_month = tk.Frame(master=root, relief=tk.FLAT, borderwidth=1)
-        self._chosen_month = StringVar()
+        self._chosen_month = tk.StringVar()
         self._chosen_month.set(service.get_month_name(datetime.now().month))  # e.g. 12 = December
         # add get_and_display_chosen_month_data here so that chosen month figures are displayed at start
         label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=self._chosen_month)
@@ -107,8 +110,8 @@ class UI:
         """ Creating frame (top left) that displays the left to budget figure. """
         frame_left_to_budget = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         frame_left_to_budget.grid(row=2, column=0)
-        self._chosen_month_left_to_budget = StringVar()
-        text_left_to_budget = StringVar()
+        self._chosen_month_left_to_budget = tk.StringVar()
+        text_left_to_budget = tk.StringVar()
         self._chosen_month_left_to_budget.set("0")
         text_left_to_budget.set("Left to budget:")
         label_text_left_to_budget = tk.Label(master=frame_left_to_budget,
@@ -171,12 +174,6 @@ class UI:
         )
         button_save_receivedspent_figures.grid(row=10, column=2)
 
-    """def quit_program(self):  # this doesn't close the program for some reason
-        ok_to_quit = askokcancel('Verify quit', 'Are you sure you want to quit?')
-        print("ok_to_quit:", ok_to_quit)
-        if ok_to_quit:
-            self._root.quit"""
-
     def save_month_planned_figures(self):
         """ Saving month's planned column figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
@@ -188,7 +185,7 @@ class UI:
             debt_service_int = int(self._chosen_month_planned_debt_service.get())
             saving_int = int(self._chosen_month_planned_saving.get())
         except ValueError:
-            service.error_window_entered_item_not_integer()
+            ui_helper.error_window_entered_item_not_integer()
             return
         income = str(0) if self._chosen_month_planned_income.get() == '' \
             else self._chosen_month_planned_income.get()
@@ -290,71 +287,34 @@ class UI:
 
     def create_tool_bar(self):
         """ Creating toolbar, placed on bottom of the program window. """
-        toolbar_left_side = Frame(master=self._root, cursor='hand2', relief=SUNKEN, borderwidth=1)
-        toolbar_center = Frame(master=self._root, cursor='hand2', relief=SUNKEN, borderwidth=1)
-        toolbar_right_side = Frame(master=self._root, cursor='hand2', relief=SUNKEN, borderwidth=1)
+        toolbar_left_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+        toolbar_center = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+        toolbar_right_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
         toolbar_left_side.grid(row=25, column=0)
         toolbar_center.grid(row=25, column=1)
         toolbar_right_side.grid(row=25, column=2, sticky='e')
-        Button(toolbar_left_side, text='Year overview',
+        tk.Button(toolbar_left_side, text='Year overview',
             command=(lambda: ui_helper.open_year_overview_window(
-                self.table_all_months_receivedspent))).pack(side=LEFT)
-        Button(toolbar_center, text='Open', command=self.open_data_from_file).pack(side=LEFT)
-        Button(toolbar_center, text='Save', command=self.save_data_to_file).pack(side=LEFT)
-        Button(toolbar_center, text='Help', command=ui_helper.open_help_window).pack(side=LEFT)
-        Button(toolbar_right_side, text='Quit', command=self._root.quit).pack(side=RIGHT)
+                self.table_all_months_receivedspent))).pack(side=tk.LEFT)
+        tk.Button(toolbar_center, text='Open', command=self.get_data_from_file).pack(side=tk.LEFT)
+        tk.Button(toolbar_center, text='Save', 
+            command=(lambda: service.save_data_to_file(self.table_all_months_planned,
+                self.table_all_months_receivedspent))).pack(side=tk.LEFT)
+        tk.Button(toolbar_center, text='Help', command=ui_helper.open_help_window).pack(side=tk.LEFT)
+        tk.Button(toolbar_right_side, text='Quit', command=self.quit_program).pack(side=tk.RIGHT)
 
-    def open_data_from_file(self):
-        """ Opening file and importing previously saved data. """
-        print("opening data from a file")
-        path = askopenfilename(filetypes=[("CSV Files", "*.csv")])
-        if not path:
-            return
-        with open(path) as f:
-            lines = f.readlines()
-        index = 1
-        table_all_months_planned = ["empty cell"]  # leaving index 0 empty
-        table_all_months_receivedspent = ["empty cell"]  # leaving index 0 empty
-        for line in lines:
-            line_stripped = line.strip()
-            parts = line_stripped.split(",")
-            if index <= 12:
-                created_month = entities.month.Month(service.get_month_name(index), int(parts[0]),
-                    int(parts[1]), int(parts[2]), int(parts[3]), int(parts[4]), int(parts[5]))
-                table_all_months_planned.append(created_month)
-            elif index >= 13:
-                created_month = entities.month.Month(service.get_month_name(index-12), int(parts[0]),
-                    int(parts[1]), int(parts[2]), int(parts[3]), int(parts[4]), int(parts[5]))
-                table_all_months_receivedspent.append(created_month)
-            index += 1
-        self.table_all_months_planned = table_all_months_planned
-        self.table_all_months_receivedspent = table_all_months_receivedspent
+    def get_data_from_file(self):
+        """ Importing and setting .csv data into tables planned and receivespent. """
+        try:
+            self.table_all_months_planned, self.table_all_months_receivedspent = service.open_data_from_file()
+        except:
+            print("Opening file canceled")
+        self.get_and_display_chosen_month_data(
+            service.get_month_number_and_name(self._chosen_month.get())[0]
+        )
 
-    def save_data_to_file(self):
-        """ Saving budget figures to a .csv file. """
-        print("saving data to a file")
-        path = asksaveasfilename(filetypes=[("CSV Files", "*.csv")])
-        if not path:
-            return
-        month_data_to_be_saved = ["empty cell"]
-        for i in range(1, 13):
-            parts = [str(self.table_all_months_planned[i].get_income()),
-                str(self.table_all_months_planned[i].get_rent()),
-                str(self.table_all_months_planned[i].get_bills()),
-                str(self.table_all_months_planned[i].get_spending()),
-                str(self.table_all_months_planned[i].get_debt_service()),
-                str(self.table_all_months_planned[i].get_saving())]
-            row = ",".join(parts)
-            month_data_to_be_saved.append(row)
-        for i in range(13, 25):
-            parts = [str(self.table_all_months_receivedspent[i-12].get_income()),
-                str(self.table_all_months_receivedspent[i-12].get_rent()),
-                str(self.table_all_months_receivedspent[i-12].get_bills()),
-                str(self.table_all_months_receivedspent[i-12].get_spending()),
-                str(self.table_all_months_receivedspent[i-12].get_debt_service()),
-                str(self.table_all_months_receivedspent[i-12].get_saving())]
-            row = ",".join(parts)
-            month_data_to_be_saved.append(row)
-        with open(path, mode="w") as f:
-            for i in range(1, 25):
-                f.write(month_data_to_be_saved[i] + "\n")
+    def quit_program(self):
+        """ Asking user to confirm that s/he wants to quit the program. """
+        ok_to_quit = askyesno('Verify quit', 'Are you sure you want to quit?')
+        if ok_to_quit:
+            self._root.quit()

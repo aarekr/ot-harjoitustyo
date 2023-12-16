@@ -61,7 +61,7 @@
 13.12. |  3h  | Käyttöliittymän start -metodista siirretty toimintoja ulos. ui_helper -moduulin vastuulle siirretty osa toiminnoista. Year overview:n kehittämistä. |
 14.12. |  3h  | Year overview ikkuna ja analyysit tehty. Tutkittu Dash ja Matplotlib -kirjastojen käyttömahdollisuutta työssä. |
 15.12. |  2h  | Käyttäjä voi tallentaa budjettinsa .csv -tiedostoon ja avata sen (toolbarin napit). |
-16.12. |      | Syötekenttien validointi, vain kokonaisluvut hyväksytään. |
+16.12. | 3,5h | Syötekenttien validointi - vain kokonaisluvut hyväksytään. Koodin siistiminen ja yhtenäistäminen. Kuukauden avaaminen näyttää heti valitun kuukauden tiedot. Käyttäjältä varmistetaan, että haluaa sulkea ohjelman. Testit tiedostojen avaamiselle ja tallentamiselle. |
 
 
 ## Yhteensä
