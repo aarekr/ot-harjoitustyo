@@ -180,6 +180,16 @@ class UI:
     def save_month_planned_figures(self):
         """ Saving month's planned column figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
+        try:
+            income_int = int(self._chosen_month_planned_income.get())
+            rent_int = int(self._chosen_month_planned_rent.get())
+            bills_int = int(self._chosen_month_planned_bills.get())
+            spending_int = int(self._chosen_month_planned_spending.get())
+            debt_service_int = int(self._chosen_month_planned_debt_service.get())
+            saving_int = int(self._chosen_month_planned_saving.get())
+        except ValueError:
+            service.error_window_entered_item_not_integer()
+            return
         income = str(0) if self._chosen_month_planned_income.get() == '' \
             else self._chosen_month_planned_income.get()
         rent = str(0) if self._chosen_month_planned_rent.get() == '' \
@@ -204,6 +214,16 @@ class UI:
     def save_month_receivedspent_figures(self):
         """ Saving month's received/spent figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
+        try:
+            income_int = int(self._chosen_month_receivedspent_income.get())
+            rent_int = int(self._chosen_month_receivedspent_rent.get())
+            bills_int = int(self._chosen_month_receivedspent_bills.get())
+            spending_int = int(self._chosen_month_receivedspent_spending.get())
+            debt_service_int = int(self._chosen_month_receivedspent_debt_service.get())
+            saving_int = int(self._chosen_month_receivedspent_saving.get())
+        except ValueError:
+            service.error_window_entered_item_not_integer()
+            return
         income = str(0) if self._chosen_month_receivedspent_income.get() == '' \
             else self._chosen_month_receivedspent_income.get()
         rent = str(0) if self._chosen_month_receivedspent_rent.get() == '' \

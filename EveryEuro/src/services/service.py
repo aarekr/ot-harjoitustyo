@@ -1,6 +1,7 @@
 """ Services module """
 
 from tkinter import ttk, Frame, Menu, Label, Text, Button, SUNKEN, RIGHT, LEFT, HORIZONTAL, Toplevel
+from tkinter.messagebox import showerror
 import entities.month
 
 def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving):
@@ -23,6 +24,10 @@ def bar_item_notdone():  # this function will not be in the final version
     """Shows an error window for functionalities that are not yet implemented.
     """
     showerror('Not implemented', 'Functionality not yet available, but coming soon')
+
+def error_window_entered_item_not_integer():  # this function will not be in the final version
+    """ Shows an error window if other than integer is entered. """
+    showerror('Value Error', 'Please enter only integers. Text, floats etc. are not allowed.')
 
 # combine the two functions below
 def get_month_name(month_number):
