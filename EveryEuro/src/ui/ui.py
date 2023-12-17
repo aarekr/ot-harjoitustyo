@@ -174,7 +174,7 @@ class UI:
         )
         button_save_receivedspent_figures.grid(row=10, column=2)
 
-    def save_month_planned_figures(self):
+    def save_month_planned_figures(self, testing="no"):
         """ Saving month's planned column figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         try:
@@ -185,7 +185,10 @@ class UI:
             debt_service_int = int(self._chosen_month_planned_debt_service.get())
             saving_int = int(self._chosen_month_planned_saving.get())
         except ValueError:
-            ui_helper.error_window_entered_item_not_integer()
+            if testing == "no":
+                ui_helper.error_window_entered_item_not_integer()
+            elif testing == "yes":
+                return "Incorrect value"
             return
         income = str(0) if self._chosen_month_planned_income.get() == '' \
             else self._chosen_month_planned_income.get()
@@ -208,7 +211,7 @@ class UI:
         self._chosen_month_left_to_budget.set(service.calculate_left_to_budget(
             int(income), int(rent), int(bills), int(spending), int(debt_service), int(saving)))
 
-    def save_month_receivedspent_figures(self):
+    def save_month_receivedspent_figures(self, testing="no"):
         """ Saving month's received/spent figures in the month object (not file). """
         month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         try:
@@ -219,7 +222,10 @@ class UI:
             debt_service_int = int(self._chosen_month_receivedspent_debt_service.get())
             saving_int = int(self._chosen_month_receivedspent_saving.get())
         except ValueError:
-            service.error_window_entered_item_not_integer()
+            if testing == "no":
+                ui_helper.error_window_entered_item_not_integer()
+            elif testing == "yes":
+                return "Incorrect value"
             return
         income = str(0) if self._chosen_month_receivedspent_income.get() == '' \
             else self._chosen_month_receivedspent_income.get()

@@ -47,7 +47,8 @@
 ## Viikko 7
 * Year overview -ikkuna ja analyysit valmiina
 * Käyttäjä voi tallentaa budjettinsa .csv -tiedostoon ja avata sen
+* Testit tiedoston avaamiselle ja tallentamiselle
 * Syötekentille on lisätty validoinnit ja ne hyväksyvät vain kokonaisluvut
-* Käyttäjältä varmistetaan, että haluaa sulkea ohjelman.
-* Kuukauden avaaminen näyttää heti valitun kuukauden tiedot.
-* 
+* Testit syötekentille
+* Käyttäjältä varmistetaan, että haluaa sulkea ohjelman
+* Kuukauden avaaminen näyttää heti valitun kuukauden tiedot

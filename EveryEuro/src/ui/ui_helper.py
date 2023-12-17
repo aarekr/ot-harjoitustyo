@@ -48,18 +48,19 @@ def open_help_window():
     help_window = tk.Toplevel()
     help_window.title("Help")
     help_window.geometry("670x200")
-    help_window_text_field = tk.Text(master=help_window, width=80, height=7)
+    help_window_text_field = tk.Text(master=help_window, width=80, height=8)
     table_row_texts = ["", "How to use the program:",
-        "\nEnter your monthly planned income and expenses in respective fields.",
-        "\nClick 'Save planned' to save the figures.",
-        "\nDuring the month, enter actual income and expenses.",
-        "\nClick 'Save rec./spent' to save the figures.",
-        "\nNavigate between months by clicking the month buttons on top of the window.",
-        "\nLeft to budget shows how much you have left to allocate this month."]
-    for row in range(1, 8):
+        "\n - Enter your monthly planned income and expenses in respective fields.",
+        "\n - Click 'Save planned' to save the figures.",
+        "\n - During the month, enter actual income and expenses.",
+        "\n - Click 'Save rec./spent' to save the figures.",
+        "\n - Navigate between months by clicking the month buttons on top of the window.",
+        "\n - Left to budget shows how much you have left to allocate this month.",
+        "\n - Click 'Year overview' to see what your year looks like."]
+    for row in range(1, 9):
         help_window_text_field.insert(str(float(row)), table_row_texts[row])
     help_window_text_field.place(x=10, y=10)
-    tk.Button(help_window, text='Got it! Close Help', command=help_window.destroy).place(x=260, y=150)
+    tk.Button(help_window, text='Got it! Close Help', command=help_window.destroy).place(x=260, y=160)
 
 def open_year_overview_window(table_all_months_receivedspent):
     """ Opens year overview window that summarizes this year's data. """

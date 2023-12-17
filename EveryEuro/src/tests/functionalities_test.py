@@ -1,4 +1,5 @@
 import unittest
+import tkinter as tk
 from tkinter import Tk, ttk, StringVar
 from ui.ui import UI
 import ui.ui_helper as ui_helper
@@ -6,13 +7,7 @@ import entities.month as month
 import services.service as service
 
 class TestMonth(unittest.TestCase):
-    def setUp(self):
-        window = Tk()
-        window.geometry("680x500")
-        window.title("EveryEuro")
-        self.UI = UI(window)
-        self.UI.start()
-
+    #
     def test_created_month_has_correct_name_value(self):
         january = month.Month("JANUARY")
         self.assertEqual(january.get_month_name(), "JANUARY")
@@ -108,7 +103,15 @@ class TestService(unittest.TestCase):
         self.assertEqual(len(table_all_months_receivedspent), 13)
         self.assertEqual(table_all_months_planned[1].get_month_name(), "JANUARY")
         self.assertEqual(table_all_months_planned[4].get_month_name(), "APRIL")
-        # add more tests here
+        self.assertEqual(table_all_months_receivedspent[5].get_month_name(), "MAY")
+        self.assertEqual(table_all_months_receivedspent[8].get_month_name(), "AUGUST")
+        self.assertEqual(table_all_months_planned[3].get_income(), 3003)
+        self.assertEqual(table_all_months_planned[7].get_income(), 3007)
+        self.assertEqual(table_all_months_planned[3].get_rent(), 803)
+        self.assertEqual(table_all_months_planned[4].get_bills(), 104)
+        self.assertEqual(table_all_months_receivedspent[5].get_spending(), 4)
+        self.assertEqual(table_all_months_receivedspent[9].get_debt_service(), 5)
+        self.assertEqual(table_all_months_receivedspent[2].get_saving(), 6)
 
     # testing saving data to file
     def test_save_data_to_file(self):
@@ -120,7 +123,7 @@ class TestService(unittest.TestCase):
         table_planned_saved, table_receivedspent_saved = service.open_data_from_file("yes", "backup_budget.csv")
         self.assertEqual(len(table_planned_saved), 13)
         self.assertEqual(len(table_receivedspent_saved), 13)
-        # comparing the original data and saved data, in planned testing all values
+        # comparing the original data and saved data, testing all values in planned table
         for i in range(1, 13):
             self.assertEqual(table_all_months_planned[i].get_month_name(), table_planned_saved[i].get_month_name())
             self.assertEqual(table_all_months_planned[i].get_income(), table_planned_saved[i].get_income())
@@ -129,6 +132,166 @@ class TestService(unittest.TestCase):
             self.assertEqual(table_all_months_planned[i].get_spending(), table_planned_saved[i].get_spending())
             self.assertEqual(table_all_months_planned[i].get_debt_service(), table_planned_saved[i].get_debt_service())
             self.assertEqual(table_all_months_planned[i].get_saving(), table_planned_saved[i].get_saving())
-        # in receivedspent testing only some values
-        #self.assertEqual(table_all_months_receivedspent[2].get_income(), table_receivedspent_saved[3].get_income())
-        # add more tests here
+        # testing receivedspent
+        for i in range(1, 13):
+            self.assertEqual(table_all_months_receivedspent[i].get_month_name(), table_all_months_receivedspent[i].get_month_name())
+            self.assertEqual(table_all_months_receivedspent[i].get_income(), table_all_months_receivedspent[i].get_income())
+            self.assertEqual(table_all_months_receivedspent[i].get_rent(), table_all_months_receivedspent[i].get_rent())
+            self.assertEqual(table_all_months_receivedspent[i].get_bills(), table_all_months_receivedspent[i].get_bills())
+            self.assertEqual(table_all_months_receivedspent[i].get_spending(), table_all_months_receivedspent[i].get_spending())
+            self.assertEqual(table_all_months_receivedspent[i].get_debt_service(), table_all_months_receivedspent[i].get_debt_service())
+            self.assertEqual(table_all_months_receivedspent[i].get_saving(), table_all_months_receivedspent[i].get_saving())
+
+class TestEntryFields(unittest.TestCase):
+    def setUp(self):
+        window = Tk()
+        window.geometry("680x500")
+        window.title("EveryEuro")
+        self.UI = UI(window)
+        self.UI.start()
+
+    # testing planned entry fields
+    def test_planned_income_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_planned_income.delete(0, tk.END)
+        self.UI._chosen_month_planned_income.insert(0, 3000)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_planned_income.get(), '3000')
+        self.UI._chosen_month_planned_income.delete(0, tk.END)
+        self.UI._chosen_month_planned_income.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_planned_income.delete(0, tk.END)
+        self.UI._chosen_month_planned_income.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+
+    def test_planned_rent_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_planned_rent.delete(0, tk.END)
+        self.UI._chosen_month_planned_rent.insert(0, 800)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_planned_rent.get(), '800')
+        self.UI._chosen_month_planned_rent.delete(0, tk.END)
+        self.UI._chosen_month_planned_rent.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_planned_rent.delete(0, tk.END)
+        self.UI._chosen_month_planned_rent.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+
+    def test_planned_bills_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_planned_bills.delete(0, tk.END)
+        self.UI._chosen_month_planned_bills.insert(0, 100)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_planned_bills.get(), '100')
+        self.UI._chosen_month_planned_bills.delete(0, tk.END)
+        self.UI._chosen_month_planned_bills.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_planned_bills.delete(0, tk.END)
+        self.UI._chosen_month_planned_bills.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+
+    def test_planned_spending_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_planned_spending.delete(0, tk.END)
+        self.UI._chosen_month_planned_spending.insert(0, 500)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_planned_spending.get(), '500')
+        self.UI._chosen_month_planned_spending.delete(0, tk.END)
+        self.UI._chosen_month_planned_spending.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_planned_spending.delete(0, tk.END)
+        self.UI._chosen_month_planned_spending.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+
+    def test_planned_debt_service_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_planned_debt_service.delete(0, tk.END)
+        self.UI._chosen_month_planned_debt_service.insert(0, 300)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_planned_debt_service.get(), '300')
+        self.UI._chosen_month_planned_debt_service.delete(0, tk.END)
+        self.UI._chosen_month_planned_debt_service.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_planned_debt_service.delete(0, tk.END)
+        self.UI._chosen_month_planned_debt_service.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+
+    def test_planned_saving_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_planned_saving.delete(0, tk.END)
+        self.UI._chosen_month_planned_saving.insert(0, 750)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_planned_saving.get(), '750')
+        self.UI._chosen_month_planned_saving.delete(0, tk.END)
+        self.UI._chosen_month_planned_saving.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_planned_saving.delete(0, tk.END)
+        self.UI._chosen_month_planned_saving.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_planned_figures(testing="yes"), 'Incorrect value')
+
+    # testing received/spent entry fields
+    def test_receivedspent_income_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_receivedspent_income.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_income.insert(0, 3300)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_receivedspent_income.get(), '3300')
+        self.UI._chosen_month_receivedspent_income.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_income.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_receivedspent_income.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_income.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+
+    def test_receivedspent_rent_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_receivedspent_rent.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_rent.insert(0, 880)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_receivedspent_rent.get(), '880')
+        self.UI._chosen_month_receivedspent_rent.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_rent.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_receivedspent_rent.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_rent.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+
+    def test_receivedspent_bills_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_receivedspent_bills.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_bills.insert(0, 150)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_receivedspent_bills.get(), '150')
+        self.UI._chosen_month_receivedspent_bills.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_bills.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_receivedspent_bills.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_bills.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+
+    def test_receivedspent_spending_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_receivedspent_spending.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_spending.insert(0, 550)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_receivedspent_spending.get(), '550')
+        self.UI._chosen_month_receivedspent_spending.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_spending.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_receivedspent_spending.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_spending.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+
+    def test_receivedspent_debt_service_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_receivedspent_debt_service.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_debt_service.insert(0, 333)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_receivedspent_debt_service.get(), '333')
+        self.UI._chosen_month_receivedspent_debt_service.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_debt_service.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_receivedspent_debt_service.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_debt_service.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+
+    def test_receivedspent_saving_field_accepts_int_but_not_text_and_float(self):
+        self.UI._chosen_month_receivedspent_saving.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_saving.insert(0, 575)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), None)
+        self.assertEqual(self.UI._chosen_month_receivedspent_saving.get(), '575')
+        self.UI._chosen_month_receivedspent_saving.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_saving.insert(0, 'word')
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
+        self.UI._chosen_month_receivedspent_saving.delete(0, tk.END)
+        self.UI._chosen_month_receivedspent_saving.insert(0, 123.123)
+        self.assertEqual(self.UI.save_month_receivedspent_figures(testing="yes"), 'Incorrect value')
