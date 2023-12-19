@@ -2,10 +2,8 @@
 
 import tkinter as tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from tkinter.messagebox import askyesno
 import ui.ui_helper as ui_helper
 import services.service as service
-import entities.month
 from datetime import datetime
 
 class UI:
@@ -39,89 +37,27 @@ class UI:
            Creates layout, menu bar, toolbar, buttons, texts, entry fields for numbers.
            Creates two tables for keeping planned and received/spent figures with default values 0.
         """
-        ui_helper.create_menu_bar(self._root)
-        #ui_helper.create_tool_bar(self._root)
-        self.create_tool_bar()
-
-        self.create_frame_month_button_row(self._root)
-        self.create_frame_chosen_month(self._root)
-        self.create_frame_left_to_budget(self._root)
-        self.create_frame_main(self._root)
-
         self.table_all_months_planned = service.create_all_months_table()
         self.table_all_months_receivedspent = service.create_all_months_table()
+
+        ui_helper.create_menu_bar(self._root)
+        ui_helper.create_tool_bar(self._root, self.get_data_from_file,
+            self.table_all_months_planned, self.table_all_months_receivedspent)
+
+        ui_helper.create_frame_month_button_row(self._root, self.get_and_display_chosen_month_data)
+        self._chosen_month = tk.StringVar()
+        self._chosen_month.set(service.get_month_name(datetime.now().month))  # e.g. 12 = December
+        ui_helper.create_frame_chosen_month(self._root, self._chosen_month)
+        self._chosen_month_left_to_budget = tk.StringVar()
+        self._chosen_month_left_to_budget.set("0")
+        ui_helper.create_frame_left_to_budget(self._root, self._chosen_month_left_to_budget)
+        self.create_frame_main()  # self._root
 
         self.get_and_display_chosen_month_data(
             service.get_month_number_and_name(self._chosen_month.get())[0]
         )
 
-    def create_frame_month_button_row(self, root):
-        """ Creating frame and month buttons on top row of the window. """
-        frame_months_row = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
-        button_jan = tk.Button(master=frame_months_row, text="JAN",
-            command=(lambda: self.get_and_display_chosen_month_data(1)))
-        button_feb = tk.Button(master=frame_months_row, text="FEB",
-                                command=(lambda: self.get_and_display_chosen_month_data(2)))
-        button_mar = tk.Button(master=frame_months_row, text="MAR",
-                                command=(lambda: self.get_and_display_chosen_month_data(3)))
-        button_apr = tk.Button(master=frame_months_row, text="APR",
-                                command=(lambda: self.get_and_display_chosen_month_data(4)))
-        button_may = tk.Button(master=frame_months_row, text="MAY",
-                                command=(lambda: self.get_and_display_chosen_month_data(5)))
-        button_jun = tk.Button(master=frame_months_row, text="JUN",
-                                command=(lambda: self.get_and_display_chosen_month_data(6)))
-        button_jul = tk.Button(master=frame_months_row, text="JUL",
-                                command=(lambda: self.get_and_display_chosen_month_data(7)))
-        button_aug = tk.Button(master=frame_months_row, text="AUG",
-                                command=(lambda: self.get_and_display_chosen_month_data(8)))
-        button_sep = tk.Button(master=frame_months_row, text="SEP",
-                                command=(lambda: self.get_and_display_chosen_month_data(9)))
-        button_oct = tk.Button(master=frame_months_row, text="OCT",
-                                command=(lambda: self.get_and_display_chosen_month_data(10)))
-        button_nov = tk.Button(master=frame_months_row, text="NOV",
-                                command=(lambda: self.get_and_display_chosen_month_data(11)))
-        button_dec = tk.Button(master=frame_months_row, text="DEC",
-                                command=(lambda: self.get_and_display_chosen_month_data(12)))
-        button_jan.grid(row=0, column=0)
-        button_feb.grid(row=0, column=1)
-        button_mar.grid(row=0, column=2)
-        button_apr.grid(row=0, column=3)
-        button_may.grid(row=0, column=4)
-        button_jun.grid(row=0, column=5)
-        button_jul.grid(row=0, column=6)
-        button_aug.grid(row=0, column=7)
-        button_sep.grid(row=0, column=8)
-        button_oct.grid(row=0, column=9)
-        button_nov.grid(row=0, column=10)
-        button_dec.grid(row=0, column=11)
-        frame_months_row.grid(row=0, column=0, columnspan=4, pady=10)
-
-    def create_frame_chosen_month(self, root):
-        """ Creating frame (top left) that displays the chosen month name. """
-        frame_chosen_month = tk.Frame(master=root, relief=tk.FLAT, borderwidth=1)
-        self._chosen_month = tk.StringVar()
-        self._chosen_month.set(service.get_month_name(datetime.now().month))  # e.g. 12 = December
-        # add get_and_display_chosen_month_data here so that chosen month figures are displayed at start
-        label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=self._chosen_month)
-        label_chosen_month.grid(row=1, column=0)
-        frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
-
-    def create_frame_left_to_budget(self, root):
-        """ Creating frame (top left) that displays the left to budget figure. """
-        frame_left_to_budget = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
-        frame_left_to_budget.grid(row=2, column=0)
-        self._chosen_month_left_to_budget = tk.StringVar()
-        text_left_to_budget = tk.StringVar()
-        self._chosen_month_left_to_budget.set("0")
-        text_left_to_budget.set("Left to budget:")
-        label_text_left_to_budget = tk.Label(master=frame_left_to_budget,
-                                        textvariable=text_left_to_budget)
-        label_number_left_to_budget = tk.Label(master=frame_left_to_budget,
-                                        textvariable=self._chosen_month_left_to_budget)
-        label_text_left_to_budget.grid(row=2, column=0, sticky='w', columnspan=1, padx=10)
-        label_number_left_to_budget.grid(row=2, column=1, sticky='e')
-
-    def create_frame_main(self, root):
+    def create_frame_main(self):
         """ Creating main window frame that holds row and column texts, and entry fields. """
         # main window frame displaying budgeting items
         frame_main = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
@@ -154,7 +90,7 @@ class UI:
         button_save_planned_figures.grid(row=10, column=1)
 
     def create_receivedspent_entry_fields(self, frame_main, width):
-        """ Creating 'RECEIVED / SPENT' column entry fields and 'Save planned' button. """
+        """ Creating 'RECEIVED / SPENT' column entry fields and 'Save rec./spent' button. """
         self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width)
         self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width)
         self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width)
@@ -248,66 +184,31 @@ class UI:
 
     def get_and_display_chosen_month_data(self, month_number):
         """ Getting the chosen month data and displaying figures in the window. """
-        month_name = self.table_all_months_planned[month_number].get_month_name()
-        income_planned = self.table_all_months_planned[month_number].get_income()
-        rent_planned = self.table_all_months_planned[month_number].get_rent()
-        bills_planned = self.table_all_months_planned[month_number].get_bills()
-        spending_planned = self.table_all_months_planned[month_number].get_spending()
-        debt_service_planned = self.table_all_months_planned[month_number].get_debt_service()
-        saving_planned = self.table_all_months_planned[month_number].get_saving()
-        left_to_budget = service.calculate_left_to_budget(income_planned, rent_planned,
-            bills_planned, spending_planned, debt_service_planned, saving_planned)
+        (month_name, income_planned, rent_planned, bills_planned, spending_planned,
+            debt_service_planned, saving_planned, left_to_budget) = service.get_planned_values(
+                self.table_all_months_planned, month_number)
         self._chosen_month.set(month_name)
         self._chosen_month_left_to_budget.set(left_to_budget)
-        self._chosen_month_planned_income.delete(0, tk.END)
-        self._chosen_month_planned_income.insert(0, income_planned)
-        self._chosen_month_planned_rent.delete(0, tk.END)
-        self._chosen_month_planned_rent.insert(0, rent_planned)
-        self._chosen_month_planned_bills.delete(0, tk.END)
-        self._chosen_month_planned_bills.insert(0, bills_planned)
-        self._chosen_month_planned_spending.delete(0, tk.END)
-        self._chosen_month_planned_spending.insert(0, spending_planned)
-        self._chosen_month_planned_debt_service.delete(0, tk.END)
-        self._chosen_month_planned_debt_service.insert(0, debt_service_planned)
-        self._chosen_month_planned_saving.delete(0, tk.END)
-        self._chosen_month_planned_saving.insert(0, saving_planned)
+        # refactor this: data is first fetched from service and then sent back to another function
+        service.update_entry_field_value(self._chosen_month_planned_income, income_planned)
+        service.update_entry_field_value(self._chosen_month_planned_rent, rent_planned)
+        service.update_entry_field_value(self._chosen_month_planned_bills, bills_planned)
+        service.update_entry_field_value(self._chosen_month_planned_spending, spending_planned)
+        service.update_entry_field_value(self._chosen_month_planned_debt_service, debt_service_planned)
+        service.update_entry_field_value(self._chosen_month_planned_saving, saving_planned)
 
-        self._chosen_month_receivedspent_income.delete(0, tk.END)
-        self._chosen_month_receivedspent_income.insert(0,
+        service.update_entry_field_value(self._chosen_month_receivedspent_income,
             self.table_all_months_receivedspent[month_number].get_income())
-        self._chosen_month_receivedspent_rent.delete(0, tk.END)
-        self._chosen_month_receivedspent_rent.insert(0,
+        service.update_entry_field_value(self._chosen_month_receivedspent_rent,
             self.table_all_months_receivedspent[month_number].get_rent())
-        self._chosen_month_receivedspent_bills.delete(0, tk.END)
-        self._chosen_month_receivedspent_bills.insert(0,
+        service.update_entry_field_value(self._chosen_month_receivedspent_bills,
             self.table_all_months_receivedspent[month_number].get_bills())
-        self._chosen_month_receivedspent_spending.delete(0, tk.END)
-        self._chosen_month_receivedspent_spending.insert(0,
+        service.update_entry_field_value(self._chosen_month_receivedspent_spending,
             self.table_all_months_receivedspent[month_number].get_spending())
-        self._chosen_month_receivedspent_debt_service.delete(0, tk.END)
-        self._chosen_month_receivedspent_debt_service.insert(0,
+        service.update_entry_field_value(self._chosen_month_receivedspent_debt_service,
             self.table_all_months_receivedspent[month_number].get_debt_service())
-        self._chosen_month_receivedspent_saving.delete(0, tk.END)
-        self._chosen_month_receivedspent_saving.insert(0,
+        service.update_entry_field_value(self._chosen_month_receivedspent_saving,
             self.table_all_months_receivedspent[month_number].get_saving())
-
-    def create_tool_bar(self):
-        """ Creating toolbar, placed on bottom of the program window. """
-        toolbar_left_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
-        toolbar_center = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
-        toolbar_right_side = tk.Frame(master=self._root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
-        toolbar_left_side.grid(row=25, column=0)
-        toolbar_center.grid(row=25, column=1)
-        toolbar_right_side.grid(row=25, column=2, sticky='e')
-        tk.Button(toolbar_left_side, text='Year overview',
-            command=(lambda: ui_helper.open_year_overview_window(
-                self.table_all_months_receivedspent))).pack(side=tk.LEFT)
-        tk.Button(toolbar_center, text='Open', command=self.get_data_from_file).pack(side=tk.LEFT)
-        tk.Button(toolbar_center, text='Save', 
-            command=(lambda: service.save_data_to_file(self.table_all_months_planned,
-                self.table_all_months_receivedspent))).pack(side=tk.LEFT)
-        tk.Button(toolbar_center, text='Help', command=ui_helper.open_help_window).pack(side=tk.LEFT)
-        tk.Button(toolbar_right_side, text='Quit', command=self.quit_program).pack(side=tk.RIGHT)
 
     def get_data_from_file(self):
         """ Importing and setting .csv data into tables planned and receivespent. """
@@ -318,9 +219,3 @@ class UI:
         self.get_and_display_chosen_month_data(
             service.get_month_number_and_name(self._chosen_month.get())[0]
         )
-
-    def quit_program(self):
-        """ Asking user to confirm that s/he wants to quit the program. """
-        ok_to_quit = askyesno('Verify quit', 'Are you sure you want to quit?')
-        if ok_to_quit:
-            self._root.quit()

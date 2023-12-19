@@ -3,6 +3,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror
+from functools import partial
+import services.service as service
 
 def create_menu_bar(root):
     """ Creating menu bar in the top part on the window. """
@@ -18,6 +20,55 @@ def create_menu_bar(root):
     help_menu = tk.Menu(top, tearoff=False)
     help_menu.add_command(label='Help', command=open_help_window, underline=0)
     top.add_cascade(label='Help', menu=help_menu, underline=0)
+
+def create_tool_bar(root, get_data_from_file, table_all_months_planned, table_all_months_receivedspent):
+    """ Creating toolbar, placed on bottom of the program window. """
+    toolbar_left_side = tk.Frame(master=root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+    toolbar_center = tk.Frame(master=root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+    toolbar_right_side = tk.Frame(master=root, cursor='hand2', relief=tk.SUNKEN, borderwidth=1)
+    toolbar_left_side.grid(row=25, column=0)
+    toolbar_center.grid(row=25, column=1)
+    toolbar_right_side.grid(row=25, column=2, sticky='e')
+    tk.Button(toolbar_left_side, text='Year overview',
+        command=(lambda: open_year_overview_window(
+            table_all_months_receivedspent))).pack(side=tk.LEFT)
+    tk.Button(toolbar_center, text='Open', command=get_data_from_file).pack(side=tk.LEFT)
+    tk.Button(toolbar_center, text='Save', 
+        command=(lambda: service.save_data_to_file(table_all_months_planned,
+            table_all_months_receivedspent))).pack(side=tk.LEFT)
+    tk.Button(toolbar_center, text='Help', command=open_help_window).pack(side=tk.LEFT)
+    tk.Button(toolbar_right_side, text='Quit',
+        command=(lambda: service.quit_program(root))).pack(side=tk.RIGHT)
+
+def create_frame_month_button_row(root, get_and_display_chosen_month_data):
+    """ Creating frame and month buttons on top row of the window. """
+    frame_months_row = tk.Frame(master=root, relief=tk.RAISED, borderwidth=1)
+    month_button_array = ["empty cell"]
+    short_month_names = ["", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP",
+        "OCT", "NOV", "DEC"]
+    for i in range(1, 13):
+        month_button = tk.Button(master=frame_months_row, text=short_month_names[i],
+            command=partial(get_and_display_chosen_month_data, i))
+        month_button_array.append(month_button)
+        month_button_array[i].grid(row=0, column=i-1)
+    frame_months_row.grid(row=0, column=0, columnspan=4, pady=10)
+
+def create_frame_chosen_month(root, chosen_month):
+    """ Creating frame (top left) that displays the chosen month name. """
+    frame_chosen_month = tk.Frame(master=root, relief=tk.FLAT, borderwidth=1)
+    label_chosen_month = tk.Label(master=frame_chosen_month, textvariable=chosen_month)
+    label_chosen_month.grid(row=1, column=0)
+    frame_chosen_month.grid(row=1, column=0, sticky='w', padx=10)
+
+def create_frame_left_to_budget(root, chosen_month_left_to_budget):
+    """ Creating frame (top left) that displays the left to budget figure. """
+    frame_left_to_budget = tk.Frame(master=root, relief=tk.FLAT, borderwidth=1)
+    frame_left_to_budget.grid(row=2, column=0)
+    label_text_left_to_budget = tk.Label(master=frame_left_to_budget, text="Left to budget:")
+    label_number_left_to_budget = tk.Label(master=frame_left_to_budget,
+                                    textvariable=chosen_month_left_to_budget)
+    label_text_left_to_budget.grid(row=2, column=0, sticky='w', columnspan=1, padx=10)
+    label_number_left_to_budget.grid(row=2, column=1, sticky='e')
 
 def create_column_titles(frame_main):
     """ Creating column title that are on first row of each column. """
@@ -169,7 +220,7 @@ def show_year_summary(table_all_months_receivedspent, year_overview_window):
         label_rent_per_income_too_high = tk.Label(master=frame_summary,
             text=f"Your rent / morgage might be too high!", fg="red")
         label_rent_per_income_too_high.grid(row=10, column=1, sticky="w", columnspan=2)
-    if spending_percentage_of_income > 30:
+    if spending_percentage_of_income >= 50:
         label_spending_too_much = tk.Label(master=frame_summary,
             text="Your spending is out of control!", fg="red")
         label_spending_too_much.grid(row=11, column=1, sticky="w")
