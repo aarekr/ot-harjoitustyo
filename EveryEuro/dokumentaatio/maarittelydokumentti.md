@@ -35,4 +35,5 @@
 * Programming Python. Mark Lutz. O'Reilly Media. (2011)
 * Time delay Tkinter. Stackoverflow.com. https://stackoverflow.com/questions/19887729/time-delay-tkinter
 * How to Pass Arguments to Tkinter Button Command? GeeksforGeeks. https://www.geeksforgeeks.org/how-to-pass-arguments-to-tkinter-button-command
+* Textbox (Entry) in Tk (tkinter). PythonAssets. https://pythonassets.com/posts/textbox-entry-in-tk-tkinter
 * 

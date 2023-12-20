@@ -51,7 +51,7 @@ class UI:
         self._chosen_month_left_to_budget = tk.StringVar()
         self._chosen_month_left_to_budget.set("0")
         ui_helper.create_frame_left_to_budget(self._root, self._chosen_month_left_to_budget)
-        self.create_frame_main()  # self._root
+        self.create_frame_main()
 
         self.get_and_display_chosen_month_data(
             service.get_month_number_and_name(self._chosen_month.get())[0]
@@ -70,12 +70,12 @@ class UI:
 
     def create_planned_entry_fields(self, frame_main, width):
         """ Creating 'PLANNED' column entry fields and 'Save planned' button. """
-        self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_planned_spending = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_planned_debt_service = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_planned_saving = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_planned_income = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_planned_rent = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_planned_bills = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_planned_spending = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_planned_debt_service = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_planned_saving = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
         self._chosen_month_planned_income.grid(row=4, column=1, sticky="e")
         self._chosen_month_planned_rent.grid(row=5, column=1, sticky="e")
         self._chosen_month_planned_bills.grid(row=6, column=1, sticky="e")
@@ -91,12 +91,12 @@ class UI:
 
     def create_receivedspent_entry_fields(self, frame_main, width):
         """ Creating 'RECEIVED / SPENT' column entry fields and 'Save rec./spent' button. """
-        self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_receivedspent_spending = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_receivedspent_debt_service = tk.Entry(master=frame_main, width=width)
-        self._chosen_month_receivedspent_saving = tk.Entry(master=frame_main, width=width)
+        self._chosen_month_receivedspent_income = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_receivedspent_rent = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_receivedspent_bills = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_receivedspent_spending = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_receivedspent_debt_service = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
+        self._chosen_month_receivedspent_saving = tk.Entry(master=frame_main, width=width, justify=tk.RIGHT)
         self._chosen_month_receivedspent_income.grid(row=4, column=2, sticky="e")
         self._chosen_month_receivedspent_rent.grid(row=5, column=2, sticky="e")
         self._chosen_month_receivedspent_bills.grid(row=6, column=2, sticky="e")
@@ -189,7 +189,6 @@ class UI:
                 self.table_all_months_planned, month_number)
         self._chosen_month.set(month_name)
         self._chosen_month_left_to_budget.set(left_to_budget)
-        # refactor this: data is first fetched from service and then sent back to another function
         service.update_entry_field_value(self._chosen_month_planned_income, income_planned)
         service.update_entry_field_value(self._chosen_month_planned_rent, rent_planned)
         service.update_entry_field_value(self._chosen_month_planned_bills, bills_planned)

@@ -52,3 +52,5 @@
 * Testit syötekentille
 * Käyttäjältä varmistetaan, että haluaa sulkea ohjelman
 * Kuukauden avaaminen näyttää heti valitun kuukauden tiedot
+* Numerot sijoitetaan kenttien oikeaan reunaan
+* 
