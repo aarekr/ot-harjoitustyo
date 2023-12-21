@@ -20,11 +20,6 @@ def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving
     left_to_budget = income - rent - bills - spending - debt_service - saving
     return left_to_budget
 
-def bar_item_notdone():  # this function will not be in the final version
-    """Shows an error window for functionalities that are not yet implemented.
-    """
-    showerror('Not implemented', 'Functionality not yet available, but coming soon')
-
 # combine the two functions below
 def get_month_name(month_number):
     """Returning month in string format.
@@ -62,6 +57,7 @@ def create_all_months_table():
     return table_all_months
 
 def get_planned_values(table_all_months_planned, month_number):
+    """ Returning chosen month name and number items. """
     month_name = table_all_months_planned[month_number].get_month_name()
     income_planned = table_all_months_planned[month_number].get_income()
     rent_planned = table_all_months_planned[month_number].get_rent()

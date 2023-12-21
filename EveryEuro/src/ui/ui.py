@@ -40,7 +40,8 @@ class UI:
         self.table_all_months_planned = service.create_all_months_table()
         self.table_all_months_receivedspent = service.create_all_months_table()
 
-        ui_helper.create_menu_bar(self._root)
+        ui_helper.create_menu_bar(self._root, self.get_data_from_file,
+            self.table_all_months_planned, self.table_all_months_receivedspent)
         ui_helper.create_tool_bar(self._root, self.get_data_from_file,
             self.table_all_months_planned, self.table_all_months_receivedspent)
 

@@ -7,7 +7,7 @@ import entities.month as month
 import services.service as service
 
 class TestMonth(unittest.TestCase):
-    #
+    # testing that month name is correct
     def test_created_month_has_correct_name_value(self):
         january = month.Month("JANUARY")
         self.assertEqual(january.get_month_name(), "JANUARY")
@@ -109,9 +109,9 @@ class TestService(unittest.TestCase):
         self.assertEqual(table_all_months_planned[7].get_income(), 3007)
         self.assertEqual(table_all_months_planned[3].get_rent(), 803)
         self.assertEqual(table_all_months_planned[4].get_bills(), 104)
-        self.assertEqual(table_all_months_receivedspent[5].get_spending(), 4)
-        self.assertEqual(table_all_months_receivedspent[9].get_debt_service(), 5)
-        self.assertEqual(table_all_months_receivedspent[2].get_saving(), 6)
+        self.assertEqual(table_all_months_receivedspent[5].get_spending(), 505)
+        self.assertEqual(table_all_months_receivedspent[9].get_debt_service(), 409)
+        self.assertEqual(table_all_months_receivedspent[2].get_saving(), 1002)
 
     # testing saving data to file
     def test_save_data_to_file(self):
@@ -141,6 +141,11 @@ class TestService(unittest.TestCase):
             self.assertEqual(table_all_months_receivedspent[i].get_spending(), table_all_months_receivedspent[i].get_spending())
             self.assertEqual(table_all_months_receivedspent[i].get_debt_service(), table_all_months_receivedspent[i].get_debt_service())
             self.assertEqual(table_all_months_receivedspent[i].get_saving(), table_all_months_receivedspent[i].get_saving())
+
+    def test_quit_program(self):
+        # testing that quit_program function exists
+        function = service.quit_program
+        self.assertEqual(service.quit_program, function)
 
 class TestEntryFields(unittest.TestCase):
     def setUp(self):

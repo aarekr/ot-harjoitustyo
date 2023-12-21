@@ -64,7 +64,9 @@
 16.12. | 3,5h | Syötekenttien validointi - vain kokonaisluvut hyväksytään. Koodin siistiminen ja yhtenäistäminen. Kuukauden avaaminen näyttää heti valitun kuukauden tiedot. Käyttäjältä varmistetaan, että haluaa sulkea ohjelman. Testit tiedostojen avaamiselle ja tallentamiselle. |
 17.12. | 1,5h | Lisää testejä tiedostojen avaamiselle ja tallentamiselle. Testit syötekentille. |
 19.12. |  3h  | Ikkunan yläosan kuukausinapit luodaan nyt for -silmukalla. Käyttöliittymästä siirretty useita toimintoja ulos. Käyttöliittymän koodia refaktoroitu. |
-20.12. |  1h  | Numerot ovat nyt kenttien oikeassa reunassa. ui_helpeeeeer -moduuli refaktorointia. |
+20.12. |  1h  | Numerot ovat nyt kenttien oikeassa reunassa. ui_helper -moduulin refaktorointia. |
+21.12. | 2,5h | ui_helper.py:n show_year_summary -metodi jaettu osiin. Yritetty korjata year_overview:n receivedspent -taulukon 0-arvot-ongelmaa. |
+22.12. |      |  |
 
 
 ## Yhteensä
