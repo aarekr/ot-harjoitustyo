@@ -5,7 +5,7 @@ Ohjelman rakenne:
 
 Tiedostossa ui on sovelluksen käyttöliitymä ja sen aputiedosto. Entities -hakemisto sisältää kuukausien hallintaan liittyvät tiedot. Services -hakemisto sisältää ohjelman logiikan.
 
-![](./kuvat/main_window.png)
+![](./kuvat/arkkitehtuuri.png)
 
 ## Käyttöliittymä
 Käyttöliittymä sisältää:
@@ -59,16 +59,19 @@ sequenceDiagram
   participant Month
   participant File
   UI->>Service: create_all_months_table()
+  Service->>Month: create 12 months
+  Month->>Service: 12 month objects
   Service->>UI: 12 months
-  User->>UI: click "Month"
+  User->>UI: click "month" button
   UI->>Service: get_and_display_chosen_month_data(month_number)
-  Month->>UI: month
+  User->>UI: get_data_from_file()
   UI->>Service: open_data_from_file()
   Service->>File: open file
   File->>Service: file contents
   Service->>UI: 12 month data
+  User->>UI: save budget to file
   UI->>Service: save_data_to_file()
-  Service->>File: budjet data
+  Service->>File: budget data
   User->>UI: click "Help"
   UI->>UI: open_help_window()
   User->>UI: click "Year overview"

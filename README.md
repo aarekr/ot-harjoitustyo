@@ -1,5 +1,6 @@
 # EveryEuro
 Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
+
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
 ## EveryEuro Budget

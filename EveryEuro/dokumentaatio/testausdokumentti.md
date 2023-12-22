@@ -1,7 +1,7 @@
 # Testausdokumentti
 
 ## Yksikkötestaus
-* Testauksessa on käytetty Pythonin unittest -työkalua. Testejä on yhteensä 32 kpl.
+* Testauksessa on käytetty Pythonin unittest -työkalua. Testejä on yhteensä 33 kpl.
 
 ## Mitä testattu ja miten
 
@@ -27,6 +27,7 @@
 * Budjetoitavaa jäljellä-toiminto laskee tulojen ja menojen erotuksen oikein
 * Tiedoston avaaminen hakee tallennetut tiedot oikein ja tallentaa taulukoihin
 * Budjetin tallentaminen tiedostoon toimii oikein
+* Erien summien ja prosenttilukujen tarkistus käyttämällä valmista tiedostoa
 * Ohjelman lopettamisen vahvistava toiminto on olemassa
 
 #### Syötekenttien validointi (TestEntryFields)
@@ -38,6 +39,9 @@
 * Planned ja Received/Spent saving -kentät hyväksyvät vain kokonaisluvut ja antavat muissa tapauksissa virheilmoituksen
 
 ## Testauskattavuus
+Testauskattavuus ilman käyttöliittymää on 85%.
+
+![](./kuvat/arkkitehtuuri.png)
 
 ## Sovellukseen jääneet ongelmat
 * Budjetin syötekenttien tallentaminen hoidetaan käyttöliittymässä. Vaikka kentät ja niiden sisältö näkyvät ohjelman pääikkunassa, validointi, tallentaminen ja esittäminen olisi parempi siirtää käyttöliittymästä ulos.
