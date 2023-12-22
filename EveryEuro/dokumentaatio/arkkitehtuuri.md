@@ -1,8 +1,6 @@
 # Arkkitehtuuri
 
-## Rakenne
-Ohjelman rakenne:
-
+## Ohjelman rakenne
 Tiedostossa ui on sovelluksen käyttöliitymä ja sen aputiedosto. Entities -hakemisto sisältää kuukausien hallintaan liittyvät tiedot. Services -hakemisto sisältää ohjelman logiikan.
 
 ![](./kuvat/arkkitehtuuri.png)
@@ -19,8 +17,6 @@ Sovelluslogiikan muodostavat luokat User ja Month. Jokaiseen käyttäjään liit
 ```mermaid
   classDiagram
     Month "12" --> "1" User
-    class User{
-    }
     class Month{
         id
         income
@@ -29,6 +25,8 @@ Sovelluslogiikan muodostavat luokat User ja Month. Jokaiseen käyttäjään liit
         spending
         debt service
         saving
+    }
+    class User{
     }
 ```
 
@@ -61,15 +59,16 @@ sequenceDiagram
   UI->>Service: create_all_months_table()
   Service->>Month: create 12 months
   Month->>Service: 12 month objects
-  Service->>UI: 12 months
+  Service->>UI: 12 months table
   User->>UI: click "month" button
   UI->>Service: get_and_display_chosen_month_data(month_number)
-  User->>UI: get_data_from_file()
+  Service->>UI: updated field values
+  User->>UI: click Open
   UI->>Service: open_data_from_file()
   Service->>File: open file
   File->>Service: file contents
   Service->>UI: 12 month data
-  User->>UI: save budget to file
+  User->>UI: click "Save"
   UI->>Service: save_data_to_file()
   Service->>File: budget data
   User->>UI: click "Help"

@@ -54,4 +54,5 @@
 * Kuukauden avaaminen näyttää heti valitun kuukauden tiedot
 * Numerot sijoitetaan syötekenttien oikeaan reunaan
 * ui.py:n start ja ui_helper:n show_year_summary -metodeja lyhennetty merkittävästi
-* 
+* Dokumentaatio kirjoitettu loppuun
+* Release ja palautus

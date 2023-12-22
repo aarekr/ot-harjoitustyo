@@ -2,6 +2,7 @@
 
 ## Yksikkötestaus
 * Testauksessa on käytetty Pythonin unittest -työkalua. Testejä on yhteensä 33 kpl.
+* Testauksen ja käytön helpottamiseksi luotu tiedosto my_budget.csv
 
 ## Mitä testattu ja miten
 
@@ -41,8 +42,8 @@
 ## Testauskattavuus
 Testauskattavuus ilman käyttöliittymää on 85%.
 
-![](./kuvat/arkkitehtuuri.png)
+![](./kuvat/testauskattavuus.png)
 
 ## Sovellukseen jääneet ongelmat
 * Budjetin syötekenttien tallentaminen hoidetaan käyttöliittymässä. Vaikka kentät ja niiden sisältö näkyvät ohjelman pääikkunassa, validointi, tallentaminen ja esittäminen olisi parempi siirtää käyttöliittymästä ulos.
-* Planned ja received/spent -luvut on jaettu kahteen eri taulukkoon, koska esim. year overview -toiminto tarvitsee vain toista taulkoista. Lukujen käsittely yhdessä taulukossa saattaa olla järkevämpää ohjelman laajentuessa, esim. jos luodaan kolmas sarake difference, joka ilmoittaa suunniteltujen ja toteutuneiden erien erot.
+* Planned ja received/spent -luvut on jaettu kahteen eri taulukkoon, koska esim. year overview -toiminto tarvitsee vain toista taulukoista. Lukujen käsittely yhdessä taulukossa saattaa olla järkevämpää ohjelman laajentuessa, esim. jos luodaan kolmas sarake difference, joka ilmoittaa suunniteltujen ja toteutuneiden erien erot.

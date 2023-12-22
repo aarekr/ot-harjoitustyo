@@ -3,5 +3,4 @@ __pycache__
 htmlcov
 /htmlcov/
 .coverage
-my_budget.csv
 backup_budget.csv
