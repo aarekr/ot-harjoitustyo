@@ -119,15 +119,15 @@ def open_year_overview_window(table_all_months_receivedspent):
     """ Opens year overview window that summarizes this year's data. """
     year_overview_window = tk.Toplevel()
     year_overview_window.title("Year overview")
-    year_overview_window.geometry("670x500")
+    year_overview_window.geometry("600x400")
     progress_bar = ttk.Progressbar(year_overview_window, orient=tk.HORIZONTAL, length=200,
             value=0, mode='determinate')
     label_ai_analyzes_year = tk.Label(master=year_overview_window,
         text='Please wait while Artificial Intelligence analyzes your budget')
-    label_ai_analyzes_year.place(x=120, y=150)
+    label_ai_analyzes_year.place(x=100, y=130)
     label_year_summary = tk.Label(master=year_overview_window)
     label_year_summary.place(x=10, y=10)
-    progress_bar.place(x=220, y=200)
+    progress_bar.place(x=200, y=180)
     progress_bar.after(1000, lambda: progress_bar.config(value=20))
     progress_bar.after(2000, lambda: progress_bar.config(value=40))
     progress_bar.after(3000, lambda: progress_bar.config(value=60))
@@ -139,7 +139,7 @@ def open_year_overview_window(table_all_months_receivedspent):
         lambda: show_year_summary(table_all_months_receivedspent, year_overview_window))
 
     tk.Button(year_overview_window, text='Close overview',
-        command=year_overview_window.destroy).place(x=260, y=400)
+        command=year_overview_window.destroy).place(x=240, y=330)
 
 def show_year_summary(table_all_months_receivedspent, year_overview_window):
     frame_summary = tk.Frame(master=year_overview_window, borderwidth=1)
@@ -151,7 +151,7 @@ def show_year_summary(table_all_months_receivedspent, year_overview_window):
         sum_total_spending, sum_total_debt_service, sum_total_saving,
         count_months_rent_above_35_per_cent_of_income,
         spending_percentage_of_income,
-        count_months_saving_positive) = calculate_year_figures(table_all_months_receivedspent)
+        count_months_saving_positive) = service.calculate_year_figures(table_all_months_receivedspent)
 
     create_and_place_year_overview_text_items(frame_summary)
 
@@ -161,45 +161,6 @@ def show_year_summary(table_all_months_receivedspent, year_overview_window):
 
     create_comments_year_overview(frame_summary, count_months_rent_above_35_per_cent_of_income,
         spending_percentage_of_income, count_months_saving_positive)
-
-def calculate_year_figures(table_all_months_receivedspent):
-    count_months_filled_in = 0
-    sum_total_income = 0
-    sum_total_rent = 0
-    sum_total_bills = 0
-    sum_total_spending = 0
-    sum_total_debt_service = 0
-    sum_total_saving = 0
-    count_months_rent_above_35_per_cent_of_income = 0
-    count_months_saving_positive = 0
-    for i in range(1, 13):
-        income = table_all_months_receivedspent[i].get_income()
-        rent = table_all_months_receivedspent[i].get_rent()
-        bills = table_all_months_receivedspent[i].get_bills()
-        spending = table_all_months_receivedspent[i].get_spending()
-        debt_service = table_all_months_receivedspent[i].get_debt_service()
-        saving = table_all_months_receivedspent[i].get_saving()
-        sum_total_income += income
-        sum_total_rent += rent
-        if rent / (0.1 if income == 0 else income) > 0.35:
-            count_months_rent_above_35_per_cent_of_income += 1
-        sum_total_bills += bills
-        sum_total_spending += spending
-        sum_total_debt_service += debt_service
-        sum_total_saving += saving
-        if saving > 0:
-            count_months_saving_positive += 1
-        if income != 0:
-            count_months_filled_in += 1
-        if count_months_filled_in == 0:
-            count_months_filled_in = 1
-        if sum_total_income == 0:
-            sum_total_income = 1
-    spending_percentage_of_income = 100 * sum_total_spending / sum_total_income
-    return (count_months_filled_in, sum_total_income, sum_total_rent, sum_total_bills,
-            sum_total_spending, sum_total_debt_service, sum_total_saving,
-            count_months_rent_above_35_per_cent_of_income, spending_percentage_of_income,
-            count_months_saving_positive)
 
 def create_and_place_year_overview_text_items(frame_summary):
     """ Creating and placing year overview window text items (top left). """

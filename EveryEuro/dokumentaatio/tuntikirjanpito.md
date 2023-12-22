@@ -66,7 +66,7 @@
 19.12. |  3h  | Ikkunan yläosan kuukausinapit luodaan nyt for -silmukalla. Käyttöliittymästä siirretty useita toimintoja ulos. Käyttöliittymän koodia refaktoroitu. |
 20.12. |  1h  | Numerot ovat nyt kenttien oikeassa reunassa. ui_helper -moduulin refaktorointia. |
 21.12. | 2,5h | ui_helper.py:n show_year_summary -metodi jaettu osiin. Yritetty korjata year_overview:n receivedspent -taulukon 0-arvot-ongelmaa. |
-22.12. |      |  |
+22.12. |      | Tiedostojen refaktorointia, vielä joitakin toimintoja siirretty oikeisiin paikkoihin. Arkkitehtuuri kirjoitettu loppuun. |
 
 
 ## Yhteensä

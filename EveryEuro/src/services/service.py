@@ -5,20 +5,16 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 from tkinter.messagebox import askyesno
 import entities.month
 
-def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving):
-    """Calculating left to budget item shown in the top left part of the program window.
-    Args:
-        income: planned/expected income for current month
-        rent: planned rent/mortgage for current month
-        bills: planned bills for current month
-        spending: planned spending for current month
-        debt_service: planned debt servicing for current month
-        saving: planned saving for current month
+def create_all_months_table():
+    """Creating month data with default values 0 for all entry fields.
     Returns:
-        Int: income minus all other parameters
+        Table of 12 Month objects with month names and fields as 0
     """
-    left_to_budget = income - rent - bills - spending - debt_service - saving
-    return left_to_budget
+    table_all_months = ["empty cell"]  # leaving index 0 empty
+    for i in range(1, 13):
+        created_month = entities.month.Month(get_month_name(i), 0, 0, 0, 0, 0, 0)
+        table_all_months.append(created_month)
+    return table_all_months
 
 def get_month_name(month_number):
     """Returning month in string format.
@@ -44,16 +40,60 @@ def get_month_number_and_name(month_name):
             "SEPTEMBER": 9, "OCTOBER": 10, "NOVEMBER": 11, "DECEMBER": 12}
     return (dict_months[month_name], month_name)
 
-def create_all_months_table():
-    """Creating month data with default values 0 for all entry fields.
+def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving):
+    """Calculating left to budget item shown in the top left part of the program window.
+    Args:
+        income: planned/expected income for current month
+        rent: planned rent/mortgage for current month
+        bills: planned bills for current month
+        spending: planned spending for current month
+        debt_service: planned debt servicing for current month
+        saving: planned saving for current month
     Returns:
-        Table of 12 Month objects with month names and fields as 0
+        Int: income minus all other parameters
     """
-    table_all_months = ["empty cell"]  # leaving index 0 empty
+    left_to_budget = income - rent - bills - spending - debt_service - saving
+    return left_to_budget
+
+def calculate_year_figures(table_all_months_receivedspent):
+    """ Calculates the sum and percentage items needed in the year overview. """
+    count_months_filled_in = 0
+    sum_total_income = 0
+    sum_total_rent = 0
+    sum_total_bills = 0
+    sum_total_spending = 0
+    sum_total_debt_service = 0
+    sum_total_saving = 0
+    count_months_rent_above_35_per_cent_of_income = 0
+    count_months_saving_positive = 0
     for i in range(1, 13):
-        created_month = entities.month.Month(get_month_name(i), 0, 0, 0, 0, 0, 0)
-        table_all_months.append(created_month)
-    return table_all_months
+        income = table_all_months_receivedspent[i].get_income()
+        rent = table_all_months_receivedspent[i].get_rent()
+        bills = table_all_months_receivedspent[i].get_bills()
+        spending = table_all_months_receivedspent[i].get_spending()
+        debt_service = table_all_months_receivedspent[i].get_debt_service()
+        saving = table_all_months_receivedspent[i].get_saving()
+        sum_total_income += income
+        sum_total_rent += rent
+        if rent / (0.1 if income == 0 else income) > 0.35:
+            count_months_rent_above_35_per_cent_of_income += 1
+        sum_total_bills += bills
+        sum_total_spending += spending
+        sum_total_debt_service += debt_service
+        sum_total_saving += saving
+        if saving > 0:
+            count_months_saving_positive += 1
+        if income != 0:
+            count_months_filled_in += 1
+        if count_months_filled_in == 0:
+            count_months_filled_in = 1
+        if sum_total_income == 0:
+            sum_total_income = 1
+    spending_percentage_of_income = 100 * sum_total_spending / sum_total_income
+    return (count_months_filled_in, sum_total_income, sum_total_rent, sum_total_bills,
+            sum_total_spending, sum_total_debt_service, sum_total_saving,
+            count_months_rent_above_35_per_cent_of_income, spending_percentage_of_income,
+            count_months_saving_positive)
 
 def get_planned_values(table_all_months_planned, month_number):
     """ Returning chosen month name and number items. """

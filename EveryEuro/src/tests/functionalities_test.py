@@ -48,7 +48,7 @@ class TestMonth(unittest.TestCase):
         october = month.Month("OCTOBER", 3010, 800, 110, 310, 110)  # leaving saving empty
         self.assertEqual(october.get_saving(), 0)
 
-    # testing setting values
+    # testing changing values
     def test_set_income(self):
         november = month.Month("NOVEMBER", 3000, 600, 160, 565, 260)
         november.set_income(2989)

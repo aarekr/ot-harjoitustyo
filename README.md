@@ -1,5 +1,6 @@
 # EveryEuro
 Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
+[![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev/pylint)
 
 ## EveryEuro Budget
 * Harjoitustyön aihe: EveryEuro -budjetointisovellus
@@ -7,12 +8,12 @@ Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
 * Sovellus luotu Python 3.8 -versiolla
 
 ## Dokumentaatio
-[Käyttöohje](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/kayttoohje.md)
-[Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
-[Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
-[Testausdokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/testausdokumentti.md)
-[Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
-[Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)
+* [Käyttöohje](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/kayttoohje.md)
+* [Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
+* [Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
+* [Testausdokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/testausdokumentti.md)
+* [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
+* [Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)
 
 ## Asennus ja käynnistäminen
 1. Asenna riippuvuudet:
