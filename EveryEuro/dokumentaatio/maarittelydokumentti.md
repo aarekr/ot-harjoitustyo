@@ -17,7 +17,7 @@
 - [x] Year overview -nappia painamalla käyttäjä näkee vuosiyhteenvedon
 - [x] Ohjelman voi sulkea ikkunassa olevasta Quit -napista tai valikosta
 
-## Jatkokehistyideoita
+## Jatkokehitysideoita
 * Käyttäjätunnusten luonti mahdollistaisi useamman budjetoijan ohjelmankäytön samalta koneelta
 * Sovelluksen yhteydessä voisi tiedostojen sijaan käyttää tietokantaa, jossa ylläpidetään käyttäjätilejä ja budjetteja
 * Nykyisen yhden kokonaisen vuoden rakenteen voisi korvata Ramsey Solutionsin EveryDollar -sovelluksen tavoin jatkuvaksi ts. joulukuusta voi siirtyä seuraavan vuoden tammikuuhun luomatta erillistä vuotta/tiedostoa

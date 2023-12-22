@@ -1,7 +1,7 @@
 # Arkkitehtuuri
 
 ## Ohjelman rakenne
-Tiedostossa ui on sovelluksen käyttöliitymä ja sen aputiedosto. Entities -hakemisto sisältää kuukausien hallintaan liittyvät tiedot. Services -hakemisto sisältää ohjelman logiikan.
+Hakemistossa ui on sovelluksen käyttöliitymä ja sen aputiedosto. Entities -hakemisto sisältää kuukausien hallintaan liittyvät tiedot. Services -hakemisto sisältää ohjelman logiikan.
 
 ![](./kuvat/arkkitehtuuri.png)
 
@@ -13,7 +13,7 @@ Käyttöliittymä sisältää:
 * Year overview -ikkuna sisältää vuoden lukujen yhteenvedon ja niihin liittyvät kommentit
 
 ## Sovelluslogiikka
-Sovelluslogiikan muodostavat luokat User ja Month. Jokaiseen käyttäjään liittyy 12 kuukautta.
+Sovelluslogiikan muodostavat service -moduuli ja luokka Month. Käyttäjään liittyy 12 kuukautta.
 ```mermaid
   classDiagram
     Month "12" --> "1" User
@@ -42,8 +42,11 @@ Service -moduuli tarjoaa sovellukselle seuraavat toiminnot:
 * save_data_to_file(table_all_months_planned, table_all_months_receivedspent)
 * quit_program(root)
 
+## Tiedot kahdessa taulukossa
+* Tulojen ja menoerien hallintaan on kaksi taulukkoa, joista toinen sisältää planned -luvut ja toinen received/spent -luvut.
+
 ## Tietojen tallennus
-Käyttäjä tallentaa tietonsa CSV-tiedostoon. Tiedoston voi myöhemmin avata ja tietoja muuttaa.
+Käyttäjä tallentaa budjettinsa CSV-tiedostoon. Tiedoston voi myöhemmin avata ja tietoja muuttaa.
 
 ## Päätoiminnallisuudet
 

@@ -2,7 +2,7 @@
 
 ## Yksikkötestaus
 * Testauksessa on käytetty Pythonin unittest -työkalua. Testejä on yhteensä 33 kpl.
-* Testauksen ja käytön helpottamiseksi luotu tiedosto my_budget.csv
+* Testauksen, tarkistuksen ja käytön helpottamiseksi on luotu tiedosto my_budget.csv
 
 ## Mitä testattu ja miten
 
@@ -10,13 +10,13 @@
 * Ohjelman käynnistyessä kuukausi muodostuu ja nimi tallentuu oikein
 * Taulukkoon tallennetun kuukauden nimi on oikein
 * Kuukauden tulot asetetaan oikein ja ne voi hakea
-* Kuukauden vuokra/asuntolaina asetetaan oikein ja tiedon voi hakea
+* Kuukauden vuokra/asuntolainan kuukausierä asetetaan oikein ja tiedon voi hakea
 * Kuukauden laskut asetetaan oikein ja ne voi hakea
 * Kuukauden kulutus asetetaan oikein ja sen voi hakea
 * Kuukauden velanhoito asetetaan oikein ja sen voi hakea
 * Kuukauden säästäminen asetetaan oikein ja sen voi hakea
 * Kuukauden tuloja voi muuttaa ja muutos tallentuu
-* Kuukauden vuokraa/asuntolainaa voi muuttaa ja muutos tallentuu
+* Kuukauden vuokraa/asuntolainan kuukausierää voi muuttaa ja muutos tallentuu
 * Kuukauden laskuja voi muuttaa ja muutos tallentuu
 * Kuukauden kulutusta voi muuttaa ja muutos tallentuu
 * Kuukauden velanhoitoa voi muuttaa ja muutos tallentuu
@@ -29,7 +29,7 @@
 * Tiedoston avaaminen hakee tallennetut tiedot oikein ja tallentaa taulukoihin
 * Budjetin tallentaminen tiedostoon toimii oikein
 * Erien summien ja prosenttilukujen tarkistus käyttämällä valmista tiedostoa
-* Ohjelman lopettamisen vahvistava toiminto on olemassa
+* Ohjelman sulkemisen vahvistava toiminto on olemassa
 
 #### Syötekenttien validointi (TestEntryFields)
 * Planned ja Received/Spent income -kentät hyväksyvät vain kokonaisluvut ja antavat muissa tapauksissa virheilmoituksen

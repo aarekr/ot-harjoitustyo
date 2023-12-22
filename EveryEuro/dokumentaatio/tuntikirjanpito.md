@@ -19,7 +19,7 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 18.11. |  2h  | ui.py -moduulin importtausongelma ratkaistu. Numeroiden syöttökentät ja left to budget luotu. |
-19.11. |  1h  | Testit numerokentille ja left_to_budget -komponenteille. |
+19.11. |  1h  | Testit numerokentille ja left to budget -komponenteille. |
 20.11. |  2h  | Testikattavuusraportti ja Changelog. tests-hakemistossa nyt __init__.py. Sarakkeet 'Type' ja 'Planned' nimetty. 'Actual' -sarake hahmoteltu. |
 21.11. |  2h  | Actual -sarake ja numerokentät. Planned -muuttujien uudelleennimeäminen ja testien päivitys. Invokeen tutustuminen. |
 
@@ -29,7 +29,7 @@
  Pvm   | Aika | Aktiviteetti |
 -------|------|--------------|
 25.11. |  2h  | Hakemisto entities ja luokka Month. Logiikkaa erotettu käyttöliittymästä. Pylint otettu käyttöön. |
-26.11. |  2h  | Tkinterin widgettien opettelua. Testi toiminnolle calculate balance. Welcome View:n kehittämistä. Kuukausi-ikkunan sisältö jaettu neljään frameen. |
+26.11. |  2h  | Tkinterin widgettien opettelua. Testi toiminnolle calculate balance. Welcome View:n kehittämistä. Kuukausi-ikkunan sisältö jaettu neljään kehykseen. |
 27.11. |  3h  | Budjetointi-ikkunan yläreunassa on kuukausille navigointinapit. Vaihto marraskuusta tammikuuhun on kovakoodattuna. Calculate balance -toiminto hajosi. Helmikuu-olion luonti kovakoodattuna. |
 28.11. |  3h  | Arkkitehtuurin dokumentointi. Menossa oleva kuukausi haetaan datetime -toiminnolla. MAR-nappia painamalla luodaan Maaliskuu-olio ja sille budjetointilukemat (kovakoodattu). |
 
@@ -70,13 +70,13 @@
 
 
 ## Yhteensä
- Viikko  |  Aika   |
----------|---------|
-|   1    |     1   |
-|   2    |     4   |
-|   3    |     7   |
-|   4    |    10   |
-|   5    |    18   |
-|   6    |    11   |
-|   7    |    27   |
-| Summa  |    78   |
+ Viikko  |  Aika  |
+---------|--------|
+|   1    |    1h  |
+|   2    |    4h  |
+|   3    |    7h  |
+|   4    |   10h  |
+|   5    |   18h  |
+|   6    |   11h  |
+|   7    |   27h  |
+| Summa  |   78h  |
