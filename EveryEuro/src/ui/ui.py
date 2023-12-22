@@ -1,7 +1,6 @@
 """ User Interface """
 
 import tkinter as tk
-from tkinter.filedialog import askopenfilename, asksaveasfilename
 import ui.ui_helper as ui_helper
 import services.service as service
 from datetime import datetime
@@ -23,7 +22,7 @@ class UI:
         self._chosen_month_planned_bills = None         # electricty, phone, internet etc.
         self._chosen_month_planned_spending = None      # food, hobbies etc.
         self._chosen_month_planned_debt_service = None  # debt interest and repaiment
-        self._chosen_month_planned_saving = None        # saving => this should change left_to_balance to 0
+        self._chosen_month_planned_saving = None        # saving -> this should change left_to_balance to 0
 
         self._chosen_month_receivedspent_income = None
         self._chosen_month_receivedspent_rent = None
@@ -34,8 +33,8 @@ class UI:
 
     def start(self):
         """Starts the user interface.
-           Creates layout, menu bar, toolbar, buttons, texts, entry fields for numbers.
            Creates two tables for keeping planned and received/spent figures with default values 0.
+           Creates layout, menu bar, toolbar, buttons, texts, and entry fields for numbers.
         """
         self.table_all_months_planned = service.create_all_months_table()
         self.table_all_months_receivedspent = service.create_all_months_table()
@@ -55,12 +54,10 @@ class UI:
         self.create_frame_main()
 
         self.get_and_display_chosen_month_data(
-            service.get_month_number_and_name(self._chosen_month.get())[0]
-        )
+            service.get_month_number_and_name(self._chosen_month.get())[0])
 
     def create_frame_main(self):
         """ Creating main window frame that holds row and column texts, and entry fields. """
-        # main window frame displaying budgeting items
         frame_main = tk.Frame(master=self._root, relief=tk.FLAT, borderwidth=1)
         frame_main.grid(row=3, column=1, padx=10, pady=10)
         ui_helper.create_column_titles(frame_main)
@@ -113,7 +110,6 @@ class UI:
 
     def save_month_planned_figures(self, testing="no"):
         """ Saving month's planned column figures in the month object (not file). """
-        month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         try:
             income_int = int(self._chosen_month_planned_income.get())
             rent_int = int(self._chosen_month_planned_rent.get())
@@ -139,6 +135,7 @@ class UI:
             else self._chosen_month_planned_debt_service.get()
         saving = str(0) if self._chosen_month_planned_saving.get() == '' \
             else self._chosen_month_planned_saving.get()
+        month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         self.table_all_months_planned[month_number].set_income(int(income))
         self.table_all_months_planned[month_number].set_rent(int(rent))
         self.table_all_months_planned[month_number].set_bills(int(bills))
@@ -150,7 +147,6 @@ class UI:
 
     def save_month_receivedspent_figures(self, testing="no"):
         """ Saving month's received/spent figures in the month object (not file). """
-        month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         try:
             income_int = int(self._chosen_month_receivedspent_income.get())
             rent_int = int(self._chosen_month_receivedspent_rent.get())
@@ -176,6 +172,7 @@ class UI:
             else self._chosen_month_receivedspent_debt_service.get()
         saving = str(0) if self._chosen_month_receivedspent_saving.get() == '' \
             else self._chosen_month_receivedspent_saving.get()
+        month_number = service.get_month_number_and_name(self._chosen_month.get())[0]
         self.table_all_months_receivedspent[month_number].set_income(int(income))
         self.table_all_months_receivedspent[month_number].set_rent(int(rent))
         self.table_all_months_receivedspent[month_number].set_bills(int(bills))
@@ -215,7 +212,12 @@ class UI:
         try:
             self.table_all_months_planned, self.table_all_months_receivedspent = service.open_data_from_file()
         except:
-            print("Opening file canceled")
+            print("opening file canceled")
+
         self.get_and_display_chosen_month_data(
-            service.get_month_number_and_name(self._chosen_month.get())[0]
-        )
+            service.get_month_number_and_name(self._chosen_month.get())[0])
+        # updating table values linked to menu bar and toolbar
+        ui_helper.create_menu_bar(self._root, self.get_data_from_file,
+            self.table_all_months_planned, self.table_all_months_receivedspent)
+        ui_helper.create_tool_bar(self._root, self.get_data_from_file,
+            self.table_all_months_planned, self.table_all_months_receivedspent)

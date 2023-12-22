@@ -16,7 +16,7 @@ def create_menu_bar(root, get_data_from_file, table_all_months_planned, table_al
         command=(lambda: service.save_data_to_file(table_all_months_planned,
             table_all_months_receivedspent)), underline=0)
     file.add_separator()
-    file.add_command(label='Quit', command=root.quit, underline=0)
+    file.add_command(label='Quit', command=(lambda: service.quit_program(root)), underline=0)
     top.add_cascade(label='File', menu=file, underline=0)
 
     help_menu = tk.Menu(top, tearoff=False)
@@ -73,7 +73,7 @@ def create_frame_left_to_budget(root, chosen_month_left_to_budget):
     label_number_left_to_budget.grid(row=2, column=1, sticky='e')
 
 def create_column_titles(frame_main):
-    """ Creating column title that are on first row of each column. """
+    """ Creating column title that are on the first row of each column. """
     label_item_category = tk.Label(master=frame_main, text='CATEGORY')
     label_item_category.grid(row=3, column=0, sticky="w")
     label_planned_column = tk.Label(master=frame_main, text='PLANNED')
@@ -117,7 +117,6 @@ def open_help_window():
 
 def open_year_overview_window(table_all_months_receivedspent):
     """ Opens year overview window that summarizes this year's data. """
-    print("open year overview window, table:", table_all_months_receivedspent[1].get_income())
     year_overview_window = tk.Toplevel()
     year_overview_window.title("Year overview")
     year_overview_window.geometry("670x500")
@@ -147,6 +146,7 @@ def show_year_summary(table_all_months_receivedspent, year_overview_window):
     frame_summary.grid(row=0, column=0, padx=10, pady=10)
     label_year_summary_title = tk.Label(master=frame_summary, text="Your year analyzed:", font=12)
     label_year_summary_title.grid(row=1, column=0)
+
     (count_months_filled_in, sum_total_income, sum_total_rent, sum_total_bills,
         sum_total_spending, sum_total_debt_service, sum_total_saving,
         count_months_rent_above_35_per_cent_of_income,
@@ -202,7 +202,7 @@ def calculate_year_figures(table_all_months_receivedspent):
             count_months_saving_positive)
 
 def create_and_place_year_overview_text_items(frame_summary):
-    """ Creating and placing year overview window text items. """
+    """ Creating and placing year overview window text items (top left). """
     label_income = tk.Label(master=frame_summary, text="Your average monthly income")
     label_rent = tk.Label(master=frame_summary, text="Rent percentage of income")
     label_bills = tk.Label(master=frame_summary, text="Bills in total")
@@ -219,25 +219,24 @@ def create_and_place_year_overview_text_items(frame_summary):
 def create_and_place_year_overview_number_items(frame_summary, sum_total_income, sum_total_rent,
         sum_total_bills, sum_total_spending, sum_total_debt_service, count_months_filled_in,
         spending_percentage_of_income, count_months_saving_positive):
-    """ Creating and placing year overview window number items. """
+    """ Creating and placing year overview window number items (top right). """
     average_income = int(sum_total_income / count_months_filled_in)
     label_income_average = tk.Label(master=frame_summary, text=str(average_income))
-    label_income_average.grid(row=2, column=2, padx=10)
+    label_income_average.grid(row=2, column=2, sticky="e")
     rent_percentage_of_income = 100 * sum_total_rent / sum_total_income
     str_rent_percentage = f"{rent_percentage_of_income:.2f}%"
     label_rent_percentage = tk.Label(master=frame_summary, text=str_rent_percentage)
-    label_rent_percentage.grid(row=3, column=2, padx=10)
+    label_rent_percentage.grid(row=3, column=2, sticky="e")
     label_bills_total = tk.Label(master=frame_summary, text=str(sum_total_bills))
-    label_bills_total.grid(row=4, column=2, padx=10)
-    
+    label_bills_total.grid(row=4, column=2, sticky="e")
     str_spending_percentage = f"{spending_percentage_of_income:.2f}%"
     label_spending_percentage = tk.Label(master=frame_summary, text=str_spending_percentage)
-    label_spending_percentage.grid(row=5, column=2, padx=10)
+    label_spending_percentage.grid(row=5, column=2, sticky="e")
     label_debt_service_total = tk.Label(master=frame_summary, text=str(sum_total_debt_service))
-    label_debt_service_total.grid(row=6, column=2)
+    label_debt_service_total.grid(row=6, column=2, sticky="e")
     label_saving_positive_month_count = tk.Label(master=frame_summary,
         text=str(count_months_saving_positive))
-    label_saving_positive_month_count.grid(row=7, column=2)
+    label_saving_positive_month_count.grid(row=7, column=2, sticky="e")
 
 def create_comments_year_overview(frame_summary, count_months_rent_above_35_per_cent_of_income,
         spending_percentage_of_income, count_months_saving_positive):
@@ -259,14 +258,11 @@ def create_comments_year_overview(frame_summary, count_months_rent_above_35_per_
         label_saving_every_month = tk.Label(master=frame_summary,
             text="Excellent! You are saving every month.", fg="green")
         label_saving_every_month.grid(row=row_number, column=1, sticky="w")
+        row_number += 1
     if row_number == 10:
         label_no_comments = tk.Label(master=frame_summary,
             text="Your budget looks good!", fg="green")
         label_no_comments.grid(row=row_number, column=1, sticky="w")
-
-def bar_item_notdone():  # this function will not be in the final version
-    """ Shows an error window for functionalities that are not yet implemented. """
-    showerror('Not implemented', 'Functionality not yet available, but coming soon')
 
 def error_window_entered_item_not_integer():
     """ Shows an error window if other than integer is entered. """

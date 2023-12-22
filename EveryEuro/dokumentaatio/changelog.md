@@ -52,5 +52,6 @@
 * Testit syötekentille
 * Käyttäjältä varmistetaan, että haluaa sulkea ohjelman
 * Kuukauden avaaminen näyttää heti valitun kuukauden tiedot
-* Numerot sijoitetaan kenttien oikeaan reunaan
+* Numerot sijoitetaan syötekenttien oikeaan reunaan
+* ui.py:n start ja ui_helper:n show_year_summary -metodeja lyhennetty merkittävästi
 * 

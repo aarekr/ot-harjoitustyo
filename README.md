@@ -3,18 +3,16 @@ Aineopintojen harjoitustyö: Ohjelmistotekniikka (periodi 2) 2023
 
 ## EveryEuro Budget
 * Harjoitustyön aihe: EveryEuro -budjetointisovellus
-* Ramsey Solutionsin EveryDollar -sovelluksen kaltainen tulojen ja menojen budjetointiin tarkoitettu sovellus
-* [Ramsey Solutions](https://www.ramseysolutions.com/ramseyplus/everydollar)
+* Ramsey Solutionsin [EveryDollar](https://www.ramseysolutions.com/ramseyplus/everydollar) -sovelluksen kaltainen tulojen ja menojen budjetointiin tarkoitettu sovellus
 * Sovellus luotu Python 3.8 -versiolla
 
 ## Dokumentaatio
-* [Käyttöohje](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/kayttoohje.md)
-* [Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
-* [Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
-* [Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
-* [Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)
-
-* [Release 2](https://github.com/aarekr/ot-harjoitustyo/releases/tag/viikko6)
+[Käyttöohje](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/kayttoohje.md)
+[Määrittelydokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/maarittelydokumentti.md)
+[Arkkitehtuurikuvaus](https://github.com/aarekr/ot-harjoitustyo/blob/main/EveryEuro/dokumentaatio/arkkitehtuuri.md)
+[Testausdokumentti](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/testausdokumentti.md)
+[Tuntikirjanpito](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/tuntikirjanpito.md)
+[Changelog](https://github.com/aarekr/ot-harjoitustyo/tree/main/EveryEuro/dokumentaatio/changelog.md)
 
 ## Asennus ja käynnistäminen
 1. Asenna riippuvuudet:

@@ -2,7 +2,7 @@
 
 import tkinter as tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-from tkinter.messagebox import showerror, askyesno
+from tkinter.messagebox import askyesno
 import entities.month
 
 def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving):
@@ -20,7 +20,6 @@ def calculate_left_to_budget(income, rent, bills, spending, debt_service, saving
     left_to_budget = income - rent - bills - spending - debt_service - saving
     return left_to_budget
 
-# combine the two functions below
 def get_month_name(month_number):
     """Returning month in string format.
     Args:
@@ -77,11 +76,10 @@ def update_entry_field_value(entry_field, new_value):
 
 def open_data_from_file(testing="no", test_file="my_budget.csv"):
     """ Opening file and importing previously saved data. """
-    print("opening data from a file")
     if testing == "no":
         path = askopenfilename(filetypes=[("CSV Files", "*.csv")])
         if not path:
-            return  # lint error here but [], [] causes index error in the program
+            return
     elif testing == "yes":
         path = test_file
     with open(path, encoding="utf-8") as f:
@@ -105,7 +103,6 @@ def open_data_from_file(testing="no", test_file="my_budget.csv"):
 
 def save_data_to_file(table_all_months_planned, table_all_months_receivedspent, testing="no"):
     """ Saving budget figures to a .csv file. """
-    print("saving data to a file")
     if testing == "no":
         path = asksaveasfilename(filetypes=[("CSV Files", "*.csv")])
         if not path:
@@ -134,6 +131,7 @@ def save_data_to_file(table_all_months_planned, table_all_months_receivedspent, 
     with open(path, mode="w", encoding="utf-8") as f:
         for i in range(1, 25):
             f.write(month_data_to_be_saved[i] + "\n")
+    print("data saved to file:", path)
 
 def quit_program(root):
     """ Asking user to confirm that s/he wants to quit the program. """
